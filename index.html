@@ -89,55 +89,40 @@
 }
 
 
-/* ── SSO BUTTON ── */
+/* ── SSO LINK ── */
 .sso-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: var(--gold);
-  color: #fff;
+  display: inline;
+  background: none;
   border: none;
-  border-radius: 99px;
-  padding: 5px 13px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  padding: 1px 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  color: #c9a84c;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: rgba(201,168,76,0.6);
+  text-underline-offset: 2px;
   cursor: pointer;
-  text-decoration: none;
+  vertical-align: baseline;
+  line-height: 1;
   white-space: nowrap;
-  transition: background 0.15s, box-shadow 0.15s;
-  line-height: 1.4;
-  min-height: 28px;
-  vertical-align: middle;
-  flex-shrink: 0;
+  border-radius: 3px;
+  transition: color 0.15s, background 0.15s, text-decoration-color 0.15s;
 }
-.sso-btn:hover { background: #b8923f; box-shadow: 0 2px 8px rgba(184,146,63,0.35); }
-.sso-btn-inline { margin-left: 8px; }
-.sso-btn-block { margin-top: 10px; margin-bottom: 2px; display: inline-flex; }
+.sso-btn:hover {
+  color: #e8c45a;
+  background: rgba(201,168,76,0.08);
+  text-decoration-style: solid;
+  text-decoration-color: #e8c45a;
+}
+.sso-btn-inline { margin-left: 4px; }
+.sso-btn-block { display: inline; margin-left: 4px; }
 @media (max-width: 640px) {
-  .sso-btn { min-height: 44px; padding: 10px 18px; font-size: 13px; }
+  .sso-btn { padding: 4px 6px; font-size: 11.5px; }
 }
 
-/* ── SSO TIP BANNER ── */
-.sso-tip-banner {
-  background: #faf6e9;
-  border: 1px solid rgba(201,168,76,0.45);
-  border-left: 4px solid var(--gold);
-  border-radius: var(--radius);
-  padding: 10px 16px;
-  font-size: 13px;
-  color: #6b4f0a;
-  margin-bottom: 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  transition: background 0.15s;
-}
-.sso-tip-banner:hover { background: #f5f0dc; }
-.sso-tip-close { font-size: 16px; color: #b8923f; flex-shrink: 0; }
+
 /* ── RESET & BASE ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -297,13 +282,65 @@ textarea#findingInput {
   transition: border-color 0.2s, box-shadow 0.2s;
   background: var(--white);
   outline: none;
-  margin-bottom: 18px;
+  margin-bottom: 6px;
 }
 textarea#findingInput::placeholder { color: var(--text-light); }
 textarea#findingInput:focus {
   border-color: var(--navy-mid);
   box-shadow: 0 0 0 3px rgba(10,22,40,0.08);
 }
+
+/* ── FINDING INPUT GUIDANCE + COUNTER ── */
+.finding-input-wrap {
+  position: relative;
+  margin-bottom: 0;
+}
+.finding-input-wrap textarea#findingInput {
+  margin-bottom: 0;
+}
+.finding-guidance-box {
+  background: #f0f3f8;
+  border-left: 3px solid #1a2e5a;
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: #2c3a50;
+  line-height: 1.6;
+}
+.finding-guidance-box strong { color: #0a1628; }
+.finding-guidance-box ul {
+  margin: 8px 0 8px 18px;
+  padding: 0;
+}
+.finding-guidance-box ul li { margin-bottom: 4px; }
+.finding-guidance-box--amber {
+  background: #fffbf0;
+  border-left-color: #c9a84c;
+}
+.finding-guidance-example {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(26,46,90,0.15);
+  font-size: 12.5px;
+  color: #4a5568;
+}
+.finding-guidance-box--amber .finding-guidance-example {
+  border-top-color: rgba(201,168,76,0.3);
+}
+.finding-char-count {
+  text-align: right;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 5px;
+  margin-bottom: 14px;
+  transition: color 0.25s;
+}
+.finding-char-count.warn { color: #b7791f; }
+.finding-char-count.danger { color: #c0392b; font-weight: 600; }
+
 
 /* ── EXAMPLES ── */
 .examples-label {
@@ -486,7 +523,18 @@ textarea#findingInput:focus {
   background: var(--grey-bg);
 }
 .s20-banner.s20-yes      { background: #f0faf4; border-left-color: var(--green); }
-.s20-banner.s20-no       { background: #fdf2f2; border-left: 7px solid #c0392b; border-top: 2px solid #c0392b; }
+.s20-banner.s20-no       { background: #fdf2f2; border-left: 7px solid #8B0000; border-top: none; padding: 0; overflow: hidden; }
+.s20-no-header {
+  background: #8B0000; color: #fff; text-align: center;
+  padding: 12px 20px 10px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 16px; font-weight: 700; letter-spacing: 0.06em; line-height: 1.3;
+}
+.s20-no-header-sub {
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 400;
+  letter-spacing: 0; margin-top: 5px; opacity: 0.9; line-height: 1.5;
+}
+.s20-no-body { padding: 14px 0 4px; }
 .s20-banner.s20-uncertain{ background: var(--amber-bg); border-left-color: var(--amber); }
 .s20-banner.s20-unknown  { background: var(--grey-bg); border-left-color: var(--grey); }
 
@@ -538,6 +586,417 @@ textarea#findingInput:focus {
   padding-left: 14px;
   line-height: 1.5;
 }
+
+/* ── OPTION CARDS (s20 NO branch) ── */
+.s20-no-reason {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: #5a1a1a;
+  background: #fdf2f2;
+  border-left: 3px solid #c0392b;
+  padding: 10px 14px;
+  margin: 0 20px 14px;
+  border-radius: 0 4px 4px 0;
+  line-height: 1.6;
+}
+.s20-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 6px 20px 20px;
+}
+@media (max-width: 640px) {
+  .s20-options-grid { grid-template-columns: 1fr; }
+}
+.s20-option-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px 20px 20px;
+  box-shadow: 0 2px 14px rgba(10,22,40,0.10);
+  display: flex;
+  flex-direction: column;
+  min-height: 320px;
+}
+.s20-opt-a {
+  border-top: 3px solid #8B0000;
+}
+.s20-opt-b {
+  border-top: 3px solid #b7791f;
+}
+.s20-opt-badge {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 18px; font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+.s20-opt-badge-a { background: #8B0000; }
+.s20-opt-badge-b { background: #b7791f; }
+.s20-option-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.s20-opt-title-a { color: #8B0000; }
+.s20-opt-title-b { color: #b7791f; }
+.s20-option-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
+  color: #0a1628;
+  line-height: 1.65;
+  margin-bottom: 16px;
+  flex-grow: 1;
+}
+.s20-sed-cta {
+  background: #8B0000;
+  color: #fff;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 0;
+  line-height: 1.55;
+}
+.s20-opt-b-note {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12.5px;
+  color: #8a6020;
+  background: #fffbf0;
+  border: 1px solid rgba(230,168,23,0.4);
+  border-radius: 6px;
+  padding: 10px 12px;
+  line-height: 1.55;
+  margin-top: auto;
+}
+
+
+/* ── KEY CALLOUT BLOCK ── */
+.key-callout {
+  border-left: 2px solid #c9a84c;
+  background: #fffdf0;
+  padding: 12px 16px;
+  border-radius: 0 4px 4px 0;
+  box-shadow: 0 2px 8px rgba(201,168,76,0.15);
+  margin: 14px 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #0a1628;
+  line-height: 1.7;
+}
+.key-callout::before {
+  content: '◆ ';
+  color: #c9a84c;
+  font-size: 11px;
+  vertical-align: middle;
+  margin-right: 2px;
+}
+/* ── S14 EXPANDABLE PANEL ── */
+.s14-trigger-content { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.s14-trigger-title { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.4; }
+.s14-trigger-sub { font-size: 12px; color: rgba(255,255,255,0.85); font-weight: 400; line-height: 1.4; }
+.s14-trigger-btn {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; background: #b7791f; color: #fff;
+  border: none; border-left: 4px solid #f6ad55; border-radius: 0 8px 8px 0;
+  padding: 18px 24px; margin-top: 6px;
+  font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700;
+  cursor: pointer; text-align: left;
+  box-shadow: -4px 0 12px rgba(246,173,85,0.4);
+  transition: box-shadow 0.2s, background 0.2s;
+}
+.s14-trigger-btn:hover { background: #c98a2e; box-shadow: -6px 0 18px rgba(246,173,85,0.6); }
+.s14-trigger-arrow { font-size: 13px; color: #fff; transition: transform 0.3s ease; flex-shrink: 0; margin-left: 16px; }
+.s14-trigger-arrow.open { transform: rotate(180deg); }
+
+.s14-panel-wrap {
+  overflow: hidden; max-height: 0;
+  transition: max-height 0.35s ease; background: #fff;
+  border-left: 3px solid #b7791f; border-right: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8; border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 18px rgba(10,22,40,0.10);
+}
+.s14-panel-wrap.open { max-height: 4000px; }
+.s14-panel-inner { padding: 28px; }
+
+.s14-gold-divider { border: none; border-top: 1.5px solid #c9a84c; margin: 24px 0; opacity: 0.45; }
+
+.s14-sec1-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 4px; }
+@media (max-width: 680px) { .s14-sec1-grid { grid-template-columns: 1fr; } }
+.s14-sec1-heading {
+  font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px;
+  color: #b7791f; font-weight: 600; margin: 0 0 2px;
+}
+.s14-sec1-subheading {
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+  color: #c9a84c; letter-spacing: 0.06em; text-transform: small-caps;
+  margin-bottom: 10px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.s14-sec1-body {
+  font-family: 'DM Sans', sans-serif; font-size: 15px; color: #2c2c2c;
+  line-height: 1.7; margin-top: 14px;
+}
+.s14-alert-box {
+  background: #fff8e6; border-left: 4px solid #e6a817; border-radius: 6px;
+  padding: 16px; font-family: 'DM Sans', sans-serif; font-size: 13.5px;
+  color: #3d2800; line-height: 1.65;
+}
+.s14-alert-box strong { display: block; font-size: 14px; margin-bottom: 6px; color: #7c3900; }
+.s14-alert-refs { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #c9a84c; margin-top: 10px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+
+.s14-sub-toggle {
+  display: flex; align-items: center; justify-content: space-between;
+  background: #f0f3f8; border: none; border-radius: 7px;
+  padding: 11px 16px; font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 600; color: #0a1628;
+  cursor: pointer; width: 100%; text-align: left; transition: background 0.15s;
+}
+.s14-sub-toggle:hover { background: #e4e9f2; }
+.s14-sub-arrow { font-size: 11px; transition: transform 0.25s ease; }
+.s14-sub-arrow.open { transform: rotate(180deg); }
+.s14-sub-body { display: none; padding-top: 18px; }
+.s14-sub-body.open { display: block; }
+
+.s14-flow { display: flex; flex-direction: column; gap: 0; }
+.s14-flow-step { display: flex; gap: 16px; align-items: flex-start; }
+.s14-step-circle {
+  flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%;
+  background: #0a1628; color: #c9a84c;
+  font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 15px;
+  display: flex; align-items: center; justify-content: center; margin-top: 2px;
+}
+.s14-step-content { flex: 1; }
+.s14-step-title { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 14px; color: #0a1628; margin-bottom: 3px; }
+.s14-step-body { font-family: 'DM Sans', sans-serif; font-size: 13.5px; color: #2c2c2c; line-height: 1.6; }
+.s14-flow-arrow { text-align: center; padding: 6px 0; color: #c9a84c; font-size: 18px; }
+.s14-exception-box {
+  margin-top: 18px; background: #fff8e6; border-left: 4px solid #e6a817;
+  border-radius: 6px; padding: 14px 16px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; color: #3d2800; line-height: 1.65;
+}
+.s14-exception-box strong { display: block; font-size: 13.5px; font-weight: 700; color: #7c3900; margin-bottom: 6px; }
+
+.s14-sec3-heading {
+  font-family: 'Cormorant Garamond', Georgia, serif; font-size: 20px;
+  color: #b7791f; font-weight: 600; margin: 0 0 4px;
+}
+.s14-sec3-sub { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #666; line-height: 1.5; margin-bottom: 18px; }
+.s14-generate-btn {
+  display: block; margin: 0 auto; padding: 14px 32px;
+  background: #b7791f;
+  color: #fff; border: 1.5px solid #f6ad55; border-radius: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer;
+  box-shadow: 0 4px 15px rgba(246,173,85,0.25);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.s14-generate-btn:hover { background: #9a6418; color: #fff; box-shadow: 0 4px 20px rgba(0,212,212,0.4); }
+.s14-generate-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.s14-loading { text-align: center; padding: 20px 0; }
+.s14-shimmer {
+  height: 10px; border-radius: 99px; margin: 0 auto 10px; width: 260px;
+  background: linear-gradient(90deg, #e8d9a0 25%, #f5e9c0 50%, #e8d9a0 75%);
+  background-size: 400% 100%; animation: s14shimmer 1.4s infinite;
+}
+@keyframes s14shimmer { 0%{background-position:100% 50%} 100%{background-position:0% 50%} }
+.s14-loading-txt { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #a07800; font-weight: 600; }
+
+.s14-cards { display: flex; flex-direction: column; gap: 16px; margin-top: 20px; }
+.s14-card {
+  background: #fff; border-left: 4px solid #c9a84c; border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07); padding: 20px 24px;
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.2s;
+}
+.s14-card.visible { opacity: 1; transform: none; }
+.s14-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.12); }
+.s14-card-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+  color: #0a1628; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px;
+}
+.s14-condition-box {
+  background: #fafaf7; border-left: 3px solid #c9a84c; border-radius: 4px;
+  padding: 16px; font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 17px; color: #0a1628; line-height: 1.8; font-style: italic; margin-bottom: 12px;
+}
+.s14-rationale-label {
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+  color: #c9a84c; text-transform: small-caps; letter-spacing: 0.05em; margin-bottom: 4px;
+}
+.s14-rationale-body { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #555; line-height: 1.6; }
+.s14-caution {
+  background: #fff8e6; border-radius: 5px; padding: 8px 12px; margin-top: 10px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; color: #8a5c00; line-height: 1.6;
+}
+.s14-caution-label {
+  font-family: 'DM Sans', sans-serif; font-size: 11.5px; font-weight: 700;
+  color: #8a5c00; text-transform: small-caps; letter-spacing: 0.05em; margin-bottom: 2px;
+}
+.s14-copy-btn {
+  display: block; margin-top: 12px; margin-left: auto;
+  background: transparent; border: 1.5px solid #0a1628; color: #0a1628;
+  border-radius: 5px; padding: 5px 12px;
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: background 0.15s, color 0.15s;
+}
+.s14-copy-btn:hover { background: #0a1628; color: #fff; }
+.s14-copy-btn.copied { border-color: #1e8449; color: #1e8449; }
+
+.s14-general-box {
+  margin-top: 20px; background: #f0f3f8; border-left: 4px solid #0a1628;
+  border-radius: 7px; padding: 16px 20px;
+}
+.s14-general-heading {
+  font-family: 'Cormorant Garamond', Georgia, serif; font-size: 17px;
+  color: #b7791f; font-weight: 600; margin-bottom: 8px;
+}
+.s14-general-body { font-family: 'DM Sans', sans-serif; font-size: 14px; color: #2c2c2c; line-height: 1.7; }
+
+  .s14-amber-scope {
+    background: #fffbf0;
+    border: 1.5px solid #e6a817;
+    border-left: 5px solid #e6a817;
+    border-radius: 0 8px 8px 0;
+    padding: 16px 18px 14px;
+    margin-top: 6px;
+  }
+  .s14-amber-scope-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #8a5c00;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+  .s14-amber-scope-body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #3d2b00;
+    line-height: 1.75;
+  }
+  .s14-amber-scope-body em { font-style: italic; color: #5a3d00; }
+  .s14-amber-scope-refs {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(230,168,23,0.35);
+    font-size: 12px;
+    color: #8a5c00;
+  }
+  .s14-finding-input-wrap {
+    margin: 18px 0 20px;
+    padding: 18px 20px 14px;
+    background: #fffbf0;
+    border: 1.5px solid #c9a84c;
+    border-radius: 8px;
+  }
+  .s14-finding-input-label {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #b7791f;
+    margin-bottom: 4px;
+  }
+  .s14-finding-input-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12.5px;
+    color: #7a5c20;
+    margin-bottom: 10px;
+  }
+  .s14-finding-textarea-wrap { position: relative; }
+  .s14-finding-textarea {
+    width: 100%;
+    min-height: 100px;
+    max-height: 200px;
+    padding: 10px 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    color: #0a1628;
+    background: #fff;
+    border: 1.5px solid #e6c57a;
+    border-radius: 6px;
+    resize: vertical;
+    box-sizing: border-box;
+    line-height: 1.6;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  .s14-finding-textarea:focus {
+    border-color: #b7791f;
+    box-shadow: 0 0 0 3px rgba(183,121,31,0.15);
+  }
+  .s14-char-count {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #7a9a9a;
+    margin-top: 4px;
+    transition: color 0.25s;
+  }
+  .s14-char-count.warn { color: #b7791f; }
+  .s14-char-count.danger { color: #c0392b; font-weight: 600; }
+  .s14-finding-tip {
+    margin-top: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12.5px;
+    color: #8a5c00;
+    background: #fffbf0;
+    border-left: 3px solid #e6a817;
+    padding: 7px 10px;
+    border-radius: 0 4px 4px 0;
+    line-height: 1.55;
+  }
+  .s14-legal-risk {
+    background: #f0f4f8;
+    border-left: 3px solid #1a2e5a;
+    border-radius: 0 6px 6px 0;
+    padding: 10px 14px;
+    margin: 10px 0 8px;
+  }
+  .s14-legal-risk-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .s14-legal-risk-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: #1a2e5a;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-variant: small-caps;
+  }
+  .s14-risk-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+  }
+  .s14-risk-badge.risk-low  { background: #d4edda; color: #155724; }
+  .s14-risk-badge.risk-medium { background: #fff3cd; color: #856404; }
+  .s14-risk-badge.risk-high { background: #f8d7da; color: #721c24; }
+  .s14-legal-risk-body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #2c3e66;
+    line-height: 1.6;
+  }
+  .s14-disclaimer {
+  margin-top: 20px; border-top: 1px solid #ddd;
+  background: #f8f8f8; padding: 12px 20px; border-radius: 0 0 6px 6px;
+  font-family: 'DM Sans', sans-serif; font-size: 12px;
+  color: #777; font-style: italic; line-height: 1.6;
+}
+
 .s20-footnote {
   font-size: 11px;
   font-style: italic;
@@ -619,7 +1078,6 @@ textarea#findingInput:focus {
 }
 .tag-offence      { background: #fde8e8; color: var(--red); border: 1px solid #f5b8b8; }
 .tag-no-offence   { background: #f1f3f6; color: var(--text-muted); border: 1px solid var(--border); }
-.tag-compoundable { background: #e8f8ee; color: var(--green); border: 1px solid #b0dfc0; }
 
 .prov-desc {
   font-size: 13.5px;
@@ -652,23 +1110,21 @@ textarea#findingInput:focus {
 .prov-penalty-text.no-penalty { color: var(--text-muted); background: var(--grey-bg); font-family: 'DM Sans', sans-serif; }
 
 .prov-sso-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--navy-mid);
-  text-decoration: none;
-  padding: 4px 10px;
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  background: var(--white);
-  transition: all 0.15s;
-  margin-left: auto;
-  letter-spacing: 0.2px;
+  display: inline;
+  background: none; border: none;
+  padding: 1px 4px; border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 400;
+  color: #c9a84c;
+  text-decoration: underline; text-decoration-style: dotted;
+  text-decoration-color: rgba(201,168,76,0.6); text-underline-offset: 2px;
+  cursor: pointer; white-space: nowrap; margin-left: 6px;
+  transition: color 0.15s, background 0.15s, text-decoration-color 0.15s;
 }
-.prov-sso-link:hover { background: var(--navy); color: var(--gold-light); border-color: var(--navy); }
-.prov-sso-fallback { opacity: 0.6; border-style: dashed; cursor: help; }
+.prov-sso-link:hover {
+  color: #e8c45a; background: rgba(201,168,76,0.08);
+  text-decoration-style: solid; text-decoration-color: #e8c45a;
+}
+.prov-sso-fallback { opacity: 0.65; }
 .prov-sso-fallback:hover { opacity: 1; }
 
 /* ── REASONING ── */
@@ -685,18 +1141,20 @@ textarea#findingInput:focus {
 
 /* ── DISCLAIMER ── */
 .disclaimer-box {
-  background: var(--gold-pale);
-  border: 1px solid rgba(201,168,76,0.3);
-  border-radius: var(--radius);
-  padding: 14px 18px;
+  background: transparent;
+  border: none;
+  border-top: 1px solid #e8e0d0;
+  border-radius: 0;
+  padding: 14px 0 0 0;
+  font-family: 'DM Sans', sans-serif;
   font-size: 12px;
-  color: #6b4f0a;
-  line-height: 1.65;
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
+  color: #888888;
+  font-style: italic;
+  line-height: 1.7;
+  display: block;
 }
-.disclaimer-icon { flex-shrink: 0; font-size: 15px; margin-top: 2px; }
+.disclaimer-box::before { content: 'ⓘ '; font-style: normal; }
+.disclaimer-icon { display: none; }
 
 /* ── ERROR ── */
 .error-box {
@@ -962,7 +1420,7 @@ footer a:hover { color: var(--gold-light); }
   <div class="pw-card">
     <div class="pw-lock">🔒</div>
     <div class="pw-title">RCD Inspection Buddy</div>
-    <div class="pw-subtitle">Regulatory &amp; Compliance Division — Restricted Access</div>
+    <div class="pw-subtitle">Regulatory Compliance Division — Restricted Access</div>
     <input class="pw-input" id="pwInput" type="password" placeholder="Enter access code" autocomplete="off" maxlength="32">
     <button class="pw-btn" onclick="checkPassword()">Enter</button>
     <div class="pw-denied" id="pwDenied"></div>
@@ -973,7 +1431,7 @@ footer a:hover { color: var(--gold-light); }
 <div class="top-bar">
   <div>
     <span class="top-bar-left">Ministry of Health — MOH Legal Office</span>
-    <span class="top-bar-beta">BETA - for testing by the Regulatory and Compliance Division only</span>
+    <span class="top-bar-beta">BETA - for testing by the Regulatory Compliance Division only</span>
   </div>
   <span class="top-bar-right" id="todayDate"></span>
 </div>
@@ -989,7 +1447,7 @@ footer a:hover { color: var(--gold-light); }
 
 <!-- ── BETA NOTICE ── -->
 <div class="beta-notice">
-  <strong>⚠ BETA VERSION</strong> — Developed by the MOH Legal Office for the Regulatory and Compliance Division's internal beta testing only.
+  <strong>⚠ BETA VERSION</strong> — Developed by the MOH Legal Office for the Regulatory Compliance Division's internal beta testing only.
   Not for distribution or operational use without Legal Office clearance. All findings must be verified against the Healthcare Services Act 2020 and the relevant subsidiary legislation at
   <a href="https://sso.agc.gov.sg" target="_blank" style="color:var(--gold-light);text-decoration:underline;">sso.agc.gov.sg</a>.
 </div>
@@ -1027,7 +1485,18 @@ footer a:hover { color: var(--gold-light); }
   <!-- Search Card -->
   <div class="search-card">
     <label class="search-label" for="findingInput">Inspection Finding</label>
-    <textarea id="findingInput" placeholder="Describe the inspection finding in plain language — e.g. 'Licensee found operating an acute hospital without displaying the licence at the premises'" rows="4"></textarea>
+    <div class="finding-guidance-box">
+      <strong>📋 How to describe your inspection finding:</strong>
+      <ul>
+        <li>Describe the finding clearly — include the <strong>type of healthcare service or licence</strong> (e.g. nursing home, acute hospital) and the <strong>nature of the non-compliance or contravention</strong> with as much relevant detail as the character limit allows</li>
+        <li>Do <strong>NOT</strong> include the licensee’s name, licence number, patient names or any other personally identifying information — describe the conduct and finding in general terms only</li>
+      </ul>
+      <div class="finding-guidance-example"><em>Example: ‘Nursing home — no designated sluice rooms for certain wards. Care staff reported bringing waste and soiled products down to level 1 for disposal.’</em></div>
+    </div>
+    <div class="finding-input-wrap">
+      <textarea id="findingInput" placeholder="Describe your inspection finding here. Include the type of healthcare service and the nature of the non-compliance. Do not include licensee names, licence numbers or patient details." rows="4" maxlength="1500" oninput="updateFindingCounter()"></textarea>
+      <div class="finding-char-count"><span id="findingCharCount">0</span> / 1500</div>
+    </div>
 
     <span class="examples-label">Try an example</span>
     <div class="examples-row">
@@ -1077,28 +1546,23 @@ footer a:hover { color: var(--gold-light); }
       <div class="s20-text" id="s20Text"></div>
       <div class="s20-footnote">Based on s20(1)(b)(iii) HCSA. A reference to the Act includes subsidiary legislation made thereunder.</div>
     </div>
+    <!-- s14 alternative panel (shown only when s20(2) is NOT available) -->
+    <div id="s14Panel" style="display:none;"></div>
 
     <div class="results-body">
-      <!-- SSO tip banner (shown once per session) -->
-      <div class="sso-tip-banner" id="ssoTipBanner" style="display:none;" onclick="dismissSsoTip()">
-        <span>&#x1F4A1; Click any <strong>Read on SSO &#x2197;</strong> button to view the full text of the legislation on Singapore Statutes Online</span>
-        <span class="sso-tip-close">&#x2715;</span>
-      </div>
+
 
       <!-- Provisions -->
       <div class="section-title">Matched Provision(s)</div>
       <div id="provisionsContainer"></div>
 
       <!-- Reasoning -->
-      <div class="section-title">Legal Analysis</div>
+      <div class="section-title">Preliminary Analysis</div>
       <div class="reasoning-text" id="reasoningText"></div>
 
       <!-- Disclaimer -->
       <div style="margin-top: 24px;">
-        <div class="disclaimer-box">
-          <span class="disclaimer-icon">ℹ️</span>
-          <span id="disclaimerText"></span>
-        </div>
+        <div class="disclaimer-box"><span id="disclaimerText"></span></div>
       </div>
     </div>
 
@@ -1123,7 +1587,7 @@ footer a:hover { color: var(--gold-light); }
         <div class="cl-step-title">First — is the licensee still in existence?</div>
       </div>
       <div class="cl-step-body" style="display:block;">
-        <div class="cl-legal-ref">s21(3) HCSA</div><a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a>
+        <div class="cl-legal-ref">s21(3) HCSA</div><a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a>
         <div class="cl-step-desc">Select the option that best describes the licensee's current status. This determines whether the s21 notice procedure applies.</div>
         <div class="cl-toggle-group">
           <label class="cl-toggle-btn" id="prelim-died"><input type="checkbox" onchange="clUpdatePrelim('died')"> Licensee has <strong>DIED</strong></label>
@@ -1160,11 +1624,11 @@ footer a:hover { color: var(--gold-light); }
         <div class="cl-step-title">Confirm Proposed Regulatory Action</div>
       </div>
       <div class="cl-step-body" style="display:block;">
-        <div class="cl-legal-ref">s20 HCSA</div><a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a>
+        <div class="cl-legal-ref">s20 HCSA</div><a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a>
         <div class="cl-step-desc">Confirm that you are proposing to take regulatory action under section 20 of the HCSA before proceeding.</div>
         <label class="cl-check-card" id="s0c-confirm">
           <input type="checkbox" id="clStep0Confirm" onchange="clStep0Check()">
-          <div><span class="cl-check-label">I confirm that I am proposing to take regulatory action against the licensee under <strong>section 20</strong> of the Healthcare Services Act 2020.</span><span class="cl-check-ref">s20 HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div>
+          <div><span class="cl-check-label">I confirm that I am proposing to take regulatory action against the licensee under <strong>section 20</strong> of the Healthcare Services Act 2020.</span><span class="cl-check-ref">s20 HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></span></div>
         </label>
         <div class="cl-nav-row">
           <button class="cl-btn-back" onclick="clGoTo('prelim')">← Back</button>
@@ -1185,11 +1649,11 @@ footer a:hover { color: var(--gold-light); }
       <div class="cl-step-body" style="display:block;">
         <label class="cl-check-card" id="s2c-a">
           <input type="checkbox" onchange="clStep2Check()">
-          <div><span class="cl-check-label">I have identified and specified each instance of contravention or non-compliance that is the subject of the proposed regulatory action.</span><span class="cl-check-ref">s21(1)(b) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div>
+          <div><span class="cl-check-label">I have identified and specified each instance of contravention or non-compliance that is the subject of the proposed regulatory action.</span><span class="cl-check-ref">s21(1)(b) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></span></div>
         </label>
         <label class="cl-check-card" id="s2c-b">
           <input type="checkbox" onchange="clStep2Check()">
-          <div><span class="cl-check-label">I have confirmed that the contravention or non-compliance is <strong>NOT</strong> an offence under the Healthcare Services Act 2020 or its subsidiary legislation, and therefore falls within s20(1)(b)(iii) HCSA.</span><span class="cl-check-ref">s20(1)(b)(iii) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div>
+          <div><span class="cl-check-label">I have confirmed that the contravention or non-compliance is <strong>NOT</strong> an offence under the Healthcare Services Act 2020 or its subsidiary legislation, and therefore falls within s20(1)(b)(iii) HCSA.</span><span class="cl-check-ref">s20(1)(b)(iii) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></span></div>
         </label>
         <div class="cl-step2-nudge">💡 Not sure? Use the <a href="#" onclick="selectModule(1);return false;" class="cl-nudge-link">Offence Analyser</a> module to determine whether the contravention constitutes an offence before proceeding.</div>
         <div class="cl-nav-row">
@@ -1209,24 +1673,24 @@ footer a:hover { color: var(--gold-light); }
         <div class="cl-step-title">Issue the Notice of Intended Regulatory Action</div>
       </div>
       <div class="cl-step-body" style="display:block;">
-        <div class="cl-legal-ref">s21(1) HCSA</div><a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a>
+        <div class="cl-legal-ref">s21(1) HCSA</div><a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a>
         <div class="cl-step-desc">Before taking any regulatory action, you must serve this notice on the licensee.</div>
 
         <label class="cl-check-card" id="s3c-a">
           <input type="checkbox" onchange="clStep3Check()">
-          <div><span class="cl-check-label">Notice states that the Director-General intends to take regulatory action under s20</span><span class="cl-check-ref">s21(1)(a) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div>
+          <div><span class="cl-check-label">Notice states that the Director-General intends to take regulatory action under s20</span><span class="cl-check-ref">s21(1)(a) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></span></div>
         </label>
         <label class="cl-check-card" id="s3c-b">
           <input type="checkbox" onchange="clStep3Check()">
-          <div><span class="cl-check-label">Notice specifies the <strong>type</strong> of regulatory action proposed under <span class="cl-s20ref">s20(2)</span></span><span class="cl-check-ref">s21(1)(b) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div>
+          <div><span class="cl-check-label">Notice specifies the <strong>type</strong> of regulatory action proposed under <span class="cl-s20ref">s20(2)</span></span><span class="cl-check-ref">s21(1)(b) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></span></div>
         </label>
         <label class="cl-check-card" id="s3c-c">
           <input type="checkbox" onchange="clStep3Check()">
-          <div><span class="cl-check-label">Notice specifies <strong>each instance</strong> of contravention or non-compliance, or the reason(s) for proposed action</span><span class="cl-check-ref">s21(1)(b) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div>
+          <div><span class="cl-check-label">Notice specifies <strong>each instance</strong> of contravention or non-compliance, or the reason(s) for proposed action</span><span class="cl-check-ref">s21(1)(b) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></span></div>
         </label>
         <label class="cl-check-card" id="s3c-d">
           <input type="checkbox" onchange="clStep3Check()">
-          <div><span class="cl-check-label">Notice specifies the <strong>deadline</strong> for written representations</span><span class="cl-check-ref">s21(1)(c) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div>
+          <div><span class="cl-check-label">Notice specifies the <strong>deadline</strong> for written representations</span><span class="cl-check-ref">s21(1)(c) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></span></div>
         </label>
 
         <div class="cl-date-calc">
@@ -1246,7 +1710,7 @@ footer a:hover { color: var(--gold-light); }
 
         <label class="cl-check-card" id="s3c-e">
           <input type="checkbox" onchange="clStep3Check()">
-          <div><span class="cl-check-label">Notice has been <strong>served</strong> on the licensee</span><span class="cl-check-ref">s21(1) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div>
+          <div><span class="cl-check-label">Notice has been <strong>served</strong> on the licensee</span><span class="cl-check-ref">s21(1) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></span></div>
         </label>
 
         <div class="cl-nav-row">
@@ -1266,7 +1730,7 @@ footer a:hover { color: var(--gold-light); }
         <div class="cl-step-title">Await and Consider Representations</div>
       </div>
       <div class="cl-step-body" style="display:block;">
-        <div class="cl-legal-ref">s21(2) HCSA</div><a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a>
+        <div class="cl-legal-ref">s21(2) HCSA</div><a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a>
         <div class="cl-step-desc">You must wait for the representation period to elapse before deciding on regulatory action.</div>
 
         <div id="clRepStatus" class="cl-rep-status waiting"></div>
@@ -1276,23 +1740,23 @@ footer a:hover { color: var(--gold-light); }
           <div class="cl-pathway-card" id="clPathwayYes" onclick="clSelectPathway('yes')">
             <div class="cl-pathway-title">Yes — representations received</div>
             <div class="cl-pathway-sub">Licensee submitted written representations</div>
-            <div style="margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-muted);">s21(2)(a) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></div>
+            <div style="margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-muted);">s21(2)(a) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></div>
           </div>
           <div class="cl-pathway-card" id="clPathwayNo" onclick="clSelectPathway('no')">
             <div class="cl-pathway-title">No / Withdrawn</div>
             <div class="cl-pathway-sub">No representations received, or representations were withdrawn</div>
-            <div style="margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-muted);">s21(2)(b) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></div>
+            <div style="margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-muted);">s21(2)(b) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></div>
           </div>
         </div>
 
         <div id="clPathwayYesChecks" style="display:none;">
-          <label class="cl-check-card"><input type="checkbox" onchange="clStep4Check()"><div><span class="cl-check-label">Written representations have been <strong>received</strong></span><span class="cl-check-ref">s21(2)(a) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div></label>
-          <label class="cl-check-card"><input type="checkbox" onchange="clStep4Check()"><div><span class="cl-check-label">The Director-General has <strong>duly considered</strong> the representations before deciding on regulatory action</span><span class="cl-check-ref">s21(2)(a) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div></label>
+          <label class="cl-check-card"><input type="checkbox" onchange="clStep4Check()"><div><span class="cl-check-label">Written representations have been <strong>received</strong></span><span class="cl-check-ref">s21(2)(a) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></span></div></label>
+          <label class="cl-check-card"><input type="checkbox" onchange="clStep4Check()"><div><span class="cl-check-label">The Director-General has <strong>duly considered</strong> the representations before deciding on regulatory action</span><span class="cl-check-ref">s21(2)(a) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></span></div></label>
           <div class="cl-info-box">The Director-General must <em>consider</em> the representations — merely receiving them is not sufficient.</div>
         </div>
         <div id="clPathwayNoChecks" style="display:none;">
-          <label class="cl-check-card"><input type="checkbox" onchange="clStep4Check()"><div><span class="cl-check-label">Representation period has <strong>fully elapsed</strong></span><span class="cl-check-ref">s21(2)(b) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div></label>
-          <label class="cl-check-card"><input type="checkbox" onchange="clStep4Check()"><div><span class="cl-check-label">No written representations were received, <em>OR</em> representations received but subsequently <strong>withdrawn</strong> by the licensee</span><span class="cl-check-ref">s21(2)(b) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div></label>
+          <label class="cl-check-card"><input type="checkbox" onchange="clStep4Check()"><div><span class="cl-check-label">Representation period has <strong>fully elapsed</strong></span><span class="cl-check-ref">s21(2)(b) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></span></div></label>
+          <label class="cl-check-card"><input type="checkbox" onchange="clStep4Check()"><div><span class="cl-check-label">No written representations were received, <em>OR</em> representations received but subsequently <strong>withdrawn</strong> by the licensee</span><span class="cl-check-ref">s21(2)(b) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></span></div></label>
         </div>
 
         <div class="cl-nav-row">
@@ -1312,7 +1776,7 @@ footer a:hover { color: var(--gold-light); }
         <div class="cl-step-title">Make Decision and Serve Notice of Decision</div>
       </div>
       <div class="cl-step-body" style="display:block;">
-        <div class="cl-legal-ref">s21(4) and s21(5) HCSA</div><a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a>
+        <div class="cl-legal-ref">s21(4) and s21(5) HCSA</div><a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a>
         <div class="cl-step-desc">The regulatory action only takes legal effect when the notice of decision is served.</div>
 
         <div class="cl-step-desc" style="font-weight:600;color:var(--navy);margin-bottom:10px;">Is the regulatory action taken under s20(2) or s20(3A)?</div>
@@ -1330,12 +1794,12 @@ footer a:hover { color: var(--gold-light); }
             <div class="cl-radio-card-sub">The licence has lapsed, been cancelled or surrendered</div>
           </div>
         </div>
-        <label class="cl-check-card" style="margin-top:14px;"><input type="checkbox" onchange="clStep5Check()"><div><span class="cl-check-label">Director-General has made the <strong>decision</strong> to take regulatory action under section 20 HCSA</span><span class="cl-check-ref">s21(4) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div></label>
+        <label class="cl-check-card" style="margin-top:14px;"><input type="checkbox" onchange="clStep5Check()"><div><span class="cl-check-label">Director-General has made the <strong>decision</strong> to take regulatory action under section 20 HCSA</span><span class="cl-check-ref">s21(4) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></span></div></label>
         <label class="cl-field-label">Date of decision:</label>
         <input class="cl-date-input" id="clDecisionDate" type="date" style="width:100%;margin-top:4px;" onchange="clStep5Check()">
 
-        <label class="cl-check-card" style="margin-top:14px;"><input type="checkbox" onchange="clStep5Check()"><div><span class="cl-check-label">Notice of decision has been <strong>prepared</strong> in accordance with s21(4)</span><span class="cl-check-ref">s21(4) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div></label>
-        <label class="cl-check-card"><input type="checkbox" onchange="clStep5Check()"><div><span class="cl-check-label">Notice of decision has been <strong>served</strong> on the licensee</span><span class="cl-check-ref">s21(5) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div></label>
+        <label class="cl-check-card" style="margin-top:14px;"><input type="checkbox" onchange="clStep5Check()"><div><span class="cl-check-label">Notice of decision has been <strong>prepared</strong> in accordance with s21(4)</span><span class="cl-check-ref">s21(4) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></span></div></label>
+        <label class="cl-check-card"><input type="checkbox" onchange="clStep5Check()"><div><span class="cl-check-label">Notice of decision has been <strong>served</strong> on the licensee</span><span class="cl-check-ref">s21(5) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></span></div></label>
         <label class="cl-field-label">Date of service of notice of decision:</label>
         <input class="cl-date-input" id="clDecisionServiceDate" type="date" style="width:100%;margin-top:4px;" onchange="clCalcEffectiveDate()">
 
@@ -1357,14 +1821,14 @@ footer a:hover { color: var(--gold-light); }
 
         <div class="cl-warn-box" style="margin-top:14px;">
           ⚠ The regulatory action does <strong>NOT</strong> take legal effect from the date of the Director-General's decision. It takes effect only upon <strong>service of the notice of decision</strong>, or on the later date specified in that notice.
-          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;display:block;margin-top:4px;">s21(5) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;display:block;margin-top:4px;">s21(5) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></span>
         </div>
 
         <div class="cl-collapsible-trigger" onclick="clToggleCollapsible('s215note')">
           <span id="s215noteArrow">▶</span> Note — s21(6): Savings provision
         </div>
         <div class="cl-collapsible-body" id="s215note">
-          The regulatory action does not affect the enforcement of existing rights or claims — either by third parties against the licensee, or by the licensee against third parties. <span style="font-family:'JetBrains Mono',monospace;font-size:11px;">[s21(6) HCSA] <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span>
+          The regulatory action does not affect the enforcement of existing rights or claims — either by third parties against the licensee, or by the licensee against third parties. <span style="font-family:'JetBrains Mono',monospace;font-size:11px;">[s21(6) HCSA] <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></span>
         </div>
 
         <div class="cl-nav-row">
@@ -1402,7 +1866,7 @@ footer a:hover { color: var(--gold-light); }
 
 <!-- ── FOOTER ── -->
 <footer>
-  <div class="footer-line-1">Developed by the MOH Legal Office &nbsp;|&nbsp; Beta version for the Regulatory and Compliance Division only</div>
+  <div class="footer-line-1">Developed by the MOH Legal Office &nbsp;|&nbsp; Beta version for the Regulatory Compliance Division only</div>
   <div class="footer-line-2" style="margin-top:4px;">For official use only &nbsp;·&nbsp; Based solely on the Healthcare Services Act 2020 and subsidiary legislation &nbsp;·&nbsp; Not legal advice &nbsp;·&nbsp; Verify all provisions at <a href="https://sso.agc.gov.sg" target="_blank">sso.agc.gov.sg</a></div>
 </footer>
 
@@ -1465,7 +1929,7 @@ const _releaseTag   = 'b3FYYqco6wUouQ';
 const _instanceId   = 'Zjz6oxPnOTI0Kr';
 
 // ── KNOWLEDGE BASE (embedded) ──────────────────────────────────────────────
-const KB_JSON = `{"metadata":{"title":"Healthcare Services Act 2020 (HCSA) — Regulatory Inspection Buddy Knowledge Base","description":"Comprehensive mapping of all offence-creating provisions under the HCSA 2020 and its subsidiary legislation. Source material: official PDF legislation downloaded from Singapore Statutes Online (sso.agc.gov.sg). For use by regulatory inspection officers.","version":"2.0","compiled_date":"2025-03-24","source_material":"PDF legislation downloaded from sso.agc.gov.sg, informal consolidated versions as at October 2024","parent_act_citation":"Healthcare Services Act 2020, No. 3 of 2020","administered_by":"Ministry of Health, Singapore","verification_notice":"Verify all provisions against the current consolidated version at https://sso.agc.gov.sg before taking enforcement action. This knowledge base is for reference only and does not constitute legal advice.","commencement_phases":{"phase_1":"3 January 2022 — Clinical laboratory, blood banking, radiological, emergency ambulance and medical transport services","phase_2":"26 June 2023 — Acute/community hospitals, outpatient medical/dental, assisted reproduction, ASC, human tissue banking, nuclear medicine, outpatient renal dialysis","phase_3":"18 December 2023 — Nursing home services; full HCSA implementation"}},"parent_act_offences":[{"id":"ACT-s8","section":"8(2)","heading":"Licensing of healthcare services","conduct":"Any person who provides or offers to provide a licensable healthcare service without a licence","duty_holder":"Any person","penalty":{"fine_max_sgd":100000,"imprisonment_max_months":24,"repeat_fine_max_sgd":200000,"note":"First offence: fine ≤\$100K or imprisonment ≤2yr or both. Repeat (qualifying conviction): fine ≤\$200K or imprisonment ≤2yr or both."},"compoundable":true,"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s9","section":"9(2)","heading":"Permanent premises, conveyances and service delivery mode to be approved","conduct":"A licensee that provides a licensable healthcare service at unapproved permanent premises, using an unapproved conveyance, or using an unapproved service delivery mode","duty_holder":"Licensee","penalty":{"fine_max_sgd":50000,"imprisonment_max_months":12,"repeat_fine_max_sgd":100000,"note":"First offence: fine ≤\$50K or imprisonment ≤12mo or both. Repeat (qualifying conviction): fine ≤\$100K or imprisonment ≤12mo or both."},"compoundable":true,"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s9A","section":"9A(3)","heading":"Specified service to be approved","conduct":"A licensee that provides a specified service without the Director-General's approval, or in a service delivery mode not approved for that specified service","duty_holder":"Licensee","penalty":{"fine_max_sgd":100000,"imprisonment_max_months":24,"repeat_fine_max_sgd":200000,"note":"First offence: fine ≤\$100K or imprisonment ≤2yr or both. Second or subsequent: fine ≤\$200K or imprisonment ≤2yr or both."},"compoundable":true,"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s26","section":"26(5) and (6)","heading":"Ethics review","conduct":"A licensee that fails to comply with obligations relating to ethics review (clinical ethics committee requirements)","duty_holder":"Licensee","penalty":{"fine_max_sgd":50000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s27","section":"27(5)","heading":"Record-keeping on healthcare service","conduct":"A licensee that fails to keep and maintain records as required, or records matters inaccurately or incompletely","duty_holder":"Licensee","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":false},"compoundable":true,"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s28","section":"28(5)","heading":"Approval of employment of individuals by certain licensees","conduct":"A section 28 licensee that employs a restricted individual without the Director's prior written approval","duty_holder":"Section 28 licensee (prescribed licensees under s.28)","penalty":{"fine_max_sgd":50000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s29","section":"29(3)","heading":"Use of term or name","conduct":"A licensee that uses a term or name that incorrectly describes a licensable healthcare service it is authorised to provide, or uses 'Singapore' or 'National' without approval, or uses misleading terms","duty_holder":"Licensee","penalty":{"fine_max_sgd":50000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s30","section":"30(4) and (5)","heading":"Use of title, qualifications etc.","conduct":"A licensee that makes representations regarding the specialty of healthcare professionals contrary to s.30 requirements","duty_holder":"Licensee","penalty":{"fine_max_sgd":10000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s31","section":"31(3)","heading":"Advertisement of licensable healthcare services","conduct":"A person who advertises a licensable healthcare service without being a licensee or acting on the authority of a licensee; or who fails to ensure the advertisement complies with prescribed requirements","duty_holder":"Licensee or person acting on licensee's authority","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s31A","section":"31A(3)","heading":"Advertisement of non-licensable healthcare services","conduct":"A person who advertises a non-licensable healthcare service in a manner that contravenes prescribed requirements","duty_holder":"Any person","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s31B","section":"31B(2)","heading":"Advertisement of specialties","conduct":"A person who advertises healthcare specialties contrary to the requirements in s.31B","duty_holder":"Any person","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s31C","section":"31C(2)","heading":"Advertisement directions","conduct":"A person who fails to comply with a direction given by the Director-General under s.31C relating to advertisements","duty_holder":"Any person","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s33","section":"33(10)","heading":"Step-in orders","conduct":"A designated licensee that fails to comply with obligations under a step-in order","duty_holder":"Designated licensee","penalty":{"fine_max_sgd":50000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s36","section":"36(3) and (4)","heading":"Power to require information","conduct":"A person who fails to comply with a notice to provide information/documents; or who intentionally alters, suppresses or destroys documents required; or who makes false/misleading statements","duty_holder":"Any person","penalty":{"fine_max_sgd":10000,"imprisonment_max_months":12,"continuing_offence":false},"compoundable":true,"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s39","section":"39(9)","heading":"Directions to licensees","conduct":"A licensee that fails to comply with a direction given under s.39","duty_holder":"Licensee","penalty":{"fine_max_sgd":50000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s41","section":"41(5)","heading":"Powers of entry and inspection","conduct":"A person who obstructs, hinders or impedes an authorised officer in the exercise of inspection powers","duty_holder":"Any person","penalty":{"fine_max_sgd":50000,"imprisonment_max_months":12,"continuing_offence":false},"compoundable":true,"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s42","section":"42(1)","heading":"False statements etc.","conduct":"A person who, in any proceedings or application under the Act, makes a false or misleading statement in a material particular knowing or recklessly as to its falsity","duty_holder":"Any person","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":false},"compoundable":true,"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s43","section":"43","heading":"Offences by bodies corporate etc.","conduct":"Officers of a body corporate that commits an offence under the Act where the offence was committed with the officer's consent or connivance, or attributable to the officer's neglect","duty_holder":"Officers of body corporate","penalty":{"note":"Same penalty as for the offence committed by the body corporate"},"compoundable":true,"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"}],"subsidiary_legislation_offences":[{"id":"SL-ADV-18","instrument":"Healthcare Services (Advertisement) Regulations 2021","citation":"S 1033/2021","sso_reference":"HSA2020-S1033-2021","offence_regulation":"18","heading":"Offences","verbatim_offence_text":"18.—(1) A licensee who contravenes regulation 5(1), 6(1), (4) or (5), 7, 8(2) or 15(1) shall be guilty of an offence under section 31(3) of the Act for failure to comply with section 31(2) of the Act and shall be liable on conviction to be punished in accordance with section 31(3) of the Act.\\n(2) An authorised person who contravenes regulation 6(1), (4) or (5), 7, 8(2) or 15(1) shall be guilty of an offence under section 31(3) of the Act for failure to comply with section 31(2) of the Act and shall be liable on conviction to be punished in accordance with section 31(3) of the Act.\\n(3) A licensee who contravenes regulation 9(2) or (3), 10, 11, 13(1), 14(1) or 16(1) or (3) shall be guilty of an offence and shall be liable on conviction to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both and, in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.\\n(4) An authorised person who contravenes regulation 13(2), 14(1), or 16(1) or (3) shall be guilty of an offence and shall be liable on conviction to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both and, in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.\\n(5) A licensee who, without reasonable cause, contravenes regulation 17(1) or (2), or does not comply with an order made by the Director-General under regulation 17(8)(a) shall be guilty of an offence [same penalty].\\n(6) An authorised person who, without reasonable cause, contravenes regulation 17(3) or (6), or does not comply with an order under regulation 17(8)(a) shall be guilty of an offence [same penalty].\\n(7) An authorised publisher who contravenes regulation 17(4) or does not comply with an order under regulation 17(8)(b) shall be guilty of an offence [same penalty].","sub_provisions":[{"sub":"(1)","duty_holder":"Licensee","regulations_cited":["5(1)","6(1)","6(4)","6(5)","7","8(2)","15(1)"],"regulations_summary":"Publication of advertisements; disclosure on digital platforms; prohibited content; advertiser's obligations","penalty_type":"parent_act_section","penalty_ref":"section 31(3) of the Act","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000}},{"sub":"(2)","duty_holder":"Authorised person","regulations_cited":["6(1)","6(4)","6(5)","7","8(2)","15(1)"],"regulations_summary":"Authorised person's obligations for digital platforms; prohibited content; advertiser's obligations","penalty_type":"parent_act_section","penalty_ref":"section 31(3) of the Act","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000}},{"sub":"(3)","duty_holder":"Licensee","regulations_cited":["9(2)","9(3)","10","11","13(1)","14(1)","16(1)","16(3)"],"regulations_summary":"Comparative advertising; testimonials/endorsements; before/after treatment images; mandatory disclosures; language/character requirements; hyperlinks","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000}},{"sub":"(4)","duty_holder":"Authorised person","regulations_cited":["13(2)","14(1)","16(1)","16(3)"],"regulations_summary":"Mandatory disclosures by authorised persons; language/character requirements; hyperlinks","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000}},{"sub":"(5)","duty_holder":"Licensee (without reasonable cause)","regulations_cited":["17(1)","17(2)","17(8)(a) order"],"regulations_summary":"Compliance with Regulations — licensee's duty to comply with advertisement regulations and DG orders","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000}},{"sub":"(6)","duty_holder":"Authorised person (without reasonable cause)","regulations_cited":["17(3)","17(6)","17(8)(a) order"],"regulations_summary":"Compliance with Regulations — authorised person's compliance duty","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000}},{"sub":"(7)","duty_holder":"Authorised publisher","regulations_cited":["17(4)","17(8)(b) order"],"regulations_summary":"Compliance with Regulations — authorised publisher's compliance duty","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000}}],"compoundable":true,"composition_regs_ref":"reg 2(d) of HCS (Composition of Offences) Regulations 2023 (reg 18(3)-(7) only)"},{"id":"SL-GEN-50","instrument":"Healthcare Services (General) Regulations 2021","citation":"S 1035/2021","sso_reference":"HSA2020-S1035-2021","applies_to":"All licensees of all licensable healthcare services","offence_regulation":"50","heading":"Offence","verbatim_offence_text":"50.—(1) Any person who contravenes regulation 8(2), 24, 25, 26(3)(b), (c) or (d), 27, 28, 30(1), (2) or (3), 31, 32, 33(1), 35, 36, 38, 39(1), 41, 44(1), 45 or 47(1) shall be guilty of an offence. [S 414/2023 wef 26/06/2023]\\n(1A) Where (a) a licensee contravenes regulation 29(2)(a) or (3) in relation to any medicinal product or health product dispensed or administered to a patient; and (b) the contravention results in the patient suffering any harm, the licensee shall be guilty of an offence. [S 414/2023 wef 26/06/2023]\\n(2) A person who is guilty of an offence under paragraph (1) or (1A) shall be liable on conviction to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both and, in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","sub_provisions":[{"sub":"(1)","duty_holder":"Any person","regulations_cited_raw":"8(2), 24, 25, 26(3)(b), (c) or (d), 27, 28, 30(1), (2) or (3), 31, 32, 33(1), 35, 36, 38, 39(1), 41, 44(1), 45, 47(1)","regulations_with_titles":[{"reg":"8(2)","title":"Voluntary cessation of licensable healthcare service or surrender of licence — restrictions on cessation"},{"reg":"24","title":"Premises, conveyances and equipment — general requirements"},{"reg":"25","title":"Security of equipment data"},{"reg":"26(3)(b)(c)(d)","title":"Use of approved permanent premises or approved conveyance for other purposes — prohibited uses"},{"reg":"27","title":"Purchase of medicinal products and health products"},{"reg":"28","title":"Prescription of medicinal products and health products"},{"reg":"30(1)(2)(3)","title":"Storage and disposal of medicinal products and health products"},{"reg":"31","title":"Delivery and transportation of medicinal products and health products"},{"reg":"32","title":"Collection of specimens"},{"reg":"33(1)","title":"Packaging and transportation of specimens"},{"reg":"35","title":"Safeguard against abuse and neglect"},{"reg":"36","title":"Communications with patients"},{"reg":"38","title":"Protection of patient health records"},{"reg":"39(1)","title":"Continuity of care where licensee intends to cease provision of licensable healthcare service"},{"reg":"41","title":"Infection control"},{"reg":"44(1)","title":"Management of biohazardous materials and sharps"},{"reg":"45","title":"Incident escalation"},{"reg":"47(1)","title":"Business continuity"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000}},{"sub":"(1A)","duty_holder":"Licensee","condition":"Licensee contravenes reg 29(2)(a) or (3) AND contravention results in patient suffering harm","regulations_cited_raw":"29(2)(a) or (3)","regulations_with_titles":[{"reg":"29(2)(a)/(3)","title":"Preparation of medicinal products and health products, and dispensing and administration — requirements on dispensing/administering to patients"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000}}],"compoundable":true,"composition_regs_ref":"reg 2(m) of HCS (Composition of Offences) Regulations 2023 (reg 50(1) or (1A))"},{"id":"SL-CLR-48","instrument":"Healthcare Services (Clinical Laboratory Service and Radiological Service) Regulations 2021","citation":"S 1036/2021","sso_reference":"HSA2020-S1036-2021","applies_to":"Licensees providing clinical laboratory service or radiological service","offence_regulation":"48","heading":"Offence","verbatim_offence_text":"48.—(1) Any person that contravenes regulation 11(1), 12(1), (2) or (3), 12A(2), (3) or (4), 13, 14(1), 15(1) or (2), 19(1), (2) or (3), 20, 21(1), 22, 23(1), 23A, 25, 27(1), 28, 29(1), (2) or (3), 30, 31(1), (2) and (3), 32, 34(2), 36, 37, 38 or 41(1) or (4) shall be guilty of an offence. [S 417/2023 wef 26/06/2023]\\n(2) A person that is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"11(1), 12(1)(2)(3), 12A(2)(3)(4), 13, 14(1), 15(1)(2), 19(1)(2)(3), 20, 21(1), 22, 23(1), 23A, 25, 27(1), 28, 29(1)(2)(3), 30, 31(1)(2)(3), 32, 34(2), 36, 37, 38, 41(1)(4)","regulations_with_titles":[{"reg":"11(1)","title":"Quality management system"},{"reg":"12(1)(2)(3)","title":"Equipment and fittings"},{"reg":"12A(2)(3)(4)","title":"Additional requirements where applicable service provided using approved conveyance"},{"reg":"13","title":"Services may be provided to patients only where ordered by requestor"},{"reg":"14(1)","title":"Safety programme"},{"reg":"15(1)(2)","title":"Licensee must ensure personnel comply with safety plans"},{"reg":"19(1)(2)(3)","title":"Handling and transport of specimens (clinical lab)"},{"reg":"20","title":"Tests must have clinical utility"},{"reg":"21(1)","title":"Tests must be accurate"},{"reg":"22","title":"Standards for reagents"},{"reg":"23(1)","title":"Chemical hygiene plan and facilities"},{"reg":"23A","title":"Tests on radioactive specimens"},{"reg":"25","title":"Quality control of tests"},{"reg":"27(1)","title":"Required qualifications for conducting radiological examinations"},{"reg":"28","title":"Handling of radiological images"},{"reg":"29(1)(2)(3)","title":"General safeguards for radiological examinations"},{"reg":"30","title":"Specific safeguards where radiological examination involves contrast agent"},{"reg":"31(1)(2)(3)","title":"Specific safeguards where radiological examination involves anaesthesia or sedation"},{"reg":"32","title":"Testing of specimen (radiological)"},{"reg":"34(2)","title":"Written reports must be issued — requirements for radiological reports"},{"reg":"36","title":"Urgent notification of results or findings in emergency"},{"reg":"37","title":"Identification and review of incidental or abnormal findings"},{"reg":"38","title":"Notification of error"},{"reg":"41(1)(4)","title":"Outsourcing of tests or radiological examinations — restrictions on outsourcing"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_regs_ref":"reg 2(h) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-CB-26","instrument":"Healthcare Services (Cord Blood Banking Service) Regulations 2021","citation":"S 1037/2021","sso_reference":"HSA2020-S1037-2021","applies_to":"Licensees providing cord blood banking service","offence_regulation":"26","heading":"Offence","verbatim_offence_text":"26.—(1) Any person who contravenes regulation 5, 8(1), 8A(1), 8B, 9(5), 10(1), (5) or (6), 11, 12, 13(1), 14(1) or (2), 15(1), 16(1), (3), (4) or (5), 17(2) or (4), 18, 19, 20(1), (2), (3) or (4), 21(1) or (3), 22(2), (3) or (4), 23(1) or 24(1) or (3) shall be guilty of an offence. [S 389/2023 wef 26/06/2023]\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both and, in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"5, 8(1), 8A(1), 8B, 9(5), 10(1)(5)(6), 11, 12, 13(1), 14(1)(2), 15(1), 16(1)(3)(4)(5), 17(2)(4), 18, 19, 20(1)(2)(3)(4), 21(1)(3), 22(2)(3)(4), 23(1), 24(1)(3)","regulations_with_titles":[{"reg":"5","title":"Competency requirements for clinical governance officer"},{"reg":"8(1)","title":"Consent of mother"},{"reg":"8A(1)","title":"Cooling-off period"},{"reg":"8B","title":"Informed consent for collection of cord blood"},{"reg":"9(5)","title":"Collection of cord blood — restrictions on collection"},{"reg":"10(1)(5)(6)","title":"Processing of cord blood — processing requirements and restrictions"},{"reg":"11","title":"Testing of cord blood"},{"reg":"12","title":"Quarantine of cord blood"},{"reg":"13(1)","title":"Storage of cord blood — storage requirements"},{"reg":"14(1)(2)","title":"Release of cord blood — release conditions"},{"reg":"15(1)","title":"Distribution of cord blood — distribution requirements"},{"reg":"16(1)(3)(4)(5)","title":"Records relating to cord blood — record-keeping requirements"},{"reg":"17(2)(4)","title":"Import and export of cord blood — import/export restrictions"},{"reg":"18","title":"Infection control"},{"reg":"19","title":"Traceability of cord blood"},{"reg":"20(1)(2)(3)(4)","title":"Adverse events — reporting and management requirements"},{"reg":"21(1)(3)","title":"Outsourcing — restrictions on outsourcing cord blood banking activities"},{"reg":"22(2)(3)(4)","title":"Continuity of operations — contingency planning requirements"},{"reg":"23(1)","title":"Continuity of operations — transfer provisions"},{"reg":"24(1)(3)","title":"Outsourcing — restricted outsourcing arrangements"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_regs_ref":"reg 2(k) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-BB-24","instrument":"Healthcare Services (Blood Banking Service) Regulations 2021","citation":"S 1038/2021","sso_reference":"HSA2020-S1038-2021","applies_to":"Licensees providing blood banking service","offence_regulation":"24","heading":"Offence","verbatim_offence_text":"24.—(1) Any person that contravenes regulation 3A, 8(1) or (2), 10, 11(1) or (3), 11A(1), 11B, 12, 13(2), (4), (5) or (6), 14(1), 15, 16(1), (3) or (4), 17(1), (3) or (5), 18(1), (2) or (5), 19(1), 20(1), (2), (3), (4) or (5), 21 or 22(1) shall be guilty of an offence. [S 388/2023 wef 26/06/2023]\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both and, in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"3A, 8(1)(2), 10, 11(1)(3), 11A(1), 11B, 12, 13(2)(4)(5)(6), 14(1), 15, 16(1)(3)(4), 17(1)(3)(5), 18(1)(2)(5), 19(1), 20(1)(2)(3)(4)(5), 21, 22(1)","regulations_with_titles":[{"reg":"3A","title":"Application of Regulations — certain provisions apply to non-licensees collecting blood for the service"},{"reg":"8(1)(2)","title":"Consent — consent requirements for blood donation"},{"reg":"10","title":"Haemoglobin screening"},{"reg":"11(1)(3)","title":"Testing — tests required for each donation"},{"reg":"11A(1)","title":"Additional testing requirements"},{"reg":"11B","title":"Lookback procedure"},{"reg":"12","title":"Labelling of blood and blood components"},{"reg":"13(2)(4)(5)(6)","title":"Processing and preparation of blood and blood components — processing requirements"},{"reg":"14(1)","title":"Storage of blood and blood components"},{"reg":"15","title":"Quarantine of blood and blood components"},{"reg":"16(1)(3)(4)","title":"Release of blood and blood components — release conditions"},{"reg":"17(1)(3)(5)","title":"Distribution of blood and blood components — distribution requirements"},{"reg":"18(1)(2)(5)","title":"Records — record-keeping requirements"},{"reg":"19(1)","title":"Import and export — restrictions on import/export"},{"reg":"20(1)(2)(3)(4)(5)","title":"Adverse reactions and events — reporting and management"},{"reg":"21","title":"Traceability of blood and blood components"},{"reg":"22(1)","title":"Outsourcing — restrictions on outsourcing blood banking activities"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_regs_ref":"reg 2(g) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-EAS-22","instrument":"Healthcare Services (Emergency Ambulance Service and Medical Transport Service) Regulations 2022","citation":"S 2/2022","sso_reference":"HSA2020-S2-2022","applies_to":"Licensees providing emergency ambulance service or medical transport service","offence_regulation":"22","heading":"Offence","verbatim_offence_text":"22.—(1) Any person who contravenes regulation 8(1), 11(1), 12(1), 15(1), 16(1), (1A), (1B) or (6), 17(1) or (3), 20 or 21 shall be guilty of an offence. [S 1050/2024 wef 01/01/2025]\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both and, in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"8(1), 11(1), 12(1), 15(1), 16(1)(1A)(1B)(6), 17(1)(3), 20, 21","regulations_with_titles":[{"reg":"8(1)","title":"Qualifications and training of emergency medical technicians and transport crew members"},{"reg":"11(1)","title":"Emergency ambulance vehicles — vehicle requirements"},{"reg":"12(1)","title":"Medical equipment for emergency ambulance service — equipment requirements"},{"reg":"15(1)","title":"Medical equipment for medical transport service — equipment requirements"},{"reg":"16(1)(1A)(1B)(6)","title":"Response time standards — response time obligations for emergency ambulance service"},{"reg":"17(1)(3)","title":"Itemisation of bill — billing requirements"},{"reg":"20","title":"Infection control"},{"reg":"21","title":"Outsourcing prohibited"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_regs_ref":"reg 2(l) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-AH-49","instrument":"Healthcare Services (Acute Hospital Service) Regulations 2023","citation":"S 424/2023","sso_reference":"HSA2020-S424-2023","applies_to":"Licensees providing acute hospital service","offence_regulation":"49","heading":"Offences","verbatim_offence_text":"49.—(1) A person who contravenes regulation 6, 8(1) or (2), 9(1) or (2), 10(1) or (2), 12(1) or (2), 16, 17(1) or (2), 18, 20(1) or (2), 23(1) or (2), 24(1) or (2), 33(1) or (2), 34(1) or (2), 35(1) or (2), 36(1) or (2), 40(1), 41(1) or 42(1) shall be guilty of an offence.\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"6, 8(1)(2), 9(1)(2), 10(1)(2), 12(1)(2), 16, 17(1)(2), 18, 20(1)(2), 23(1)(2), 24(1)(2), 33(1)(2), 34(1)(2), 35(1)(2), 36(1)(2), 40(1), 41(1), 42(1)","regulations_with_titles":[{"reg":"6","title":"Acute hospital must have appropriate facilities and infrastructure"},{"reg":"8(1)(2)","title":"Medical and ancillary staff requirements"},{"reg":"9(1)(2)","title":"Nursing staff requirements"},{"reg":"10(1)(2)","title":"Allied health staff requirements"},{"reg":"12(1)(2)","title":"Operating theatre and procedure room requirements"},{"reg":"16","title":"Restrictions on transferring patients"},{"reg":"17(1)(2)","title":"Patient rights and consent — consent requirements"},{"reg":"18","title":"Patient's rights to information"},{"reg":"20(1)(2)","title":"Informed consent for surgery or invasive procedure"},{"reg":"23(1)(2)","title":"Incident reporting — clinical incidents"},{"reg":"24(1)(2)","title":"Patient safety and quality programmes"},{"reg":"33(1)(2)","title":"Visitor policy"},{"reg":"34(1)(2)","title":"Restraints — restraint policy and requirements"},{"reg":"35(1)(2)","title":"Seclusion — seclusion policy and requirements"},{"reg":"36(1)(2)","title":"Mental health inpatient provisions"},{"reg":"40(1)","title":"Itemisation of bill"},{"reg":"41(1)","title":"Financial counselling"},{"reg":"42(1)","title":"Discharge planning"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_regs_ref":"reg 2(c) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-CH-38","instrument":"Healthcare Services (Community Hospital Service) Regulations 2023","citation":"S 423/2023","sso_reference":"HSA2020-S423-2023","applies_to":"Licensees providing community hospital service","offence_regulation":"38","heading":"Offences","verbatim_offence_text":"38.—(1) A person who contravenes regulation 6, 8(1) or (2), 9(1) or (2), 11(1) or (2), 15, 19(1) or (2), 20, 24(1) or (2), 25(1) or (2), 26(1) or (2), 27(1) or (2) or 31(1) shall be guilty of an offence.\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"6, 8(1)(2), 9(1)(2), 11(1)(2), 15, 19(1)(2), 20, 24(1)(2), 25(1)(2), 26(1)(2), 27(1)(2), 31(1)","regulations_with_titles":[{"reg":"6","title":"Community hospital must have appropriate facilities and infrastructure"},{"reg":"8(1)(2)","title":"Medical and nursing staff requirements"},{"reg":"9(1)(2)","title":"Nursing staff ratios"},{"reg":"11(1)(2)","title":"Allied health staff requirements"},{"reg":"15","title":"Admission of residents"},{"reg":"19(1)(2)","title":"Patient rights — rights to information and consent"},{"reg":"20","title":"Incident reporting"},{"reg":"24(1)(2)","title":"Restraints — restraint requirements"},{"reg":"25(1)(2)","title":"Seclusion — seclusion requirements"},{"reg":"26(1)(2)","title":"Mental health provisions"},{"reg":"27(1)(2)","title":"Visitor policy"},{"reg":"31(1)","title":"Financial counselling"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_regs_ref":"reg 2(i) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-OMS-38","instrument":"Healthcare Services (Outpatient Medical Service) Regulations 2023","citation":"S 410/2023","sso_reference":"HSA2020-S410-2023","applies_to":"Licensees providing outpatient medical service","offence_regulation":"38","heading":"Offences","verbatim_offence_text":"38.—(1) A person who contravenes regulation 9, 10(a) or (f), 11(a), (h) or (i), 12(1) or (2), 15, 16(1) or (2), 24(1), 25, 26(1) or (2) or 32 shall be guilty of an offence. [S 840/2023 wef 18/12/2023]\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"9, 10(a)(f), 11(a)(h)(i), 12(1)(2), 15, 16(1)(2), 24(1), 25, 26(1)(2), 32","regulations_with_titles":[{"reg":"9","title":"Specified services — restrictions on specified services"},{"reg":"10(a)(f)","title":"Medical practitioner requirements — specific obligation sub-paragraphs"},{"reg":"11(a)(h)(i)","title":"Dentist and allied health professional requirements — specific obligation sub-paragraphs"},{"reg":"12(1)(2)","title":"Clinic requirements — physical premises requirements"},{"reg":"15","title":"Equipment and instruments requirements"},{"reg":"16(1)(2)","title":"Infection control requirements"},{"reg":"24(1)","title":"Patient health records — record-keeping requirements"},{"reg":"25","title":"Continuity of care requirements"},{"reg":"26(1)(2)","title":"Referral and transfer of patients"},{"reg":"32","title":"Financial counselling"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_regs_ref":"reg 2(q) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-ASC-44","instrument":"Healthcare Services (Ambulatory Surgical Centre Service) Regulations 2023","citation":"S 411/2023","sso_reference":"HSA2020-S411-2023","applies_to":"Licensees providing ambulatory surgical centre service","offence_regulation":"44","heading":"Offences","verbatim_offence_text":"44.—(1) A person who contravenes regulation 11, 16(a), 18, 19, 23(1), 24(1) or (2), 25(1) or (2), 27, 29, 30, 37, 38 or 39 shall be guilty of an offence.\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"11, 16(a), 18, 19, 23(1), 24(1)(2), 25(1)(2), 27, 29, 30, 37, 38, 39","regulations_with_titles":[{"reg":"11","title":"Medical, nursing and allied health staff requirements"},{"reg":"16(a)","title":"Operating theatre requirements — specific sub-paragraph on sterility"},{"reg":"18","title":"Patient assessment prior to procedure"},{"reg":"19","title":"Anaesthesia management requirements"},{"reg":"23(1)","title":"Incident reporting"},{"reg":"24(1)(2)","title":"Patient rights — rights to information and consent"},{"reg":"25(1)(2)","title":"Informed consent for surgical procedure"},{"reg":"27","title":"Post-procedure care"},{"reg":"29","title":"Infection control"},{"reg":"30","title":"Sterilisation and disinfection requirements"},{"reg":"37","title":"Itemisation of bill"},{"reg":"38","title":"Financial counselling"},{"reg":"39","title":"Discharge planning"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_regs_ref":"reg 2(e) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-NH-44","instrument":"Healthcare Services (Nursing Home Service) Regulations 2023","citation":"S 849/2023","sso_reference":"HSA2020-S849-2023","applies_to":"Licensees providing nursing home service","offence_regulation":"44","heading":"Offences","verbatim_offence_text":"44.—(1) A person who contravenes regulation 11(b) or (j), 12(1) or (2), 13(b), 14(1) or (2), 16(1), (2), (3) or (4), 25, 35(1) or (2), 36(1) or 37(1) shall be guilty of an offence.\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"11(b)(j), 12(1)(2), 13(b), 14(1)(2), 16(1)(2)(3)(4), 25, 35(1)(2), 36(1), 37(1)","regulations_with_titles":[{"reg":"11(b)(j)","title":"Nursing home requirements — specific facility requirements (sub-paragraphs b and j)"},{"reg":"12(1)(2)","title":"Medical and nursing staff requirements"},{"reg":"13(b)","title":"Allied health staff requirements — specific sub-paragraph"},{"reg":"14(1)(2)","title":"Resident care manager requirements"},{"reg":"16(1)(2)(3)(4)","title":"Admission of residents — admission criteria and procedures"},{"reg":"25","title":"Incident reporting"},{"reg":"35(1)(2)","title":"Restraints — restraint requirements"},{"reg":"36(1)","title":"Seclusion requirements"},{"reg":"37(1)","title":"Physical needs of residents — care standards"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_regs_ref":"reg 2(oa) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-NM-79","instrument":"Healthcare Services (Nuclear Medicine Service) Regulations 2023","citation":"S 412/2023","sso_reference":"HSA2020-S412-2023","applies_to":"Licensees providing nuclear medicine service (nuclear medicine assay service or nuclear medicine imaging service)","offence_regulation":"79","heading":"Offences","verbatim_offence_text":"79.—(1) A person who contravenes regulation 13(1), 14(1), (2) and (3)(a) and (e), 15(1), 16(1), (2), (3) or (4), 17, 19, 20, 21, 23(1), 25, 26(1), (2) or (3), 27(1), (2), (3) or (4), 29, 30(1), 31, 32(1), 40, 41(1) or (2), 42, 43, 46, 48, 49, 50, 53, 55(1), (2) or (3), 56(1), 57, 59, 65, 66, 67, 70(1) or 71(1) shall be guilty of an offence.\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"13(1), 14(1)(2)(3)(a)(e), 15(1), 16(1)(2)(3)(4), 17, 19, 20, 21, 23(1), 25, 26(1)(2)(3), 27(1)(2)(3)(4), 29, 30(1), 31, 32(1), 40, 41(1)(2), 42, 43, 46, 48, 49, 50, 53, 55(1)(2)(3), 56(1), 57, 59, 65, 66, 67, 70(1), 71(1)","regulations_categories":{"personnel":"regs 13(1), 14, 15(1) — competency and qualification requirements for nuclear medicine personnel","equipment_safety":"regs 16, 17, 19, 20, 21 — radiation safety equipment, personal protective equipment, dosimetry","clinical_lab_requirements":"regs 23(1), 25, 26, 27, 29 — nuclear medicine assay specific requirements","imaging_requirements":"regs 30(1), 31, 32(1) — nuclear medicine imaging specific requirements","radiation_safety":"regs 40, 41, 42, 43, 46 — radiation safety plans and procedures","reporting":"regs 48, 49, 50, 53 — reporting of results","patient_safety":"regs 55, 56(1), 57, 59 — patient safety and consent","records":"regs 65, 66, 67 — record-keeping requirements","miscellaneous":"regs 70(1), 71(1) — price transparency and outsourcing restrictions"},"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_regs_ref":"reg 2(o) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-HTB-38","instrument":"Healthcare Services (Human Tissue Banking Service) Regulations 2023","citation":"S 413/2023","sso_reference":"HSA2020-S413-2023","applies_to":"Licensees providing human tissue banking service","offence_regulation":"38","heading":"Offences","verbatim_offence_text":"38.—(1) A person who contravenes regulation 10(1), 11(1), 12(1), 13(1), 14, 16(4), (5) or (7), 17(1), 18(1), 19(1), 20(1), 21(1), (2) or (3), 22(1), (2), (3) or (4), 23(1) or (3), 24(1), 25(2), (3) or (4), 26(1), 27, 28, 29, 30(1) or (2), 31(1), (2), (3), (4) or (5), 32(1), 33(1), 34, 35 or 36(1) or (3) shall be guilty of an offence.\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"10(1), 11(1), 12(1), 13(1), 14, 16(4)(5)(7), 17(1), 18(1), 19(1), 20(1), 21(1)(2)(3), 22(1)(2)(3)(4), 23(1)(3), 24(1), 25(2)(3)(4), 26(1), 27, 28, 29, 30(1)(2), 31(1)(2)(3)(4)(5), 32(1), 33(1), 34, 35, 36(1)(3)","regulations_with_titles":[{"reg":"10(1)","title":"Eligibility of donors — eligibility criteria"},{"reg":"11(1)","title":"Consent for collection — consent requirements"},{"reg":"12(1)","title":"Consent for use — consent requirements for use of human tissue"},{"reg":"13(1)","title":"Consent for testing — testing consent requirements"},{"reg":"14","title":"Collection of human tissue — collection requirements"},{"reg":"16(4)(5)(7)","title":"Infectious disease testing — specific testing requirements"},{"reg":"17(1)","title":"Handling of human tissue — handling requirements"},{"reg":"18(1)","title":"Processing of human tissue — processing requirements"},{"reg":"19(1)","title":"Quarantine of human tissue"},{"reg":"20(1)","title":"Storage of human tissue — storage requirements"},{"reg":"21(1)(2)(3)","title":"Release of human tissue for transplant — release requirements"},{"reg":"22(1)(2)(3)(4)","title":"Records relating to human tissue — record-keeping requirements"},{"reg":"23(1)(3)","title":"Import and export of human tissue — import/export restrictions"},{"reg":"24(1)","title":"Distribution of human tissue — distribution requirements"},{"reg":"25(2)(3)(4)","title":"Adverse events — reporting requirements"},{"reg":"26(1)","title":"Traceability of human tissue"},{"reg":"27","title":"Preventing spread of communicable disease"},{"reg":"28","title":"Withdrawal of consent — obligations on withdrawal"},{"reg":"29","title":"Import of processed human tissue — restrictions"},{"reg":"30(1)(2)","title":"Notification of abnormal or incidental findings"},{"reg":"31(1)(2)(3)(4)(5)","title":"Keeping of records enabling identification of donor"},{"reg":"32(1)","title":"Other records to be kept"},{"reg":"33(1)","title":"Continuity of operations — contingency plan requirements"},{"reg":"34","title":"Transfer of human tissue to another human tissue bank"},{"reg":"35","title":"Tests on persons must be conducted by licensed persons or accredited laboratories"},{"reg":"36(1)(3)","title":"Outsourcing — restrictions on outsourcing human tissue banking activities"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_regs_ref":"reg 2(n) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-ODS-36","instrument":"Healthcare Services (Outpatient Dental Service) Regulations 2023","citation":"S 408/2023","sso_reference":"HSA2020-S408-2023","applies_to":"Licensees providing outpatient dental service","offence_regulation":"36","heading":"Offences","verbatim_offence_text":"36.—(1) A person who contravenes regulation 8, 9(a) or (f), 10(a), (h) or (i), 11(1) or (2), 13, 14(1) or (2), 18(1) or (2), 20(2), 25(1), 26 or 27(1) or (2) shall be guilty of an offence. [S 841/2023 wef 18/12/2023]\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"8, 9(a)(f), 10(a)(h)(i), 11(1)(2), 13, 14(1)(2), 18(1)(2), 20(2), 25(1), 26, 27(1)(2)","regulations_with_titles":[{"reg":"8","title":"Specified services — restrictions on specified dental services"},{"reg":"9(a)(f)","title":"Dentist requirements — specific sub-paragraphs on qualifications and scope"},{"reg":"10(a)(h)(i)","title":"Allied health professional requirements — specific sub-paragraphs"},{"reg":"11(1)(2)","title":"Dental clinic requirements — premises requirements"},{"reg":"13","title":"Equipment and instruments requirements"},{"reg":"14(1)(2)","title":"Infection control requirements"},{"reg":"18(1)(2)","title":"Patient health records — record-keeping requirements"},{"reg":"20(2)","title":"Referral of patients — referral requirements"},{"reg":"25(1)","title":"Itemisation of bill"},{"reg":"26","title":"Financial counselling"},{"reg":"27(1)(2)","title":"Continuity of care — care continuity requirements"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_regs_ref":"reg 2(p) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-ORD-34","instrument":"Healthcare Services (Outpatient Renal Dialysis Service) Regulations 2023","citation":"S 409/2023","sso_reference":"HSA2020-S409-2023","applies_to":"Licensees providing outpatient renal dialysis service","offence_regulation":"34","heading":"Offences","verbatim_offence_text":"34.—(1) A person who contravenes regulation 12(1) or (2), 14, 15, 23, 26, 27 or 28 shall be guilty of an offence.\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"12(1)(2), 14, 15, 23, 26, 27, 28","regulations_with_titles":[{"reg":"12(1)(2)","title":"Personnel requirements — staffing requirements for renal dialysis"},{"reg":"14","title":"Equipment requirements for renal dialysis"},{"reg":"15","title":"Water quality requirements for dialysis water"},{"reg":"23","title":"Patient assessment requirements"},{"reg":"26","title":"Infection control requirements"},{"reg":"27","title":"Incident reporting requirements"},{"reg":"28","title":"Records — record-keeping requirements"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_regs_ref":"reg 2(r) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-AR-68","instrument":"Healthcare Services (Assisted Reproduction Service) Regulations 2023","citation":"S 429/2023","sso_reference":"HSA2020-S429-2023","applies_to":"Licensees providing assisted reproduction service","offence_regulation":"68","heading":"Offences","verbatim_offence_text":"68.—(1) A person who contravenes regulation 11(1) or (2), 15(a) or (b), 16(a), (b), (c), (d), (e), (f), (j), (k) or (l), 18(1), (2), (3) or (4), 19, 20(1), (2), (3) or (4), 21, 22(1), 23, 24(1), 25(1), (2), (3), (4) or (5), 27(1), (4) or (5), 29, 30(1), 31(1) or (3), 34(1) or (3), 35, 38(1), 40, 41, 42(1), (2) or (3), 44(1), 46(1), 47(1), (2), (3) or (4), 52(1), 53(1), (2) or (3), 54(1), 56(1), 57(1), 58(1), 59 or 63(2) shall be guilty of an offence.\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"11(1)(2), 15(a)(b), 16(a)(b)(c)(d)(e)(f)(j)(k)(l), 18(1)(2)(3)(4), 19, 20(1)(2)(3)(4), 21, 22(1), 23, 24(1), 25(1)(2)(3)(4)(5), 27(1)(4)(5), 29, 30(1), 31(1)(3), 34(1)(3), 35, 38(1), 40, 41, 42(1)(2)(3), 44(1), 46(1), 47(1)(2)(3)(4), 52(1), 53(1)(2)(3), 54(1), 56(1), 57(1), 58(1), 59, 63(2)","regulations_categories":{"clinical_governance":"regs 11(1)(2) — clinical governance officer competency requirements","patient_eligibility_consent":"regs 15, 16, 18, 19, 20 — patient eligibility criteria and consent requirements","gamete_donation":"regs 21, 22(1), 23, 24(1), 25 — gamete donation restrictions and requirements","embryo_procedures":"regs 27, 29, 30(1), 31 — embryo creation, transfer and storage requirements","clinical_procedures":"regs 34, 35, 38(1) — clinical procedures in ART","laboratory_requirements":"regs 40, 41, 42 — embryology laboratory requirements","patient_information":"regs 44(1), 46(1), 47 — patient information and counselling requirements","records":"regs 52(1), 53, 54(1) — record-keeping requirements","donor_information":"regs 56(1), 57(1), 58(1) — donor information registry requirements","outsourcing":"reg 59 — outsourcing restrictions","miscellaneous":"reg 63(2) — financial counselling"},"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"compoundable":true,"composition_regs_ref":"reg 2(f) of HCS (Composition of Offences) Regulations 2023"}],"composition_of_offences":{"instrument":"Healthcare Services (Composition of Offences) Regulations 2023","citation":"S 618/2023","last_amended":"2 February 2024 (S 72/2024)","enabling_provision":"Section 47, Healthcare Services Act 2020","description":"Lists offences that may be compounded (settled out of court) by the Director-General","compoundable_offences":[{"ref":"2(a)","provision":"Act s.8(2), 9(2), 9A(3), 26(5)(6), 27(5), 29(3), 30(4)(5), 31(3), 31A(3), 31B(2), 31C(2), 33(10), 36(3)(4), 39(9), 41(5), 42(1), 43"},{"ref":"2(b)","provision":"Act s.9(1) as in force before 26 June 2023"},{"ref":"2(c)","provision":"AcuteHosp Regs reg 49(1)"},{"ref":"2(d)","provision":"Advertisement Regs reg 18(3)(4)(5)(6)(7)"},{"ref":"2(e)","provision":"ASC Regs reg 44(1)"},{"ref":"2(f)","provision":"Assisted Reproduction Regs reg 68(1)"},{"ref":"2(g)","provision":"Blood Banking Regs reg 24(1)"},{"ref":"2(h)","provision":"ClinLab/Rad Regs reg 48(1)"},{"ref":"2(i)","provision":"Community Hospital Regs reg 38(1)"},{"ref":"2(j)","provision":"Contingency Care Regs reg 30(1)"},{"ref":"2(k)","provision":"Cord Blood Banking Regs reg 26(1)"},{"ref":"2(l)","provision":"EAS/MTS Regs reg 22(1)"},{"ref":"2(m)","provision":"General Regs reg 50(1) or (1A)"},{"ref":"2(n)","provision":"Human Tissue Banking Regs reg 38(1)"},{"ref":"2(o)","provision":"Nuclear Medicine Regs reg 79(1)"},{"ref":"2(oa)","provision":"Nursing Home Regs reg 44(1)"},{"ref":"2(p)","provision":"Outpatient Dental Regs reg 36(1)"},{"ref":"2(q)","provision":"OMS Regs reg 38(1)"},{"ref":"2(r)","provision":"Outpatient Renal Dialysis Regs reg 34(1)"}]}}`;
+const KB_JSON = `{"metadata":{"title":"Healthcare Services Act 2020 (HCSA) — Regulatory Inspection Buddy Knowledge Base","description":"Comprehensive mapping of all offence-creating provisions under the HCSA 2020 and its subsidiary legislation. Source material: official PDF legislation downloaded from Singapore Statutes Online (sso.agc.gov.sg). For use by regulatory inspection officers.","version":"2.0","compiled_date":"2025-03-24","source_material":"PDF legislation downloaded from sso.agc.gov.sg, informal consolidated versions as at October 2024","parent_act_citation":"Healthcare Services Act 2020, No. 3 of 2020","administered_by":"Ministry of Health, Singapore","verification_notice":"Verify all provisions against the current consolidated version at https://sso.agc.gov.sg before taking enforcement action. This knowledge base is for reference only and does not constitute legal advice.","commencement_phases":{"phase_1":"3 January 2022 — Clinical laboratory, blood banking, radiological, emergency ambulance and medical transport services","phase_2":"26 June 2023 — Acute/community hospitals, outpatient medical/dental, assisted reproduction, ASC, human tissue banking, nuclear medicine, outpatient renal dialysis","phase_3":"18 December 2023 — Nursing home services; full HCSA implementation"}},"parent_act_offences":[{"id":"ACT-s8","section":"8(2)","heading":"Licensing of healthcare services","conduct":"Any person who provides or offers to provide a licensable healthcare service without a licence","duty_holder":"Any person","penalty":{"fine_max_sgd":100000,"imprisonment_max_months":24,"repeat_fine_max_sgd":200000,"note":"First offence: fine ≤\$100K or imprisonment ≤2yr or both. Repeat (qualifying conviction): fine ≤\$200K or imprisonment ≤2yr or both."},"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s9","section":"9(2)","heading":"Permanent premises, conveyances and service delivery mode to be approved","conduct":"A licensee that provides a licensable healthcare service at unapproved permanent premises, using an unapproved conveyance, or using an unapproved service delivery mode","duty_holder":"Licensee","penalty":{"fine_max_sgd":50000,"imprisonment_max_months":12,"repeat_fine_max_sgd":100000,"note":"First offence: fine ≤\$50K or imprisonment ≤12mo or both. Repeat (qualifying conviction): fine ≤\$100K or imprisonment ≤12mo or both."},"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s9A","section":"9A(3)","heading":"Specified service to be approved","conduct":"A licensee that provides a specified service without the Director-General's approval, or in a service delivery mode not approved for that specified service","duty_holder":"Licensee","penalty":{"fine_max_sgd":100000,"imprisonment_max_months":24,"repeat_fine_max_sgd":200000,"note":"First offence: fine ≤\$100K or imprisonment ≤2yr or both. Second or subsequent: fine ≤\$200K or imprisonment ≤2yr or both."},"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s26","section":"26(5) and (6)","heading":"Ethics review","conduct":"A licensee that fails to comply with obligations relating to ethics review (clinical ethics committee requirements)","duty_holder":"Licensee","penalty":{"fine_max_sgd":50000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s27","section":"27(5)","heading":"Record-keeping on healthcare service","conduct":"A licensee that fails to keep and maintain records as required, or records matters inaccurately or incompletely","duty_holder":"Licensee","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":false},"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s28","section":"28(5)","heading":"Approval of employment of individuals by certain licensees","conduct":"A section 28 licensee that employs a restricted individual without the Director's prior written approval","duty_holder":"Section 28 licensee (prescribed licensees under s.28)","penalty":{"fine_max_sgd":50000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s29","section":"29(3)","heading":"Use of term or name","conduct":"A licensee that uses a term or name that incorrectly describes a licensable healthcare service it is authorised to provide, or uses 'Singapore' or 'National' without approval, or uses misleading terms","duty_holder":"Licensee","penalty":{"fine_max_sgd":50000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s30","section":"30(4) and (5)","heading":"Use of title, qualifications etc.","conduct":"A licensee that makes representations regarding the specialty of healthcare professionals contrary to s.30 requirements","duty_holder":"Licensee","penalty":{"fine_max_sgd":10000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s31","section":"31(3)","heading":"Advertisement of licensable healthcare services","conduct":"A person who advertises a licensable healthcare service without being a licensee or acting on the authority of a licensee; or who fails to ensure the advertisement complies with prescribed requirements","duty_holder":"Licensee or person acting on licensee's authority","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s31A","section":"31A(3)","heading":"Advertisement of non-licensable healthcare services","conduct":"A person who advertises a non-licensable healthcare service in a manner that contravenes prescribed requirements","duty_holder":"Any person","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s31B","section":"31B(2)","heading":"Advertisement of specialties","conduct":"A person who advertises healthcare specialties contrary to the requirements in s.31B","duty_holder":"Any person","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s31C","section":"31C(2)","heading":"Advertisement directions","conduct":"A person who fails to comply with a direction given by the Director-General under s.31C relating to advertisements","duty_holder":"Any person","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s33","section":"33(10)","heading":"Step-in orders","conduct":"A designated licensee that fails to comply with obligations under a step-in order","duty_holder":"Designated licensee","penalty":{"fine_max_sgd":50000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s36","section":"36(3) and (4)","heading":"Power to require information","conduct":"A person who fails to comply with a notice to provide information/documents; or who intentionally alters, suppresses or destroys documents required; or who makes false/misleading statements","duty_holder":"Any person","penalty":{"fine_max_sgd":10000,"imprisonment_max_months":12,"continuing_offence":false},"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s39","section":"39(9)","heading":"Directions to licensees","conduct":"A licensee that fails to comply with a direction given under s.39","duty_holder":"Licensee","penalty":{"fine_max_sgd":50000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s41","section":"41(5)","heading":"Powers of entry and inspection","conduct":"A person who obstructs, hinders or impedes an authorised officer in the exercise of inspection powers","duty_holder":"Any person","penalty":{"fine_max_sgd":50000,"imprisonment_max_months":12,"continuing_offence":false},"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s42","section":"42(1)","heading":"False statements etc.","conduct":"A person who, in any proceedings or application under the Act, makes a false or misleading statement in a material particular knowing or recklessly as to its falsity","duty_holder":"Any person","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":false},"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"},{"id":"ACT-s43","section":"43","heading":"Offences by bodies corporate etc.","conduct":"Officers of a body corporate that commits an offence under the Act where the offence was committed with the officer's consent or connivance, or attributable to the officer's neglect","duty_holder":"Officers of body corporate","penalty":{"note":"Same penalty as for the offence committed by the body corporate"},"composition_reg_ref":"s.2(a) of HCS (Composition of Offences) Regulations 2023"}],"subsidiary_legislation_offences":[{"id":"SL-ADV-18","instrument":"Healthcare Services (Advertisement) Regulations 2021","citation":"S 1033/2021","sso_reference":"HSA2020-S1033-2021","offence_regulation":"18","heading":"Offences","verbatim_offence_text":"18.—(1) A licensee who contravenes regulation 5(1), 6(1), (4) or (5), 7, 8(2) or 15(1) shall be guilty of an offence under section 31(3) of the Act for failure to comply with section 31(2) of the Act and shall be liable on conviction to be punished in accordance with section 31(3) of the Act.\\n(2) An authorised person who contravenes regulation 6(1), (4) or (5), 7, 8(2) or 15(1) shall be guilty of an offence under section 31(3) of the Act for failure to comply with section 31(2) of the Act and shall be liable on conviction to be punished in accordance with section 31(3) of the Act.\\n(3) A licensee who contravenes regulation 9(2) or (3), 10, 11, 13(1), 14(1) or 16(1) or (3) shall be guilty of an offence and shall be liable on conviction to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both and, in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.\\n(4) An authorised person who contravenes regulation 13(2), 14(1), or 16(1) or (3) shall be guilty of an offence and shall be liable on conviction to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both and, in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.\\n(5) A licensee who, without reasonable cause, contravenes regulation 17(1) or (2), or does not comply with an order made by the Director-General under regulation 17(8)(a) shall be guilty of an offence [same penalty].\\n(6) An authorised person who, without reasonable cause, contravenes regulation 17(3) or (6), or does not comply with an order under regulation 17(8)(a) shall be guilty of an offence [same penalty].\\n(7) An authorised publisher who contravenes regulation 17(4) or does not comply with an order under regulation 17(8)(b) shall be guilty of an offence [same penalty].","sub_provisions":[{"sub":"(1)","duty_holder":"Licensee","regulations_cited":["5(1)","6(1)","6(4)","6(5)","7","8(2)","15(1)"],"regulations_summary":"Publication of advertisements; disclosure on digital platforms; prohibited content; advertiser's obligations","penalty_type":"parent_act_section","penalty_ref":"section 31(3) of the Act","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000}},{"sub":"(2)","duty_holder":"Authorised person","regulations_cited":["6(1)","6(4)","6(5)","7","8(2)","15(1)"],"regulations_summary":"Authorised person's obligations for digital platforms; prohibited content; advertiser's obligations","penalty_type":"parent_act_section","penalty_ref":"section 31(3) of the Act","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000}},{"sub":"(3)","duty_holder":"Licensee","regulations_cited":["9(2)","9(3)","10","11","13(1)","14(1)","16(1)","16(3)"],"regulations_summary":"Comparative advertising; testimonials/endorsements; before/after treatment images; mandatory disclosures; language/character requirements; hyperlinks","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000}},{"sub":"(4)","duty_holder":"Authorised person","regulations_cited":["13(2)","14(1)","16(1)","16(3)"],"regulations_summary":"Mandatory disclosures by authorised persons; language/character requirements; hyperlinks","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000}},{"sub":"(5)","duty_holder":"Licensee (without reasonable cause)","regulations_cited":["17(1)","17(2)","17(8)(a) order"],"regulations_summary":"Compliance with Regulations — licensee's duty to comply with advertisement regulations and DG orders","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000}},{"sub":"(6)","duty_holder":"Authorised person (without reasonable cause)","regulations_cited":["17(3)","17(6)","17(8)(a) order"],"regulations_summary":"Compliance with Regulations — authorised person's compliance duty","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000}},{"sub":"(7)","duty_holder":"Authorised publisher","regulations_cited":["17(4)","17(8)(b) order"],"regulations_summary":"Compliance with Regulations — authorised publisher's compliance duty","penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000}}],"composition_regs_ref":"reg 2(d) of HCS (Composition of Offences) Regulations 2023 (reg 18(3)-(7) only)"},{"id":"SL-GEN-50","instrument":"Healthcare Services (General) Regulations 2021","citation":"S 1035/2021","sso_reference":"HSA2020-S1035-2021","applies_to":"All licensees of all licensable healthcare services","offence_regulation":"50","heading":"Offence","verbatim_offence_text":"50.—(1) Any person who contravenes regulation 8(2), 24, 25, 26(3)(b), (c) or (d), 27, 28, 30(1), (2) or (3), 31, 32, 33(1), 35, 36, 38, 39(1), 41, 44(1), 45 or 47(1) shall be guilty of an offence. [S 414/2023 wef 26/06/2023]\\n(1A) Where (a) a licensee contravenes regulation 29(2)(a) or (3) in relation to any medicinal product or health product dispensed or administered to a patient; and (b) the contravention results in the patient suffering any harm, the licensee shall be guilty of an offence. [S 414/2023 wef 26/06/2023]\\n(2) A person who is guilty of an offence under paragraph (1) or (1A) shall be liable on conviction to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both and, in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","sub_provisions":[{"sub":"(1)","duty_holder":"Any person","regulations_cited_raw":"8(2), 24, 25, 26(3)(b), (c) or (d), 27, 28, 30(1), (2) or (3), 31, 32, 33(1), 35, 36, 38, 39(1), 41, 44(1), 45, 47(1)","regulations_with_titles":[{"reg":"8(2)","title":"Voluntary cessation of licensable healthcare service or surrender of licence — restrictions on cessation"},{"reg":"24","title":"Premises, conveyances and equipment — general requirements"},{"reg":"25","title":"Security of equipment data"},{"reg":"26(3)(b)(c)(d)","title":"Use of approved permanent premises or approved conveyance for other purposes — prohibited uses"},{"reg":"27","title":"Purchase of medicinal products and health products"},{"reg":"28","title":"Prescription of medicinal products and health products"},{"reg":"30(1)(2)(3)","title":"Storage and disposal of medicinal products and health products"},{"reg":"31","title":"Delivery and transportation of medicinal products and health products"},{"reg":"32","title":"Collection of specimens"},{"reg":"33(1)","title":"Packaging and transportation of specimens"},{"reg":"35","title":"Safeguard against abuse and neglect"},{"reg":"36","title":"Communications with patients"},{"reg":"38","title":"Protection of patient health records"},{"reg":"39(1)","title":"Continuity of care where licensee intends to cease provision of licensable healthcare service"},{"reg":"41","title":"Infection control"},{"reg":"44(1)","title":"Management of biohazardous materials and sharps"},{"reg":"45","title":"Incident escalation"},{"reg":"47(1)","title":"Business continuity"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000}},{"sub":"(1A)","duty_holder":"Licensee","condition":"Licensee contravenes reg 29(2)(a) or (3) AND contravention results in patient suffering harm","regulations_cited_raw":"29(2)(a) or (3)","regulations_with_titles":[{"reg":"29(2)(a)/(3)","title":"Preparation of medicinal products and health products, and dispensing and administration — requirements on dispensing/administering to patients"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000}}],"composition_regs_ref":"reg 2(m) of HCS (Composition of Offences) Regulations 2023 (reg 50(1) or (1A))"},{"id":"SL-CLR-48","instrument":"Healthcare Services (Clinical Laboratory Service and Radiological Service) Regulations 2021","citation":"S 1036/2021","sso_reference":"HSA2020-S1036-2021","applies_to":"Licensees providing clinical laboratory service or radiological service","offence_regulation":"48","heading":"Offence","verbatim_offence_text":"48.—(1) Any person that contravenes regulation 11(1), 12(1), (2) or (3), 12A(2), (3) or (4), 13, 14(1), 15(1) or (2), 19(1), (2) or (3), 20, 21(1), 22, 23(1), 23A, 25, 27(1), 28, 29(1), (2) or (3), 30, 31(1), (2) and (3), 32, 34(2), 36, 37, 38 or 41(1) or (4) shall be guilty of an offence. [S 417/2023 wef 26/06/2023]\\n(2) A person that is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"11(1), 12(1)(2)(3), 12A(2)(3)(4), 13, 14(1), 15(1)(2), 19(1)(2)(3), 20, 21(1), 22, 23(1), 23A, 25, 27(1), 28, 29(1)(2)(3), 30, 31(1)(2)(3), 32, 34(2), 36, 37, 38, 41(1)(4)","regulations_with_titles":[{"reg":"11(1)","title":"Quality management system"},{"reg":"12(1)(2)(3)","title":"Equipment and fittings"},{"reg":"12A(2)(3)(4)","title":"Additional requirements where applicable service provided using approved conveyance"},{"reg":"13","title":"Services may be provided to patients only where ordered by requestor"},{"reg":"14(1)","title":"Safety programme"},{"reg":"15(1)(2)","title":"Licensee must ensure personnel comply with safety plans"},{"reg":"19(1)(2)(3)","title":"Handling and transport of specimens (clinical lab)"},{"reg":"20","title":"Tests must have clinical utility"},{"reg":"21(1)","title":"Tests must be accurate"},{"reg":"22","title":"Standards for reagents"},{"reg":"23(1)","title":"Chemical hygiene plan and facilities"},{"reg":"23A","title":"Tests on radioactive specimens"},{"reg":"25","title":"Quality control of tests"},{"reg":"27(1)","title":"Required qualifications for conducting radiological examinations"},{"reg":"28","title":"Handling of radiological images"},{"reg":"29(1)(2)(3)","title":"General safeguards for radiological examinations"},{"reg":"30","title":"Specific safeguards where radiological examination involves contrast agent"},{"reg":"31(1)(2)(3)","title":"Specific safeguards where radiological examination involves anaesthesia or sedation"},{"reg":"32","title":"Testing of specimen (radiological)"},{"reg":"34(2)","title":"Written reports must be issued — requirements for radiological reports"},{"reg":"36","title":"Urgent notification of results or findings in emergency"},{"reg":"37","title":"Identification and review of incidental or abnormal findings"},{"reg":"38","title":"Notification of error"},{"reg":"41(1)(4)","title":"Outsourcing of tests or radiological examinations — restrictions on outsourcing"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_regs_ref":"reg 2(h) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-CB-26","instrument":"Healthcare Services (Cord Blood Banking Service) Regulations 2021","citation":"S 1037/2021","sso_reference":"HSA2020-S1037-2021","applies_to":"Licensees providing cord blood banking service","offence_regulation":"26","heading":"Offence","verbatim_offence_text":"26.—(1) Any person who contravenes regulation 5, 8(1), 8A(1), 8B, 9(5), 10(1), (5) or (6), 11, 12, 13(1), 14(1) or (2), 15(1), 16(1), (3), (4) or (5), 17(2) or (4), 18, 19, 20(1), (2), (3) or (4), 21(1) or (3), 22(2), (3) or (4), 23(1) or 24(1) or (3) shall be guilty of an offence. [S 389/2023 wef 26/06/2023]\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both and, in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"5, 8(1), 8A(1), 8B, 9(5), 10(1)(5)(6), 11, 12, 13(1), 14(1)(2), 15(1), 16(1)(3)(4)(5), 17(2)(4), 18, 19, 20(1)(2)(3)(4), 21(1)(3), 22(2)(3)(4), 23(1), 24(1)(3)","regulations_with_titles":[{"reg":"5","title":"Competency requirements for clinical governance officer"},{"reg":"8(1)","title":"Consent of mother"},{"reg":"8A(1)","title":"Cooling-off period"},{"reg":"8B","title":"Informed consent for collection of cord blood"},{"reg":"9(5)","title":"Collection of cord blood — restrictions on collection"},{"reg":"10(1)(5)(6)","title":"Processing of cord blood — processing requirements and restrictions"},{"reg":"11","title":"Testing of cord blood"},{"reg":"12","title":"Quarantine of cord blood"},{"reg":"13(1)","title":"Storage of cord blood — storage requirements"},{"reg":"14(1)(2)","title":"Release of cord blood — release conditions"},{"reg":"15(1)","title":"Distribution of cord blood — distribution requirements"},{"reg":"16(1)(3)(4)(5)","title":"Records relating to cord blood — record-keeping requirements"},{"reg":"17(2)(4)","title":"Import and export of cord blood — import/export restrictions"},{"reg":"18","title":"Infection control"},{"reg":"19","title":"Traceability of cord blood"},{"reg":"20(1)(2)(3)(4)","title":"Adverse events — reporting and management requirements"},{"reg":"21(1)(3)","title":"Outsourcing — restrictions on outsourcing cord blood banking activities"},{"reg":"22(2)(3)(4)","title":"Continuity of operations — contingency planning requirements"},{"reg":"23(1)","title":"Continuity of operations — transfer provisions"},{"reg":"24(1)(3)","title":"Outsourcing — restricted outsourcing arrangements"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_regs_ref":"reg 2(k) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-BB-24","instrument":"Healthcare Services (Blood Banking Service) Regulations 2021","citation":"S 1038/2021","sso_reference":"HSA2020-S1038-2021","applies_to":"Licensees providing blood banking service","offence_regulation":"24","heading":"Offence","verbatim_offence_text":"24.—(1) Any person that contravenes regulation 3A, 8(1) or (2), 10, 11(1) or (3), 11A(1), 11B, 12, 13(2), (4), (5) or (6), 14(1), 15, 16(1), (3) or (4), 17(1), (3) or (5), 18(1), (2) or (5), 19(1), 20(1), (2), (3), (4) or (5), 21 or 22(1) shall be guilty of an offence. [S 388/2023 wef 26/06/2023]\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both and, in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"3A, 8(1)(2), 10, 11(1)(3), 11A(1), 11B, 12, 13(2)(4)(5)(6), 14(1), 15, 16(1)(3)(4), 17(1)(3)(5), 18(1)(2)(5), 19(1), 20(1)(2)(3)(4)(5), 21, 22(1)","regulations_with_titles":[{"reg":"3A","title":"Application of Regulations — certain provisions apply to non-licensees collecting blood for the service"},{"reg":"8(1)(2)","title":"Consent — consent requirements for blood donation"},{"reg":"10","title":"Haemoglobin screening"},{"reg":"11(1)(3)","title":"Testing — tests required for each donation"},{"reg":"11A(1)","title":"Additional testing requirements"},{"reg":"11B","title":"Lookback procedure"},{"reg":"12","title":"Labelling of blood and blood components"},{"reg":"13(2)(4)(5)(6)","title":"Processing and preparation of blood and blood components — processing requirements"},{"reg":"14(1)","title":"Storage of blood and blood components"},{"reg":"15","title":"Quarantine of blood and blood components"},{"reg":"16(1)(3)(4)","title":"Release of blood and blood components — release conditions"},{"reg":"17(1)(3)(5)","title":"Distribution of blood and blood components — distribution requirements"},{"reg":"18(1)(2)(5)","title":"Records — record-keeping requirements"},{"reg":"19(1)","title":"Import and export — restrictions on import/export"},{"reg":"20(1)(2)(3)(4)(5)","title":"Adverse reactions and events — reporting and management"},{"reg":"21","title":"Traceability of blood and blood components"},{"reg":"22(1)","title":"Outsourcing — restrictions on outsourcing blood banking activities"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_regs_ref":"reg 2(g) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-EAS-22","instrument":"Healthcare Services (Emergency Ambulance Service and Medical Transport Service) Regulations 2022","citation":"S 2/2022","sso_reference":"HSA2020-S2-2022","applies_to":"Licensees providing emergency ambulance service or medical transport service","offence_regulation":"22","heading":"Offence","verbatim_offence_text":"22.—(1) Any person who contravenes regulation 8(1), 11(1), 12(1), 15(1), 16(1), (1A), (1B) or (6), 17(1) or (3), 20 or 21 shall be guilty of an offence. [S 1050/2024 wef 01/01/2025]\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both and, in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"8(1), 11(1), 12(1), 15(1), 16(1)(1A)(1B)(6), 17(1)(3), 20, 21","regulations_with_titles":[{"reg":"8(1)","title":"Qualifications and training of emergency medical technicians and transport crew members"},{"reg":"11(1)","title":"Emergency ambulance vehicles — vehicle requirements"},{"reg":"12(1)","title":"Medical equipment for emergency ambulance service — equipment requirements"},{"reg":"15(1)","title":"Medical equipment for medical transport service — equipment requirements"},{"reg":"16(1)(1A)(1B)(6)","title":"Response time standards — response time obligations for emergency ambulance service"},{"reg":"17(1)(3)","title":"Itemisation of bill — billing requirements"},{"reg":"20","title":"Infection control"},{"reg":"21","title":"Outsourcing prohibited"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_regs_ref":"reg 2(l) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-AH-49","instrument":"Healthcare Services (Acute Hospital Service) Regulations 2023","citation":"S 424/2023","sso_reference":"HSA2020-S424-2023","applies_to":"Licensees providing acute hospital service","offence_regulation":"49","heading":"Offences","verbatim_offence_text":"49.—(1) A person who contravenes regulation 6, 8(1) or (2), 9(1) or (2), 10(1) or (2), 12(1) or (2), 16, 17(1) or (2), 18, 20(1) or (2), 23(1) or (2), 24(1) or (2), 33(1) or (2), 34(1) or (2), 35(1) or (2), 36(1) or (2), 40(1), 41(1) or 42(1) shall be guilty of an offence.\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"6, 8(1)(2), 9(1)(2), 10(1)(2), 12(1)(2), 16, 17(1)(2), 18, 20(1)(2), 23(1)(2), 24(1)(2), 33(1)(2), 34(1)(2), 35(1)(2), 36(1)(2), 40(1), 41(1), 42(1)","regulations_with_titles":[{"reg":"6","title":"Acute hospital must have appropriate facilities and infrastructure"},{"reg":"8(1)(2)","title":"Medical and ancillary staff requirements"},{"reg":"9(1)(2)","title":"Nursing staff requirements"},{"reg":"10(1)(2)","title":"Allied health staff requirements"},{"reg":"12(1)(2)","title":"Operating theatre and procedure room requirements"},{"reg":"16","title":"Restrictions on transferring patients"},{"reg":"17(1)(2)","title":"Patient rights and consent — consent requirements"},{"reg":"18","title":"Patient's rights to information"},{"reg":"20(1)(2)","title":"Informed consent for surgery or invasive procedure"},{"reg":"23(1)(2)","title":"Incident reporting — clinical incidents"},{"reg":"24(1)(2)","title":"Patient safety and quality programmes"},{"reg":"33(1)(2)","title":"Visitor policy"},{"reg":"34(1)(2)","title":"Restraints — restraint policy and requirements"},{"reg":"35(1)(2)","title":"Seclusion — seclusion policy and requirements"},{"reg":"36(1)(2)","title":"Mental health inpatient provisions"},{"reg":"40(1)","title":"Itemisation of bill"},{"reg":"41(1)","title":"Financial counselling"},{"reg":"42(1)","title":"Discharge planning"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_regs_ref":"reg 2(c) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-CH-38","instrument":"Healthcare Services (Community Hospital Service) Regulations 2023","citation":"S 423/2023","sso_reference":"HSA2020-S423-2023","applies_to":"Licensees providing community hospital service","offence_regulation":"38","heading":"Offences","verbatim_offence_text":"38.—(1) A person who contravenes regulation 6, 8(1) or (2), 9(1) or (2), 11(1) or (2), 15, 19(1) or (2), 20, 24(1) or (2), 25(1) or (2), 26(1) or (2), 27(1) or (2) or 31(1) shall be guilty of an offence.\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"6, 8(1)(2), 9(1)(2), 11(1)(2), 15, 19(1)(2), 20, 24(1)(2), 25(1)(2), 26(1)(2), 27(1)(2), 31(1)","regulations_with_titles":[{"reg":"6","title":"Community hospital must have appropriate facilities and infrastructure"},{"reg":"8(1)(2)","title":"Medical and nursing staff requirements"},{"reg":"9(1)(2)","title":"Nursing staff ratios"},{"reg":"11(1)(2)","title":"Allied health staff requirements"},{"reg":"15","title":"Admission of residents"},{"reg":"19(1)(2)","title":"Patient rights — rights to information and consent"},{"reg":"20","title":"Incident reporting"},{"reg":"24(1)(2)","title":"Restraints — restraint requirements"},{"reg":"25(1)(2)","title":"Seclusion — seclusion requirements"},{"reg":"26(1)(2)","title":"Mental health provisions"},{"reg":"27(1)(2)","title":"Visitor policy"},{"reg":"31(1)","title":"Financial counselling"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_regs_ref":"reg 2(i) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-OMS-38","instrument":"Healthcare Services (Outpatient Medical Service) Regulations 2023","citation":"S 410/2023","sso_reference":"HSA2020-S410-2023","applies_to":"Licensees providing outpatient medical service","offence_regulation":"38","heading":"Offences","verbatim_offence_text":"38.—(1) A person who contravenes regulation 9, 10(a) or (f), 11(a), (h) or (i), 12(1) or (2), 15, 16(1) or (2), 24(1), 25, 26(1) or (2) or 32 shall be guilty of an offence. [S 840/2023 wef 18/12/2023]\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"9, 10(a)(f), 11(a)(h)(i), 12(1)(2), 15, 16(1)(2), 24(1), 25, 26(1)(2), 32","regulations_with_titles":[{"reg":"9","title":"Specified services — restrictions on specified services"},{"reg":"10(a)(f)","title":"Medical practitioner requirements — specific obligation sub-paragraphs"},{"reg":"11(a)(h)(i)","title":"Dentist and allied health professional requirements — specific obligation sub-paragraphs"},{"reg":"12(1)(2)","title":"Clinic requirements — physical premises requirements"},{"reg":"15","title":"Equipment and instruments requirements"},{"reg":"16(1)(2)","title":"Infection control requirements"},{"reg":"24(1)","title":"Patient health records — record-keeping requirements"},{"reg":"25","title":"Continuity of care requirements"},{"reg":"26(1)(2)","title":"Referral and transfer of patients"},{"reg":"32","title":"Financial counselling"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_regs_ref":"reg 2(q) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-ASC-44","instrument":"Healthcare Services (Ambulatory Surgical Centre Service) Regulations 2023","citation":"S 411/2023","sso_reference":"HSA2020-S411-2023","applies_to":"Licensees providing ambulatory surgical centre service","offence_regulation":"44","heading":"Offences","verbatim_offence_text":"44.—(1) A person who contravenes regulation 11, 16(a), 18, 19, 23(1), 24(1) or (2), 25(1) or (2), 27, 29, 30, 37, 38 or 39 shall be guilty of an offence.\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"11, 16(a), 18, 19, 23(1), 24(1)(2), 25(1)(2), 27, 29, 30, 37, 38, 39","regulations_with_titles":[{"reg":"11","title":"Medical, nursing and allied health staff requirements"},{"reg":"16(a)","title":"Operating theatre requirements — specific sub-paragraph on sterility"},{"reg":"18","title":"Patient assessment prior to procedure"},{"reg":"19","title":"Anaesthesia management requirements"},{"reg":"23(1)","title":"Incident reporting"},{"reg":"24(1)(2)","title":"Patient rights — rights to information and consent"},{"reg":"25(1)(2)","title":"Informed consent for surgical procedure"},{"reg":"27","title":"Post-procedure care"},{"reg":"29","title":"Infection control"},{"reg":"30","title":"Sterilisation and disinfection requirements"},{"reg":"37","title":"Itemisation of bill"},{"reg":"38","title":"Financial counselling"},{"reg":"39","title":"Discharge planning"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_regs_ref":"reg 2(e) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-NH-44","instrument":"Healthcare Services (Nursing Home Service) Regulations 2023","citation":"S 849/2023","sso_reference":"HSA2020-S849-2023","applies_to":"Licensees providing nursing home service","offence_regulation":"44","heading":"Offences","verbatim_offence_text":"44.—(1) A person who contravenes regulation 11(b) or (j), 12(1) or (2), 13(b), 14(1) or (2), 16(1), (2), (3) or (4), 25, 35(1) or (2), 36(1) or 37(1) shall be guilty of an offence.\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"11(b)(j), 12(1)(2), 13(b), 14(1)(2), 16(1)(2)(3)(4), 25, 35(1)(2), 36(1), 37(1)","regulations_with_titles":[{"reg":"11(b)(j)","title":"Nursing home requirements — specific facility requirements (sub-paragraphs b and j)"},{"reg":"12(1)(2)","title":"Medical and nursing staff requirements"},{"reg":"13(b)","title":"Allied health staff requirements — specific sub-paragraph"},{"reg":"14(1)(2)","title":"Resident care manager requirements"},{"reg":"16(1)(2)(3)(4)","title":"Admission of residents — admission criteria and procedures"},{"reg":"25","title":"Incident reporting"},{"reg":"35(1)(2)","title":"Restraints — restraint requirements"},{"reg":"36(1)","title":"Seclusion requirements"},{"reg":"37(1)","title":"Physical needs of residents — care standards"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_regs_ref":"reg 2(oa) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-NM-79","instrument":"Healthcare Services (Nuclear Medicine Service) Regulations 2023","citation":"S 412/2023","sso_reference":"HSA2020-S412-2023","applies_to":"Licensees providing nuclear medicine service (nuclear medicine assay service or nuclear medicine imaging service)","offence_regulation":"79","heading":"Offences","verbatim_offence_text":"79.—(1) A person who contravenes regulation 13(1), 14(1), (2) and (3)(a) and (e), 15(1), 16(1), (2), (3) or (4), 17, 19, 20, 21, 23(1), 25, 26(1), (2) or (3), 27(1), (2), (3) or (4), 29, 30(1), 31, 32(1), 40, 41(1) or (2), 42, 43, 46, 48, 49, 50, 53, 55(1), (2) or (3), 56(1), 57, 59, 65, 66, 67, 70(1) or 71(1) shall be guilty of an offence.\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"13(1), 14(1)(2)(3)(a)(e), 15(1), 16(1)(2)(3)(4), 17, 19, 20, 21, 23(1), 25, 26(1)(2)(3), 27(1)(2)(3)(4), 29, 30(1), 31, 32(1), 40, 41(1)(2), 42, 43, 46, 48, 49, 50, 53, 55(1)(2)(3), 56(1), 57, 59, 65, 66, 67, 70(1), 71(1)","regulations_categories":{"personnel":"regs 13(1), 14, 15(1) — competency and qualification requirements for nuclear medicine personnel","equipment_safety":"regs 16, 17, 19, 20, 21 — radiation safety equipment, personal protective equipment, dosimetry","clinical_lab_requirements":"regs 23(1), 25, 26, 27, 29 — nuclear medicine assay specific requirements","imaging_requirements":"regs 30(1), 31, 32(1) — nuclear medicine imaging specific requirements","radiation_safety":"regs 40, 41, 42, 43, 46 — radiation safety plans and procedures","reporting":"regs 48, 49, 50, 53 — reporting of results","patient_safety":"regs 55, 56(1), 57, 59 — patient safety and consent","records":"regs 65, 66, 67 — record-keeping requirements","miscellaneous":"regs 70(1), 71(1) — price transparency and outsourcing restrictions"},"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_regs_ref":"reg 2(o) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-HTB-38","instrument":"Healthcare Services (Human Tissue Banking Service) Regulations 2023","citation":"S 413/2023","sso_reference":"HSA2020-S413-2023","applies_to":"Licensees providing human tissue banking service","offence_regulation":"38","heading":"Offences","verbatim_offence_text":"38.—(1) A person who contravenes regulation 10(1), 11(1), 12(1), 13(1), 14, 16(4), (5) or (7), 17(1), 18(1), 19(1), 20(1), 21(1), (2) or (3), 22(1), (2), (3) or (4), 23(1) or (3), 24(1), 25(2), (3) or (4), 26(1), 27, 28, 29, 30(1) or (2), 31(1), (2), (3), (4) or (5), 32(1), 33(1), 34, 35 or 36(1) or (3) shall be guilty of an offence.\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"10(1), 11(1), 12(1), 13(1), 14, 16(4)(5)(7), 17(1), 18(1), 19(1), 20(1), 21(1)(2)(3), 22(1)(2)(3)(4), 23(1)(3), 24(1), 25(2)(3)(4), 26(1), 27, 28, 29, 30(1)(2), 31(1)(2)(3)(4)(5), 32(1), 33(1), 34, 35, 36(1)(3)","regulations_with_titles":[{"reg":"10(1)","title":"Eligibility of donors — eligibility criteria"},{"reg":"11(1)","title":"Consent for collection — consent requirements"},{"reg":"12(1)","title":"Consent for use — consent requirements for use of human tissue"},{"reg":"13(1)","title":"Consent for testing — testing consent requirements"},{"reg":"14","title":"Collection of human tissue — collection requirements"},{"reg":"16(4)(5)(7)","title":"Infectious disease testing — specific testing requirements"},{"reg":"17(1)","title":"Handling of human tissue — handling requirements"},{"reg":"18(1)","title":"Processing of human tissue — processing requirements"},{"reg":"19(1)","title":"Quarantine of human tissue"},{"reg":"20(1)","title":"Storage of human tissue — storage requirements"},{"reg":"21(1)(2)(3)","title":"Release of human tissue for transplant — release requirements"},{"reg":"22(1)(2)(3)(4)","title":"Records relating to human tissue — record-keeping requirements"},{"reg":"23(1)(3)","title":"Import and export of human tissue — import/export restrictions"},{"reg":"24(1)","title":"Distribution of human tissue — distribution requirements"},{"reg":"25(2)(3)(4)","title":"Adverse events — reporting requirements"},{"reg":"26(1)","title":"Traceability of human tissue"},{"reg":"27","title":"Preventing spread of communicable disease"},{"reg":"28","title":"Withdrawal of consent — obligations on withdrawal"},{"reg":"29","title":"Import of processed human tissue — restrictions"},{"reg":"30(1)(2)","title":"Notification of abnormal or incidental findings"},{"reg":"31(1)(2)(3)(4)(5)","title":"Keeping of records enabling identification of donor"},{"reg":"32(1)","title":"Other records to be kept"},{"reg":"33(1)","title":"Continuity of operations — contingency plan requirements"},{"reg":"34","title":"Transfer of human tissue to another human tissue bank"},{"reg":"35","title":"Tests on persons must be conducted by licensed persons or accredited laboratories"},{"reg":"36(1)(3)","title":"Outsourcing — restrictions on outsourcing human tissue banking activities"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_regs_ref":"reg 2(n) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-ODS-36","instrument":"Healthcare Services (Outpatient Dental Service) Regulations 2023","citation":"S 408/2023","sso_reference":"HSA2020-S408-2023","applies_to":"Licensees providing outpatient dental service","offence_regulation":"36","heading":"Offences","verbatim_offence_text":"36.—(1) A person who contravenes regulation 8, 9(a) or (f), 10(a), (h) or (i), 11(1) or (2), 13, 14(1) or (2), 18(1) or (2), 20(2), 25(1), 26 or 27(1) or (2) shall be guilty of an offence. [S 841/2023 wef 18/12/2023]\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"8, 9(a)(f), 10(a)(h)(i), 11(1)(2), 13, 14(1)(2), 18(1)(2), 20(2), 25(1), 26, 27(1)(2)","regulations_with_titles":[{"reg":"8","title":"Specified services — restrictions on specified dental services"},{"reg":"9(a)(f)","title":"Dentist requirements — specific sub-paragraphs on qualifications and scope"},{"reg":"10(a)(h)(i)","title":"Allied health professional requirements — specific sub-paragraphs"},{"reg":"11(1)(2)","title":"Dental clinic requirements — premises requirements"},{"reg":"13","title":"Equipment and instruments requirements"},{"reg":"14(1)(2)","title":"Infection control requirements"},{"reg":"18(1)(2)","title":"Patient health records — record-keeping requirements"},{"reg":"20(2)","title":"Referral of patients — referral requirements"},{"reg":"25(1)","title":"Itemisation of bill"},{"reg":"26","title":"Financial counselling"},{"reg":"27(1)(2)","title":"Continuity of care — care continuity requirements"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_regs_ref":"reg 2(p) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-ORD-34","instrument":"Healthcare Services (Outpatient Renal Dialysis Service) Regulations 2023","citation":"S 409/2023","sso_reference":"HSA2020-S409-2023","applies_to":"Licensees providing outpatient renal dialysis service","offence_regulation":"34","heading":"Offences","verbatim_offence_text":"34.—(1) A person who contravenes regulation 12(1) or (2), 14, 15, 23, 26, 27 or 28 shall be guilty of an offence.\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"12(1)(2), 14, 15, 23, 26, 27, 28","regulations_with_titles":[{"reg":"12(1)(2)","title":"Personnel requirements — staffing requirements for renal dialysis"},{"reg":"14","title":"Equipment requirements for renal dialysis"},{"reg":"15","title":"Water quality requirements for dialysis water"},{"reg":"23","title":"Patient assessment requirements"},{"reg":"26","title":"Infection control requirements"},{"reg":"27","title":"Incident reporting requirements"},{"reg":"28","title":"Records — record-keeping requirements"}],"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_regs_ref":"reg 2(r) of HCS (Composition of Offences) Regulations 2023"},{"id":"SL-AR-68","instrument":"Healthcare Services (Assisted Reproduction Service) Regulations 2023","citation":"S 429/2023","sso_reference":"HSA2020-S429-2023","applies_to":"Licensees providing assisted reproduction service","offence_regulation":"68","heading":"Offences","verbatim_offence_text":"68.—(1) A person who contravenes regulation 11(1) or (2), 15(a) or (b), 16(a), (b), (c), (d), (e), (f), (j), (k) or (l), 18(1), (2), (3) or (4), 19, 20(1), (2), (3) or (4), 21, 22(1), 23, 24(1), 25(1), (2), (3), (4) or (5), 27(1), (4) or (5), 29, 30(1), 31(1) or (3), 34(1) or (3), 35, 38(1), 40, 41, 42(1), (2) or (3), 44(1), 46(1), 47(1), (2), (3) or (4), 52(1), 53(1), (2) or (3), 54(1), 56(1), 57(1), 58(1), 59 or 63(2) shall be guilty of an offence.\\n(2) A person who is guilty of an offence under paragraph (1) shall be liable on conviction — (a) to a fine not exceeding \$20,000 or to imprisonment for a term not exceeding 12 months or to both; and (b) in the case of a continuing offence, to a further fine not exceeding \$1,000 for every day or part of a day during which the offence continues after conviction.","regulations_cited_raw":"11(1)(2), 15(a)(b), 16(a)(b)(c)(d)(e)(f)(j)(k)(l), 18(1)(2)(3)(4), 19, 20(1)(2)(3)(4), 21, 22(1), 23, 24(1), 25(1)(2)(3)(4)(5), 27(1)(4)(5), 29, 30(1), 31(1)(3), 34(1)(3), 35, 38(1), 40, 41, 42(1)(2)(3), 44(1), 46(1), 47(1)(2)(3)(4), 52(1), 53(1)(2)(3), 54(1), 56(1), 57(1), 58(1), 59, 63(2)","regulations_categories":{"clinical_governance":"regs 11(1)(2) — clinical governance officer competency requirements","patient_eligibility_consent":"regs 15, 16, 18, 19, 20 — patient eligibility criteria and consent requirements","gamete_donation":"regs 21, 22(1), 23, 24(1), 25 — gamete donation restrictions and requirements","embryo_procedures":"regs 27, 29, 30(1), 31 — embryo creation, transfer and storage requirements","clinical_procedures":"regs 34, 35, 38(1) — clinical procedures in ART","laboratory_requirements":"regs 40, 41, 42 — embryology laboratory requirements","patient_information":"regs 44(1), 46(1), 47 — patient information and counselling requirements","records":"regs 52(1), 53, 54(1) — record-keeping requirements","donor_information":"regs 56(1), 57(1), 58(1) — donor information registry requirements","outsourcing":"reg 59 — outsourcing restrictions","miscellaneous":"reg 63(2) — financial counselling"},"penalty":{"fine_max_sgd":20000,"imprisonment_max_months":12,"continuing_offence":true,"continuing_daily_fine_max_sgd":1000},"composition_regs_ref":"reg 2(f) of HCS (Composition of Offences) Regulations 2023"}],"composition_of_offences":{"instrument":"Healthcare Services (Composition of Offences) Regulations 2023","citation":"S 618/2023","last_amended":"2 February 2024 (S 72/2024)","enabling_provision":"Section 47, Healthcare Services Act 2020","description":"Lists offences that may be compounded (settled out of court) by the Director-General","compoundable_offences":[{"ref":"2(a)","provision":"Act s.8(2), 9(2), 9A(3), 26(5)(6), 27(5), 29(3), 30(4)(5), 31(3), 31A(3), 31B(2), 31C(2), 33(10), 36(3)(4), 39(9), 41(5), 42(1), 43"},{"ref":"2(b)","provision":"Act s.9(1) as in force before 26 June 2023"},{"ref":"2(c)","provision":"AcuteHosp Regs reg 49(1)"},{"ref":"2(d)","provision":"Advertisement Regs reg 18(3)(4)(5)(6)(7)"},{"ref":"2(e)","provision":"ASC Regs reg 44(1)"},{"ref":"2(f)","provision":"Assisted Reproduction Regs reg 68(1)"},{"ref":"2(g)","provision":"Blood Banking Regs reg 24(1)"},{"ref":"2(h)","provision":"ClinLab/Rad Regs reg 48(1)"},{"ref":"2(i)","provision":"Community Hospital Regs reg 38(1)"},{"ref":"2(j)","provision":"Contingency Care Regs reg 30(1)"},{"ref":"2(k)","provision":"Cord Blood Banking Regs reg 26(1)"},{"ref":"2(l)","provision":"EAS/MTS Regs reg 22(1)"},{"ref":"2(m)","provision":"General Regs reg 50(1) or (1A)"},{"ref":"2(n)","provision":"Human Tissue Banking Regs reg 38(1)"},{"ref":"2(o)","provision":"Nuclear Medicine Regs reg 79(1)"},{"ref":"2(oa)","provision":"Nursing Home Regs reg 44(1)"},{"ref":"2(p)","provision":"Outpatient Dental Regs reg 36(1)"},{"ref":"2(q)","provision":"OMS Regs reg 38(1)"},{"ref":"2(r)","provision":"Outpatient Renal Dialysis Regs reg 34(1)"}]}}`;
 
 // ── KEYWORD FILTER ─────────────────────────────────────────────────────────
 const STOP_WORDS = new Set([
@@ -1532,7 +1996,7 @@ function filterKB(finding) {
 
 // ── SYSTEM PROMPT ──────────────────────────────────────────────────────────
 function buildSystemPrompt(filteredKB) {
-  return `You are a legal analysis assistant for a Singapore government regulatory team that conducts inspections of licensed healthcare services under the Healthcare Services Act 2020 (HCSA) and its subsidiary legislation.
+  return `You are a preliminary analysis assistant for a Singapore government regulatory team that conducts inspections of licensed healthcare services under the Healthcare Services Act 2020 (HCSA) and its subsidiary legislation.
 
 You will be given a knowledge base of offence provisions extracted directly from the legislation. When given an inspection finding, you must:
 1. Identify which specific provision(s) the conduct may fall under
@@ -1558,14 +2022,13 @@ Therefore:
       "provision": "Section X / Regulation Y",
       "description": "What this provision requires or prohibits",
       "is_offence": true,
-      "penalty": "Exact penalty text or null",
-      "compoundable": true
+      "penalty": "Exact penalty text or null"
     }
   ],
   "s20_2_available": "YES" | "NO" | "UNCERTAIN" | "CANNOT_DETERMINE",
   "s20_2_reason": "One sentence explanation referencing the specific provision and why it does or does not constitute an offence",
-  "reasoning": "Full step-by-step legal analysis citing exact provision numbers and names",
-  "disclaimer": "This is an analytical aid only. Verify all provisions at sso.agc.gov.sg before taking enforcement action."
+  "reasoning": "Full step-by-step preliminary analysis citing exact provision numbers and names",
+  "disclaimer": "This AI tool generates a preliminary analysis only. It is not a substitute for legal advice or independent judgment. Users must independently verify all legislative provisions on Singapore Statutes Online (sso.agc.gov.sg), exercise their own judgment, and consult the MOH Legal Office where necessary for formal legal advice before taking any regulatory or enforcement action."
 }
 
 Do not output any text outside the JSON object. Do not include markdown code fences.
@@ -1576,13 +2039,7 @@ ${JSON.stringify(filteredKB)}`;
 
 // ── STATE ──────────────────────────────────────────────────────────────────
 let isLoading = false;
-let ssoTipShown = false;
 
-// ── SSO TIP ────────────────────────────────────────────────────────────────
-function dismissSsoTip() {
-  ssoTipShown = true;
-  document.getElementById('ssoTipBanner').style.display = 'none';
-}
 
 // ── PASSWORD GATE ──────────────────────────────────────────────────────────
 function checkPassword() {
@@ -1667,6 +2124,338 @@ const VERDICT_CONFIG = {
   }
 };
 
+
+// ── S14 PANEL ──────────────────────────────────────────────────────────────
+
+function buildS14PanelHTML() {
+  return `
+  <div class="s14-panel-wrap" id="s14PanelWrap">
+    <div class="s14-panel-inner">
+
+      <!-- SECTION 1: WHAT IS THIS? -->
+      <div class="s14-sec1-grid">
+        <div>
+          <h3 class="s14-sec1-heading">Licence Condition Modification</h3>
+          <div class="s14-sec1-subheading">
+            Section 14, Healthcare Services Act 2020
+            <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a>
+          </div>
+          <div class="s14-sec1-body">
+            Where regulatory action under s20(2) is not available because the conduct constitutes an offence, the Director-General may instead consider modifying the conditions of the licensee's licence under s14 HCSA.<br><br>
+            This is a prospective licensing tool — it imposes forward-looking requirements on the licensee rather than responding to a specific past contravention.
+          </div>
+        </div>
+        <div>
+          <div class="s14-amber-scope">
+            <div class="s14-amber-scope-title">⚠️ Important: How s14 May Be Used Here</div>
+            <div class="s14-amber-scope-body">
+              Section 14 may — depending on the circumstances — be used to substantively achieve the effect of addressing the non-compliance or contravention found, provided the condition is framed as a genuine <em>prospective licensing requirement</em> rather than a direct response to the specific incident.<br><br>
+              The key constraint remains: the licence condition must not be framed as a direct response to or remedy for the specific contravention, and must not substantively amount to:<br>
+              &nbsp;&nbsp;(a) a regulatory direction under s20(2)(b)(v) HCSA, or<br>
+              &nbsp;&nbsp;(b) a modification of licence conditions under s20(2)(b)(ii) HCSA<br><br>
+              <em>In practice, a well-drafted s14 condition can address the systemic risk underlying the contravention while remaining lawfully prospective in character.</em>
+            </div>
+            <div class="s14-amber-scope-refs">
+              s14 HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a>
+              &nbsp;|&nbsp;
+              s20(2)(b)(v) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a>
+              &nbsp;|&nbsp;
+              s20(2)(b)(ii) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="s14-gold-divider">
+
+      <!-- SECTION 2: PROCEDURE -->
+      <button class="s14-sub-toggle" id="s14ProcToggle" onclick="toggleS14Procedure()">
+        <span>📋 s14 Procedure Requirements</span>
+        <span class="s14-sub-arrow" id="s14ProcArrow">▼</span>
+      </button>
+      <div class="s14-sub-body" id="s14ProcBody">
+        <div class="s14-flow">
+          <div class="s14-flow-step">
+            <div class="s14-step-circle">1</div>
+            <div class="s14-step-content">
+              <div class="s14-step-title">Give Notice to Licensee</div>
+              <div class="s14-step-body">Serve a notice on the licensee specifying the proposed modification.<br>
+                <span style="font-size:12px;">Legal ref: s14(2)(a) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></span>
+              </div>
+            </div>
+          </div>
+          <div class="s14-flow-arrow">↓</div>
+          <div class="s14-flow-step">
+            <div class="s14-step-circle">2</div>
+            <div class="s14-step-content">
+              <div class="s14-step-title">Wait for Representations</div>
+              <div class="s14-step-body">Allow the licensee not less than 14 days from the date of service to make written representations.<br>
+                <span style="font-size:12px;">Legal ref: s14(2)(b) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="s14-exception-box">
+          <strong>⚡ Exception — s14(5)</strong>
+          The notice requirement does <strong>NOT</strong> apply where the modification:
+          <br>(a) applies to one or more classes of licensees, <strong>AND</strong>
+          <br>(b) is necessary to prevent or mitigate immediate or imminent harm to patient safety.
+          <div style="margin-top:8px;font-size:12px;">
+            Legal ref: s14(5) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <hr class="s14-gold-divider">
+
+      <!-- SECTION 3: AI SUGGESTIONS -->
+      <h3 class="s14-sec3-heading">Suggested Licence Condition Drafts</h3>
+      <div class="s14-sec3-sub">The AI will draft prospective licence condition modifications based on your inspection finding. These are preliminary suggestions only — review with the MOH Legal Office before use.</div>
+
+      <div class="s14-finding-input-wrap">
+        <div class="s14-finding-input-label">Describe the Compliance Concern</div>
+        <div class="s14-finding-input-sub">Pre-populated from your search above. Edit or expand before generating.</div>
+        <div class="finding-guidance-box finding-guidance-box--amber" style="margin-bottom:12px;">
+          <strong>📋 Describe the compliance concern:</strong>
+          <ul>
+            <li>Include the <strong>type of healthcare service</strong> and as much relevant operational detail as the character limit allows — this helps generate more targeted licence condition suggestions</li>
+            <li>Do <strong>NOT</strong> include licensee names, licence numbers, patient names or other sensitive, restricted or personally identifying information</li>
+          </ul>
+        </div>
+        <div class="s14-finding-textarea-wrap">
+          <textarea
+            id="s14FindingInput"
+            class="s14-finding-textarea"
+            placeholder="Describe the type of healthcare service and the nature of the compliance concern. Include relevant operational detail. Do not include licensee names, licence numbers or patient details."
+            maxlength="1500"
+            oninput="s14UpdateCharCount()"
+          ></textarea>
+          <div class="s14-char-count"><span id="s14CharCount">0</span> / 1500</div>
+        </div>
+      </div>
+
+      <div id="s14GenArea">
+        <button class="s14-generate-btn" id="s14GenBtn" onclick="generateS14Suggestions()">✨ Generate Drafting Suggestions</button>
+      </div>
+      <div id="s14Cards" class="s14-cards"></div>
+      <div id="s14GeneralBox" style="display:none;" class="s14-general-box">
+        <div class="s14-general-heading">General Drafting Guidance</div>
+        <div class="s14-general-body" id="s14GeneralTxt"></div>
+      </div>
+
+      <div class="s14-disclaimer">
+        ⚠ These are preliminary AI-generated drafting suggestions only. The framing of any licence condition modification must be carefully reviewed by the MOH Legal Office to ensure it does not amount to regulatory action under s20(2)(b)(v) HCSA. Not legal advice.
+      </div>
+
+    </div><!-- /s14-panel-inner -->
+  </div><!-- /s14-panel-wrap -->
+  `;
+}
+
+function toggleS14Panel() {
+  const wrap = document.getElementById('s14PanelWrap');
+  const arrow = document.getElementById('s14Arrow');
+  if (!wrap) return;
+  wrap.classList.toggle('open');
+  arrow.classList.toggle('open');
+  if (wrap.classList.contains('open')) {
+    setTimeout(s14PrePopulateFinding, 50);
+  }
+}
+
+function toggleS14Procedure() {
+  const body = document.getElementById('s14ProcBody');
+  const arrow = document.getElementById('s14ProcArrow');
+  if (!body) return;
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+async function generateS14Suggestions() {
+  const btn = document.getElementById('s14GenBtn');
+  const genArea = document.getElementById('s14GenArea');
+  const cardsEl = document.getElementById('s14Cards');
+  const generalBox = document.getElementById('s14GeneralBox');
+
+  // Use the detailed finding textarea; fall back to search bar / lastFinding
+  const findingField = document.getElementById('s14FindingInput');
+  const finding = (findingField && findingField.value.trim())
+    || (window._lastFinding || '');
+
+  if (!finding) {
+    alert('Please describe your inspection finding in the field above before generating suggestions.');
+    return;
+  }
+
+  const originalFinding = window._lastFinding || '';
+  const isUnchanged = originalFinding && finding === originalFinding;
+
+  // Loading state
+  genArea.innerHTML = '<div class="s14-loading"><div class="s14-shimmer"></div><div class="s14-loading-txt">Generating drafting suggestions…</div></div>';
+  cardsEl.innerHTML = '';
+  if (generalBox) generalBox.style.display = 'none';
+
+  const sysPrompt = `You are a legal drafting assistant for a Singapore government regulatory team. You help draft licence condition modifications under section 14 of the Healthcare Services Act 2020 (HCSA).
+
+Key legal framework:
+- Section 14 HCSA allows the Director-General to modify the conditions of a licence.
+- A s14 condition may — depending on how it is framed — substantively address the systemic risk underlying a contravention, provided it is genuinely prospective in character.
+- The condition must NOT be framed as a direct response to or remedy for the specific contravention found.
+- The condition must NOT substantively amount to: (a) a regulatory direction under s20(2)(b)(v) HCSA, or (b) a modification of licence conditions under s20(2)(b)(ii) HCSA.
+- Write conditions as ongoing, forward-looking licensing obligations — not as directions to remediate a past incident.
+
+Return a JSON object with this exact structure:
+{
+  "suggestions": [
+    {
+      "condition": "Full draft condition text — formal Singapore legislative drafting style, as it would appear in a licence",
+      "rationale": "2–3 sentences explaining why this condition addresses the systemic risk while remaining genuinely prospective",
+      "caution": "1–2 sentences flagging any risk that this condition could be read as a s20(2)(b)(v) direction or s20(2)(b)(ii) modification, or null if no significant risk",
+      "legal_risk": "One of: LOW, MEDIUM, or HIGH — followed by a single sentence justifying the assessment (e.g. \"LOW — The condition is framed as a general ongoing obligation...\"). Always include the risk level word first."
+    }
+  ],
+  "general_guidance": "2–3 sentences of general drafting guidance applicable to this type of inspection finding"
+}
+
+Provide 2 to 3 suggestion objects. Write conditions in formal Singapore legislative drafting style (e.g. 'The licensee must ensure that...' or 'The licensee shall at all times maintain...'). Do not include any text outside the JSON.`;
+
+  let userMsg = 'Inspection finding:\n' + finding + '\n\nDraft prospective licence condition modifications under s14 HCSA that address the systemic risk revealed by this finding, without amounting to a punitive direction under s20(2)(b)(v) or a s20(2)(b)(ii) modification.';
+  if (isUnchanged) {
+    userMsg += '\n\nNote: For more tailored suggestions, consider providing additional detail about the specific circumstances, frequency of occurrence, or any aggravating factors observed.';
+  }
+
+  try {
+    const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + _appVersion + _buildRef + _releaseTag + _instanceId
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: [
+          { role: 'system', content: sysPrompt },
+          { role: 'user',   content: userMsg }
+        ],
+        temperature: 0.4,
+        max_tokens: 2200,
+        response_format: { type: 'json_object' }
+      })
+    });
+
+    if (!resp.ok) throw new Error('API error ' + resp.status);
+    const raw = await resp.json();
+    const parsed = JSON.parse(raw.choices[0].message.content);
+    renderS14Suggestions(parsed, genArea);
+  } catch (e) {
+    genArea.innerHTML = '<button class="s14-generate-btn" id="s14GenBtn" onclick="generateS14Suggestions()">✨ Generate Drafting Suggestions</button>';
+    cardsEl.innerHTML = '<div style="color:#c0392b;font-size:13px;padding:8px 0;">⚠ Could not generate suggestions. Please try again. (' + e.message + ')</div>';
+  }
+}
+
+function renderS14Suggestions(data, genArea) {
+  // Restore button
+  genArea.innerHTML = '<button class="s14-generate-btn" id="s14GenBtn" onclick="generateS14Suggestions()">✨ Regenerate Suggestions</button>';
+
+  const cardsEl = document.getElementById('s14Cards');
+  const generalBox = document.getElementById('s14GeneralBox');
+  cardsEl.innerHTML = '';
+
+  const suggestions = Array.isArray(data.suggestions) ? data.suggestions : [];
+  suggestions.forEach((s, i) => {
+    const card = document.createElement('div');
+    card.className = 's14-card';
+    const condText = (s.condition || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const rationale = (s.rationale || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const caution = s.caution ? s.caution.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') : null;
+    const legalRiskRaw = s.legal_risk || '';
+    const legalRiskSafe = legalRiskRaw.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    let riskLevel = '';
+    let riskCls = '';
+    if (/^LOW/i.test(legalRiskRaw)) { riskLevel = 'LOW'; riskCls = 'risk-low'; }
+    else if (/^MEDIUM/i.test(legalRiskRaw)) { riskLevel = 'MEDIUM'; riskCls = 'risk-medium'; }
+    else if (/^HIGH/i.test(legalRiskRaw)) { riskLevel = 'HIGH'; riskCls = 'risk-high'; }
+    const riskBody = legalRiskSafe.replace(/^(LOW|MEDIUM|HIGH)\s*[—\-]?\s*/i, '').trim();
+
+    card.innerHTML = `
+      <div class="s14-card-label">Suggested Condition ${i + 1}</div>
+      <div class="s14-condition-box">${condText}</div>
+      <div class="s14-rationale-label">Why this may work</div>
+      <div class="s14-rationale-body">${rationale}</div>
+      ${legalRiskRaw ? `<div class="s14-legal-risk">
+        <div class="s14-legal-risk-header">
+          <span class="s14-legal-risk-label">Legal Risk Assessment</span>
+          ${riskLevel ? `<span class="s14-risk-badge ${riskCls}">${riskLevel}</span>` : ''}
+        </div>
+        <div class="s14-legal-risk-body">${riskBody}</div>
+      </div>` : ''}
+      ${caution ? `<div class="s14-caution"><div class="s14-caution-label">⚠ Watch out for</div>${caution}</div>` : ''}
+      <button class="s14-copy-btn" onclick="s14CopyCondition(this, ${JSON.stringify(s.condition || '')})">Copy condition text ⧉</button>
+    `;
+    cardsEl.appendChild(card);
+    // Staggered entrance animation
+    setTimeout(() => card.classList.add('visible'), 100 + i * 150);
+  });
+
+  if (data.general_guidance && generalBox) {
+    document.getElementById('s14GeneralTxt').textContent = data.general_guidance;
+    generalBox.style.display = '';
+  }
+}
+
+function s14CopyCondition(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy condition text ⧉'; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    btn.textContent = 'Copy failed';
+    setTimeout(() => { btn.textContent = 'Copy condition text ⧉'; }, 2000);
+  });
+}
+
+function updateFindingCounter() {
+  const ta = document.getElementById('findingInput');
+  const cc = document.getElementById('findingCharCount');
+  if (!ta || !cc) return;
+  const len = ta.value.length;
+  const max = parseInt(ta.getAttribute('maxlength') || '500', 10);
+  const pct = len / max;
+  cc.textContent = len;
+  const wrap = cc.closest('.finding-char-count');
+  if (wrap) {
+    wrap.classList.remove('warn', 'danger');
+    if (pct >= 0.95) wrap.classList.add('danger');
+    else if (pct >= 0.80) wrap.classList.add('warn');
+  }
+}
+
+function s14UpdateCharCount() {
+  const ta = document.getElementById('s14FindingInput');
+  const cc = document.getElementById('s14CharCount');
+  if (!ta || !cc) return;
+  const len = ta.value.length;
+  const max = parseInt(ta.getAttribute('maxlength') || '500', 10);
+  const pct = len / max;
+  cc.textContent = len;
+  const wrap = cc.closest('.s14-char-count');
+  if (wrap) {
+    wrap.classList.remove('warn', 'danger');
+    if (pct >= 0.95) wrap.classList.add('danger');
+    else if (pct >= 0.80) wrap.classList.add('warn');
+  }
+}
+
+function s14PrePopulateFinding() {
+  const ta = document.getElementById('s14FindingInput');
+  if (!ta) return;
+  const val = window._lastFinding || '';
+  if (val && !ta.value) {
+    ta.value = val;
+    s14UpdateCharCount();
+  }
+}
+
 // ── S20(2) BANNER CONFIG ───────────────────────────────────────────────────
 const S20_CONFIG = {
   YES: {
@@ -1675,7 +2464,7 @@ const S20_CONFIG = {
   },
   NO: {
     cls: 's20-no',
-    text: '<span class="s20-status-tag s20-status-no">NOT AVAILABLE</span><span class="s20-x">✗</span> Regulatory action under s20(2) HCSA is NOT available — the conduct constitutes an offence under the HCSA or its subsidiary legislation. The contravention falls outside s20(1)(b)(iii).<div class="s20-actions"><div class="s20-action-item">→ (a) Prosecute the licensee for the non-compliance/contravention</div><div class="s20-action-item">→ (b) Explore alternative regulatory levers that do not involve section 20(2) regulatory action</div></div>'
+    text: 'Regulatory action under s20(2) HCSA is not available — the conduct constitutes an offence under the HCSA or its subsidiary legislation.'
   },
   UNCERTAIN: {
     cls: 's20-uncertain',
@@ -1720,19 +2509,75 @@ function renderResults(data) {
   const s20Cfg = S20_CONFIG[s20Status];
   const s20Banner = document.getElementById('s20Banner');
   s20Banner.className = 's20-banner ' + s20Cfg.cls;
-  let s20Html = `<div class="s20-text">${s20Cfg.text}</div>`;
-  if (data.s20_2_reason) {
-    s20Html += `<div class="s20-text" style="margin-top:6px;font-weight:400;font-size:13px;">${esc(data.s20_2_reason)}</div>`;
+  let s20Html;
+  if (s20Status === 'NO') {
+    const reasonHtml = data.s20_2_reason
+      ? `<div class="s20-no-reason">${esc(data.s20_2_reason)}</div>` : '';
+    s20Html = `
+      <div class="s20-no-header">
+        REGULATORY ACTION UNDER S20(2) HCSA — NOT AVAILABLE
+        <div class="s20-no-header-sub">The contravention falls outside s20(1)(b)(iii) as it constitutes an offence under the HCSA or its subsidiary legislation</div>
+      </div>
+      <div class="s20-no-body">
+        ${reasonHtml}
+        <div class="s20-options-grid">
+
+          <!-- OPTION A: SED Referral -->
+          <div class="s20-option-card s20-opt-a">
+            <div class="s20-opt-badge s20-opt-badge-a">A</div>
+            <div class="s20-option-title s20-opt-title-a">Refer to the Surveillance and Enforcement Division (SED)</div>
+            <div class="s20-option-body">The inspection finding discloses a likely offence under the HCSA or its subsidiary legislation. Consider referring the matter to the Surveillance and Enforcement Division (SED) for investigations and possible prosecution.</div>
+            <div class="s20-sed-cta">→ Refer to SED for investigations and possible prosecution under the HCSA or its subsidiary legislation.</div>
+            <div class="key-callout" style="margin-top:14px;margin-bottom:0;">
+              Regulatory action under s20(2) is not available for conduct that constitutes an offence — the matter should be referred for enforcement rather than addressed through the regulatory action regime.
+              <div style="margin-top:8px;font-size:12px;">
+                s20(1)(b)(iii) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- OPTION B: s14 Alternative -->
+          <div class="s20-option-card s20-opt-b">
+            <div class="s20-opt-badge s20-opt-badge-b">B</div>
+            <div class="s20-option-title s20-opt-title-b">Explore Alternative Regulatory Levers</div>
+            <div class="s20-option-body">Section 14 of the HCSA may — depending on the circumstances — allow for a prospective licence condition modification that substantively addresses the underlying systemic risk, without amounting to a sanction for the specific contravention. This approach is subject to important legal caveats.</div>
+            <div class="s20-opt-b-note">Tap the button below to explore the s14 approach and generate AI drafting suggestions for licence condition modifications. Read the caveats carefully before proceeding.</div>
+          </div>
+
+        </div><!-- /s20-options-grid -->
+
+        <!-- Amber trigger button spanning full width -->
+        <button class="s14-trigger-btn" id="s14TriggerBtn" onclick="toggleS14Panel()">
+          <div class="s14-trigger-content">
+            <span class="s14-trigger-title">⚖️&nbsp; Alternative May Be Available — Read the Important Caveats Below Before Proceeding</span>
+            <span class="s14-trigger-sub">A possible prospective licensing approach — subject to important legal caveats. Seek MOH Legal Office advice before use.</span>
+          </div>
+          <span class="s14-trigger-arrow" id="s14Arrow">▼</span>
+        </button>
+
+      </div>`;
+  } else {
+    s20Html = `<div class="s20-text">${s20Cfg.text}</div>`;
+    if (data.s20_2_reason) {
+      s20Html += `<div class="s20-text" style="margin-top:6px;font-weight:400;font-size:13px;">${esc(data.s20_2_reason)}</div>`;
+    }
+    s20Html += `<div class="s20-footnote">Based on s20(1)(b)(iii) HCSA. A reference to the Act includes subsidiary legislation made thereunder. <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a></div>`;
   }
-  s20Html += `<div class="s20-footnote">Based on s20(1)(b)(iii) HCSA. A reference to the Act includes subsidiary legislation made thereunder. <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></div>`;
   s20Banner.innerHTML = s20Html;
+
+  // s14 alternative panel
+  const s14Panel = document.getElementById('s14Panel');
+  if (s20Status === 'NO') {
+    s14Panel.style.display = '';
+    s14Panel.innerHTML = buildS14PanelHTML();
+  } else {
+    s14Panel.style.display = 'none';
+    s14Panel.innerHTML = '';
+  }
 
   // Provisions
   const container = document.getElementById('provisionsContainer');
   container.innerHTML = '';
-  if (!ssoTipShown) {
-    document.getElementById('ssoTipBanner').style.display = 'flex';
-  }
   const provisions = Array.isArray(data.provisions) ? data.provisions : [];
   if (provisions.length === 0) {
     container.innerHTML = '<p style="color:var(--text-muted);font-size:13.5px;padding:8px 0;">No specific provisions identified.</p>';
@@ -1747,18 +2592,17 @@ function renderResults(data) {
           <div>
             <div class="prov-instrument">${esc(p.instrument || '')}</div>
             <div class="prov-num">${esc(p.provision || '')}</div>
-            <a class="sso-btn sso-btn-block" href="${getSSOUrl(p.instrument).url}" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a>
+            <a class="sso-btn sso-btn-block" href="${getSSOUrl(p.instrument).url}" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Verify on SSO ↗</a>
           </div>
           <div class="prov-tags">
             ${isOff ? '<span class="tag tag-offence">⚖ Offence</span>' : '<span class="tag tag-no-offence">No offence</span>'}
-            ${p.compoundable ? '<span class="tag tag-compoundable">✓ Compoundable</span>' : ''}
           </div>
         </div>
         <div class="prov-desc">${esc(p.description || '')}</div>
         <div class="prov-penalty">
           <span class="prov-penalty-label">Penalty:</span>
           <span class="prov-penalty-text ${!penaltyText ? 'no-penalty' : ''}">${esc(penaltyText || '—')}</span>
-          ${(() => { const s = getSSOUrl(p.instrument); return `<a class="prov-sso-link${s.fallback ? ' prov-sso-fallback' : ''}" href="${s.url}" target="_blank" rel="noopener"${s.fallback ? ` title="${SSO_FALLBACK_TITLE}"` : ''}>↗ Verify on SSO</a>`; })()}
+          ${(() => { const s = getSSOUrl(p.instrument); const tipTxt = s.fallback ? SSO_FALLBACK_TITLE : `Opens ${p.instrument} on Singapore Statutes Online — scroll or use Ctrl+F to find ${p.provision}`; return `<a class=\"prov-sso-link${s.fallback ? ' prov-sso-fallback' : ''}\" href=\"${s.url}\" target=\"_blank\" rel=\"noopener\" title=\"${tipTxt}\">Verify on SSO ↗</a>`; })()}
         </div>`;
       container.appendChild(div);
     });
@@ -1769,7 +2613,7 @@ function renderResults(data) {
 
   // Disclaimer
   document.getElementById('disclaimerText').textContent =
-    data.disclaimer || 'This is an analytical aid only. Verify all provisions at sso.agc.gov.sg before taking enforcement action.';
+    data.disclaimer || 'This AI tool generates a preliminary analysis only. It is not a substitute for legal advice or independent judgment. Users must independently verify all legislative provisions on Singapore Statutes Online (sso.agc.gov.sg), exercise their own judgment, and consult the MOH Legal Office where necessary for formal legal advice before taking any regulatory or enforcement action.';
 
   show('resultsWrap');
 }
@@ -1778,6 +2622,7 @@ function renderResults(data) {
 async function analyse() {
   if (isLoading) return;
   const finding = document.getElementById('findingInput').value.trim();
+  window._lastFinding = finding;
   if (!finding) {
     document.getElementById('findingInput').focus();
     document.getElementById('findingInput').style.borderColor = 'var(--red)';
@@ -1844,6 +2689,8 @@ async function analyse() {
     const msg = err.message || String(err);
     if (msg.includes('Failed to fetch') || msg.includes('NetworkError') || msg.includes('Load failed')) {
       showError('Network error — could not reach the API. Check your connection and try again.\n\nDetail: ' + msg);
+    } else if (msg.includes('413') || msg.includes('429') || msg.includes('rate_limit') || msg.includes('tokens') || msg.includes('too large') || msg.includes('context') || msg.includes('Request too large')) {
+      showError('Your description may be too detailed for analysis. Please try again with a shorter, more general description of the conduct — focus on the type of non-compliance rather than the specific facts.');
     } else {
       showError(msg);
     }
@@ -2147,7 +2994,7 @@ function clRenderCompletion() {
   })();
   const s21Note = CL.s21Disapplied ? '<strong>Note:</strong> s21 procedure was disapplied under s21(3) HCSA. Regulatory action proceeded directly.' : '';
   document.getElementById('clSummaryBox').innerHTML = `
-    <strong>Type of action:</strong> ${actionLabel} <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a><br>
+    <strong>Type of action:</strong> ${actionLabel} <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the Healthcare Services Act 2020 on Singapore Statutes Online — scroll or use Ctrl+F to find the specific provision">Verify on SSO ↗</a><br>
     <strong>Grounds:</strong> ${CL.grounds ? CL.grounds.slice(0,200) + (CL.grounds.length > 200 ? '…' : '') : '—'}<br>
     <strong>s21(1) notice served:</strong> ${fmt(CL.noticeServedDate)}<br>
     <strong>Representation deadline:</strong> ${repDl}<br>

@@ -88,6 +88,56 @@
   opacity: 0.7;
 }
 
+
+/* ── SSO BUTTON ── */
+.sso-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--gold);
+  color: #fff;
+  border: none;
+  border-radius: 99px;
+  padding: 5px 13px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s, box-shadow 0.15s;
+  line-height: 1.4;
+  min-height: 28px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.sso-btn:hover { background: #b8923f; box-shadow: 0 2px 8px rgba(184,146,63,0.35); }
+.sso-btn-inline { margin-left: 8px; }
+.sso-btn-block { margin-top: 10px; margin-bottom: 2px; display: inline-flex; }
+@media (max-width: 640px) {
+  .sso-btn { min-height: 44px; padding: 10px 18px; font-size: 13px; }
+}
+
+/* ── SSO TIP BANNER ── */
+.sso-tip-banner {
+  background: #faf6e9;
+  border: 1px solid rgba(201,168,76,0.45);
+  border-left: 4px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  font-size: 13px;
+  color: #6b4f0a;
+  margin-bottom: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: background 0.15s;
+}
+.sso-tip-banner:hover { background: #f5f0dc; }
+.sso-tip-close { font-size: 16px; color: #b8923f; flex-shrink: 0; }
 /* ── RESET & BASE ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -618,6 +668,8 @@ textarea#findingInput:focus {
   letter-spacing: 0.2px;
 }
 .prov-sso-link:hover { background: var(--navy); color: var(--gold-light); border-color: var(--navy); }
+.prov-sso-fallback { opacity: 0.6; border-style: dashed; cursor: help; }
+.prov-sso-fallback:hover { opacity: 1; }
 
 /* ── REASONING ── */
 .reasoning-text {
@@ -692,6 +744,215 @@ footer a:hover { color: var(--gold-light); }
   .prov-header { flex-direction: column; }
   .reasoning-text { font-size: 14px; }
 }
+
+/* ── MODULE SELECTOR ── */
+.hidden-module { display: none !important; }
+
+#moduleSelector {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px 48px;
+}
+.mod-selector-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+  text-align: center;
+  margin-bottom: 8px;
+}
+.mod-selector-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 36px;
+}
+.mod-cards-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 640px) { .mod-cards-row { grid-template-columns: 1fr; } }
+.mod-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px 28px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  box-shadow: 0 2px 12px rgba(10,22,40,0.06);
+}
+.mod-card:hover { border-color: var(--gold); box-shadow: 0 6px 28px rgba(10,22,40,0.12); transform: translateY(-3px); }
+.mod-card-icon { font-size: 44px; margin-bottom: 18px; display: block; }
+.mod-card-title { font-family: 'Cormorant Garamond', serif; font-size: 23px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+.mod-card-subtitle { font-size: 13.5px; color: var(--text-muted); line-height: 1.65; margin-bottom: 24px; }
+.mod-select-btn {
+  display: inline-block;
+  background: var(--navy);
+  color: var(--gold-light);
+  border: none;
+  border-radius: 6px;
+  padding: 10px 28px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background 0.2s;
+  pointer-events: none;
+}
+.mod-card:hover .mod-select-btn { background: var(--navy-mid); }
+
+/* ── BREADCRUMB ── */
+#breadcrumb {
+  display: none;
+  background: var(--navy);
+  padding: 9px 24px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  align-items: center;
+  gap: 10px;
+}
+#breadcrumb.visible { display: flex; }
+.bc-back { color: var(--gold-light); cursor: pointer; font-weight: 600; transition: color 0.15s; }
+.bc-back:hover { color: var(--gold); }
+.bc-sep { color: rgba(255,255,255,0.3); }
+.bc-current { color: rgba(255,255,255,0.85); font-weight: 500; }
+
+/* ── CHECKLIST MODULE ── */
+#mod2 { padding-bottom: 60px; }
+.cl-wrap { max-width: 760px; margin: 0 auto; padding: 28px 24px 0; }
+.cl-screen { }
+
+.cl-case-ref { background: var(--navy); color: rgba(255,255,255,0.85); border-radius: var(--radius); padding: 12px 18px; font-size: 12.5px; display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 20px; }
+.cl-case-ref-item { display: flex; flex-direction: column; gap: 2px; }
+.cl-case-ref-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.45); }
+.cl-case-ref-value { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold-light); }
+
+.cl-progress-wrap { margin-bottom: 24px; }
+.cl-progress-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; display: flex; justify-content: space-between; }
+.cl-progress-bar { height: 5px; background: var(--border); border-radius: 99px; overflow: hidden; }
+.cl-progress-fill { height: 100%; background: var(--gold); border-radius: 99px; transition: width 0.4s ease; }
+
+.cl-step-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 2px 8px rgba(10,22,40,0.05); }
+.cl-step-card.active { border-color: var(--gold); box-shadow: 0 4px 20px rgba(10,22,40,0.10); }
+.cl-step-header { display: flex; align-items: center; gap: 14px; padding: 18px 22px; }
+.cl-step-num { width: 32px; height: 32px; border-radius: 50%; background: var(--gold); color: var(--navy); font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: 'JetBrains Mono', monospace; }
+.cl-step-title { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 700; color: var(--navy); flex: 1; }
+.cl-step-body { padding: 0 22px 24px; border-top: 1px solid var(--border); }
+
+.cl-legal-ref { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--navy-mid); background: var(--grey-bg); border: 1px solid var(--border); padding: 2px 8px; border-radius: 4px; margin: 14px 0 6px; }
+.cl-step-desc { font-size: 14px; color: var(--text-muted); line-height: 1.65; margin: 8px 0 14px; }
+
+.cl-check-card { display: flex; align-items: flex-start; gap: 14px; background: var(--bg); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 10px; cursor: pointer; transition: all 0.15s; user-select: none; }
+.cl-check-card:hover { border-color: var(--gold); background: var(--gold-pale); }
+.cl-check-card:has(input:checked) { border-color: #1e8449; background: #f0faf4; }
+.cl-check-card input[type="checkbox"] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; cursor: pointer; accent-color: #1e8449; }
+.cl-check-label { font-size: 14px; color: var(--text); line-height: 1.5; }
+.cl-check-ref { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); display: block; margin-top: 4px; }
+
+.cl-radio-card { display: flex; align-items: flex-start; gap: 14px; background: var(--bg); border: 2px solid var(--border); border-radius: var(--radius); padding: 16px 18px; margin-bottom: 12px; cursor: pointer; transition: all 0.15s; user-select: none; }
+.cl-radio-card:hover { border-color: var(--gold); background: var(--gold-pale); }
+.cl-radio-card.selected { border-color: var(--navy); background: #f0f4fa; }
+.cl-radio-card input[type="radio"] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 3px; cursor: pointer; accent-color: var(--navy); }
+.cl-radio-card-title { font-size: 16px; font-weight: 700; color: var(--navy); }
+.cl-radio-card-sub { font-size: 13.5px; color: var(--text-muted); margin-top: 3px; line-height: 1.5; }
+.cl-radio-card-note { font-size: 12px; color: var(--red); margin-top: 6px; font-style: italic; }
+
+.cl-toggle-group { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
+.cl-toggle-btn { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border: 2px solid var(--border); border-radius: var(--radius); background: var(--bg); cursor: pointer; transition: all 0.15s; user-select: none; font-size: 15px; font-weight: 500; color: var(--navy); }
+.cl-toggle-btn:hover { border-color: var(--gold); background: var(--gold-pale); }
+.cl-toggle-btn:has(input:checked) { border-color: #e67e22; background: #fef9f1; color: #7c3900; }
+.cl-toggle-none { border-style: dashed; }
+.cl-toggle-none:has(input:checked) { border-color: #1e8449; border-style: solid; background: #f0faf4; color: #145230; }
+.cl-toggle-btn input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; accent-color: #e67e22; flex-shrink: 0; }
+
+.cl-bypass-notice { background: #fef9f1; border: 2px solid #e67e22; border-radius: var(--radius); padding: 18px 20px; margin: 14px 0; }
+.cl-bypass-title { font-size: 15px; font-weight: 700; color: #7c3900; margin-bottom: 8px; }
+.cl-bypass-text { font-size: 13.5px; color: #7c3900; line-height: 1.7; }
+
+.cl-date-calc { background: var(--gold-pale); border: 1.5px solid rgba(201,168,76,0.5); border-radius: var(--radius); padding: 18px 20px; margin: 16px 0; }
+.cl-date-calc-title { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 12px; }
+.cl-date-calc-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.cl-date-input { border: 1px solid var(--border); border-radius: 5px; padding: 7px 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--white); outline: none; transition: border-color 0.2s; }
+.cl-date-input:focus { border-color: var(--gold); }
+.cl-calc-result { font-size: 14px; color: var(--navy); font-weight: 600; margin-top: 8px; }
+.cl-calc-warning { font-size: 13px; color: var(--red); font-weight: 600; margin-top: 6px; }
+
+.cl-info-box { background: #f0f4fa; border-left: 4px solid var(--navy-mid); border-radius: 0 var(--radius) var(--radius) 0; padding: 12px 16px; font-size: 13px; color: var(--navy); line-height: 1.6; margin: 12px 0; }
+.cl-step2-nudge { margin-top: 12px; margin-bottom: 4px; font-size: 13px; color: #a07800; font-weight: 600; line-height: 1.6; }
+.cl-nudge-link { color: #a07800; text-decoration: underline; cursor: pointer; font-weight: 700; }
+.cl-nudge-link:hover { color: #7c5c00; }
+.cl-warn-box { background: #fdf2f2; border-left: 4px solid var(--red); border-radius: 0 var(--radius) var(--radius) 0; padding: 12px 16px; font-size: 13px; color: #7b1d1d; line-height: 1.6; margin: 12px 0; }
+.cl-amber-box { background: #fef9f1; border-left: 4px solid #e67e22; border-radius: 0 var(--radius) var(--radius) 0; padding: 12px 16px; font-size: 13px; color: #7c3900; line-height: 1.6; margin: 12px 0; }
+.cl-green-box { background: #f0faf4; border-left: 4px solid #1e8449; border-radius: 0 var(--radius) var(--radius) 0; padding: 12px 16px; font-size: 13px; color: #145230; line-height: 1.6; margin: 12px 0; }
+
+.cl-nav-row { display: flex; gap: 12px; margin-top: 24px; justify-content: flex-end; flex-wrap: wrap; }
+.cl-btn-next { background: var(--navy); color: var(--gold-light); border: none; border-radius: 6px; padding: 12px 28px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; letter-spacing: 0.04em; transition: background 0.2s; }
+.cl-btn-next:hover { background: var(--navy-mid); }
+.cl-btn-next:disabled { opacity: 0.4; cursor: not-allowed; }
+.cl-btn-back { background: transparent; color: var(--navy); border: 1.5px solid var(--border); border-radius: 6px; padding: 12px 22px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.cl-btn-back:hover { border-color: var(--navy); }
+.cl-btn-reset { background: transparent; color: var(--text-muted); border: 1px solid var(--border); border-radius: 6px; padding: 8px 16px; font-family: 'DM Sans', sans-serif; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+.cl-btn-reset:hover { color: var(--red); border-color: var(--red); }
+
+.cl-footnote { font-size: 11px; color: var(--text-muted); font-style: italic; border-top: 1px solid var(--border); padding-top: 12px; margin-top: 18px; line-height: 1.6; }
+
+.cl-complete-card { background: #f0faf4; border: 2px solid #1e8449; border-radius: var(--radius-lg); padding: 32px 28px; margin: 8px 0 20px; }
+.cl-complete-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; color: #145230; margin-bottom: 12px; }
+.cl-complete-summary { font-size: 13.5px; color: var(--text); line-height: 1.8; margin-bottom: 16px; }
+.cl-complete-disclaimer { font-size: 12px; color: var(--text-muted); background: var(--gold-pale); border: 1px solid rgba(201,168,76,0.3); border-radius: var(--radius); padding: 12px 16px; line-height: 1.65; margin-bottom: 20px; }
+.cl-complete-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.cl-btn-print { background: var(--gold); color: var(--navy); border: none; border-radius: 6px; padding: 12px 24px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+.cl-btn-print:hover { background: var(--gold-light); }
+.cl-btn-newcase { background: var(--navy); color: var(--gold-light); border: none; border-radius: 6px; padding: 12px 24px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+.cl-btn-newcase:hover { background: var(--navy-mid); }
+
+.cl-text-input { width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 11px 14px; font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--text); background: var(--white); outline: none; margin-top: 6px; transition: border-color 0.2s; }
+.cl-text-input:focus { border-color: var(--gold); }
+.cl-textarea { width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 12px 14px; font-family: 'DM Sans', sans-serif; font-size: 14.5px; color: var(--text); background: var(--white); outline: none; resize: vertical; min-height: 130px; line-height: 1.65; transition: border-color 0.2s; }
+.cl-textarea:focus { border-color: var(--gold); }
+.cl-field-label { font-size: 13.5px; font-weight: 600; color: var(--navy); display: block; margin-bottom: 4px; margin-top: 16px; }
+
+.cl-collapsible-trigger { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; color: var(--navy-mid); font-weight: 600; margin-top: 14px; user-select: none; }
+.cl-collapsible-body { display: none; padding: 12px 14px; background: var(--grey-bg); border-radius: var(--radius); margin-top: 8px; font-size: 13px; color: var(--text); line-height: 1.65; }
+.cl-collapsible-body.open { display: block; }
+
+.cl-effective-date { background: var(--navy); color: var(--gold-light); border-radius: var(--radius); padding: 16px 20px; font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; margin: 14px 0 4px; text-align: center; }
+.cl-effective-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.5); font-family: 'DM Sans', sans-serif; font-weight: 400; display: block; margin-bottom: 4px; }
+
+.cl-pathway-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0; }
+@media (max-width: 640px) { .cl-pathway-grid { grid-template-columns: 1fr; } }
+.cl-pathway-card { border: 2px solid var(--border); border-radius: var(--radius); padding: 18px; cursor: pointer; transition: all 0.15s; user-select: none; }
+.cl-pathway-card:hover { border-color: var(--gold); }
+.cl-pathway-card.selected { border-color: var(--navy); background: #f0f4fa; }
+.cl-pathway-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.cl-pathway-sub { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+.cl-top-actions { display: flex; justify-content: flex-end; margin-bottom: 12px; }
+
+.cl-rep-status { border-radius: var(--radius); padding: 14px 18px; font-size: 14px; font-weight: 600; margin: 12px 0; line-height: 1.5; }
+.cl-rep-status.waiting { background: #fef9f1; border: 1.5px solid #e67e22; color: #7c3900; }
+.cl-rep-status.elapsed { background: #f0faf4; border: 1.5px solid #1e8449; color: #145230; }
+
+@media (max-width: 640px) {
+  .cl-wrap { padding: 20px 14px 0; }
+  .cl-step-body { padding: 0 14px 18px; }
+  .cl-complete-card { padding: 22px 18px; }
+}
+
+@media print {
+  #pwGate, .top-bar, header, .beta-notice, #moduleSelector, #breadcrumb, #mod1, footer,
+  .cl-nav-row, .cl-top-actions, .cl-btn-print, .cl-btn-newcase, .cl-progress-wrap, .cl-top-actions { display: none !important; }
+  #mod2 { display: block !important; padding: 0 !important; }
+  .cl-wrap { padding: 0 !important; max-width: 100% !important; }
+  .cl-screen { display: none !important; }
+  #clScreen-complete { display: block !important; }
+  .cl-complete-card { border: 2px solid #1e8449; page-break-inside: avoid; }
+  body { background: white; }
+}
 </style>
 </head>
 <body>
@@ -733,8 +994,35 @@ footer a:hover { color: var(--gold-light); }
   <a href="https://sso.agc.gov.sg" target="_blank" style="color:var(--gold-light);text-decoration:underline;">sso.agc.gov.sg</a>.
 </div>
 
+<!-- ── BREADCRUMB ── -->
+<div id="breadcrumb">
+  <span class="bc-back" onclick="showModuleSelector()">← Back to Modules</span>
+  <span class="bc-sep">|</span>
+  <span class="bc-current" id="bcModName"></span>
+</div>
+
+<!-- ── MODULE SELECTOR ── -->
+<div id="moduleSelector">
+  <div class="mod-selector-heading">Select a Module</div>
+  <div class="mod-selector-sub">Choose the tool you need for this task</div>
+  <div class="mod-cards-row">
+    <div class="mod-card" onclick="selectModule(1)">
+      <span class="mod-card-icon">🔍</span>
+      <div class="mod-card-title">Offence Analyser</div>
+      <div class="mod-card-subtitle">Determine if an inspection finding constitutes an offence under the HCSA or its subsidiary legislation</div>
+      <button class="mod-select-btn">Select Module</button>
+    </div>
+    <div class="mod-card" onclick="selectModule(2)">
+      <span class="mod-card-icon">✅</span>
+      <div class="mod-card-title">Regulatory Action Checklist</div>
+      <div class="mod-card-subtitle">Step-by-step procedural guide before issuing regulatory action under s20 HCSA</div>
+      <button class="mod-select-btn">Select Module</button>
+    </div>
+  </div>
+</div>
+
 <!-- ── MAIN ── -->
-<main>
+<main id="mod1" class="hidden-module">
 
   <!-- Search Card -->
   <div class="search-card">
@@ -791,6 +1079,12 @@ footer a:hover { color: var(--gold-light); }
     </div>
 
     <div class="results-body">
+      <!-- SSO tip banner (shown once per session) -->
+      <div class="sso-tip-banner" id="ssoTipBanner" style="display:none;" onclick="dismissSsoTip()">
+        <span>&#x1F4A1; Click any <strong>Read on SSO &#x2197;</strong> button to view the full text of the legislation on Singapore Statutes Online</span>
+        <span class="sso-tip-close">&#x2715;</span>
+      </div>
+
       <!-- Provisions -->
       <div class="section-title">Matched Provision(s)</div>
       <div id="provisionsContainer"></div>
@@ -812,6 +1106,300 @@ footer a:hover { color: var(--gold-light); }
 
 </main>
 
+<!-- ── MODULE 2: REGULATORY ACTION CHECKLIST ── -->
+<main id="mod2" class="hidden-module">
+<div class="cl-wrap">
+
+  <!-- Top actions -->
+  <div class="cl-top-actions">
+    <button class="cl-btn-reset" onclick="clReset()">↺ Reset / New Case</button>
+  </div>
+
+  <!-- ── SCREEN: PRELIMINARY — LICENSEE STATUS ── -->
+  <div id="clScreen-prelim" class="cl-screen">
+    <div class="cl-step-card active">
+      <div class="cl-step-header">
+        <div class="cl-step-num">⚖</div>
+        <div class="cl-step-title">First — is the licensee still in existence?</div>
+      </div>
+      <div class="cl-step-body" style="display:block;">
+        <div class="cl-legal-ref">s21(3) HCSA</div><a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a>
+        <div class="cl-step-desc">Select the option that best describes the licensee's current status. This determines whether the s21 notice procedure applies.</div>
+        <div class="cl-toggle-group">
+          <label class="cl-toggle-btn" id="prelim-died"><input type="checkbox" onchange="clUpdatePrelim('died')"> Licensee has <strong>DIED</strong></label>
+          <label class="cl-toggle-btn" id="prelim-bankrupt"><input type="checkbox" onchange="clUpdatePrelim('bankrupt')"> Licensee has been adjudged <strong>BANKRUPT</strong></label>
+          <label class="cl-toggle-btn" id="prelim-dissolved"><input type="checkbox" onchange="clUpdatePrelim('dissolved')"> Licensee has been <strong>DISSOLVED</strong></label>
+          <label class="cl-toggle-btn" id="prelim-woundup"><input type="checkbox" onchange="clUpdatePrelim('woundup')"> Licensee has been <strong>WOUND UP</strong></label>
+          <label class="cl-toggle-btn" id="prelim-ceased"><input type="checkbox" onchange="clUpdatePrelim('ceased')"> Licensee has otherwise <strong>CEASED TO EXIST</strong></label>
+          <label class="cl-toggle-btn cl-toggle-none" id="prelim-none"><input type="checkbox" onchange="clUpdatePrelim('none')"> <strong>None of the above</strong> — Licensee is still in existence and holds a current licence</label>
+        </div>
+        <div id="clPrelimBypass" style="display:none;">
+          <div class="cl-bypass-notice">
+            <div class="cl-bypass-title">⚡ Section 21 Procedure Disapplied</div>
+            <div class="cl-bypass-text">Under s21(3) HCSA, the mandatory notice and representation procedure <strong>does not apply</strong>. You may proceed directly to regulatory action under s20(2) or s20(3A) without issuing a s21(1) notice or waiting for a representation period.<br><br><strong>Basis for exception:</strong> <span id="clBypassReasons"></span><br><br>Document this carefully in your case file.</div>
+          </div>
+        </div>
+        <div id="clPrelimNormal" style="display:none;">
+          <div class="cl-green-box">✓ Full s21 procedure applies. Let's walk through it.</div>
+        </div>
+        <div class="cl-nav-row">
+          <button class="cl-btn-next" id="clPrelimBypassBtn" style="display:none;" onclick="clGoTo('step0')">Proceed to s20 Action →</button>
+          <button class="cl-btn-next" id="clPrelimNormalBtn" style="display:none;" onclick="clGoTo('step0')">Begin Checklist →</button>
+          <button class="cl-btn-next" id="clPrelimDisabledBtn" disabled title="Please select the licensee's current status to proceed.">Begin Checklist →</button>
+        </div>
+        <div class="cl-footnote">Based on s21 read with s20 of the Healthcare Services Act 2020 (as amended by Act 11 of 2023 wef 01/05/2023 and 26/06/2023). Verify against the current version at sso.agc.gov.sg. Not legal advice.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCREEN: STEP 0 — TYPE OF ACTION ── -->
+  <div id="clScreen-step0" class="cl-screen" style="display:none;">
+    <div class="cl-step-card active">
+      <div class="cl-step-header">
+        <div class="cl-step-num">0</div>
+        <div class="cl-step-title">Confirm Proposed Regulatory Action</div>
+      </div>
+      <div class="cl-step-body" style="display:block;">
+        <div class="cl-legal-ref">s20 HCSA</div><a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a>
+        <div class="cl-step-desc">Confirm that you are proposing to take regulatory action under section 20 of the HCSA before proceeding.</div>
+        <label class="cl-check-card" id="s0c-confirm">
+          <input type="checkbox" id="clStep0Confirm" onchange="clStep0Check()">
+          <div><span class="cl-check-label">I confirm that I am proposing to take regulatory action against the licensee under <strong>section 20</strong> of the Healthcare Services Act 2020.</span><span class="cl-check-ref">s20 HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div>
+        </label>
+        <div class="cl-nav-row">
+          <button class="cl-btn-back" onclick="clGoTo('prelim')">← Back</button>
+          <button class="cl-btn-next" id="clStep0Next" disabled onclick="clGoTo('step2')">Next Step →</button>
+        </div>
+        <div class="cl-footnote">Based on s21 read with s20 of the Healthcare Services Act 2020 (as amended by Act 11 of 2023 wef 01/05/2023 and 26/06/2023). Verify against the current version at sso.agc.gov.sg. Not legal advice.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCREEN: STEP 2 — GROUNDS ── -->
+  <div id="clScreen-step2" class="cl-screen" style="display:none;">
+    <div class="cl-step-card active">
+      <div class="cl-step-header">
+        <div class="cl-step-num">2</div>
+        <div class="cl-step-title">Grounds for Regulatory Action</div>
+      </div>
+      <div class="cl-step-body" style="display:block;">
+        <label class="cl-check-card" id="s2c-a">
+          <input type="checkbox" onchange="clStep2Check()">
+          <div><span class="cl-check-label">I have identified and specified each instance of contravention or non-compliance that is the subject of the proposed regulatory action.</span><span class="cl-check-ref">s21(1)(b) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div>
+        </label>
+        <label class="cl-check-card" id="s2c-b">
+          <input type="checkbox" onchange="clStep2Check()">
+          <div><span class="cl-check-label">I have confirmed that the contravention or non-compliance is <strong>NOT</strong> an offence under the Healthcare Services Act 2020 or its subsidiary legislation, and therefore falls within s20(1)(b)(iii) HCSA.</span><span class="cl-check-ref">s20(1)(b)(iii) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div>
+        </label>
+        <div class="cl-step2-nudge">💡 Not sure? Use the <a href="#" onclick="selectModule(1);return false;" class="cl-nudge-link">Offence Analyser</a> module to determine whether the contravention constitutes an offence before proceeding.</div>
+        <div class="cl-nav-row">
+          <button class="cl-btn-back" onclick="clGoTo('step0')">← Back</button>
+          <button class="cl-btn-next" id="clStep2Next" disabled onclick="clGoTo('step3')">Next Step →</button>
+        </div>
+        <div class="cl-footnote">Based on s21 read with s20 of the Healthcare Services Act 2020 (as amended by Act 11 of 2023 wef 01/05/2023 and 26/06/2023). Verify against the current version at sso.agc.gov.sg. Not legal advice.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCREEN: STEP 3 — S21(1) NOTICE ── -->
+  <div id="clScreen-step3" class="cl-screen" style="display:none;">
+    <div class="cl-step-card active">
+      <div class="cl-step-header">
+        <div class="cl-step-num">3</div>
+        <div class="cl-step-title">Issue the Notice of Intended Regulatory Action</div>
+      </div>
+      <div class="cl-step-body" style="display:block;">
+        <div class="cl-legal-ref">s21(1) HCSA</div><a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a>
+        <div class="cl-step-desc">Before taking any regulatory action, you must serve this notice on the licensee.</div>
+
+        <label class="cl-check-card" id="s3c-a">
+          <input type="checkbox" onchange="clStep3Check()">
+          <div><span class="cl-check-label">Notice states that the Director-General intends to take regulatory action under s20</span><span class="cl-check-ref">s21(1)(a) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div>
+        </label>
+        <label class="cl-check-card" id="s3c-b">
+          <input type="checkbox" onchange="clStep3Check()">
+          <div><span class="cl-check-label">Notice specifies the <strong>type</strong> of regulatory action proposed under <span class="cl-s20ref">s20(2)</span></span><span class="cl-check-ref">s21(1)(b) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div>
+        </label>
+        <label class="cl-check-card" id="s3c-c">
+          <input type="checkbox" onchange="clStep3Check()">
+          <div><span class="cl-check-label">Notice specifies <strong>each instance</strong> of contravention or non-compliance, or the reason(s) for proposed action</span><span class="cl-check-ref">s21(1)(b) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div>
+        </label>
+        <label class="cl-check-card" id="s3c-d">
+          <input type="checkbox" onchange="clStep3Check()">
+          <div><span class="cl-check-label">Notice specifies the <strong>deadline</strong> for written representations</span><span class="cl-check-ref">s21(1)(c) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div>
+        </label>
+
+        <div class="cl-date-calc">
+          <div class="cl-date-calc-title">📅 Calculate Representation Deadline</div>
+          <div class="cl-date-calc-row">
+            <label class="cl-date-calc label">Date notice served on licensee:</label>
+            <input class="cl-date-input" id="clNoticeDateServed" type="date" onchange="clCalcRepDeadline()">
+          </div>
+          <div id="clRepDeadlineResult" style="display:none;">
+            <div class="cl-calc-result" id="clRepDeadlineText"></div>
+            <div class="cl-amber-box" style="margin-top:8px;">⚠ Minimum 14 days from service date per s21(1)(c) HCSA</div>
+            <div class="cl-calc-result" id="clEarliestActionText" style="margin-top:6px;"></div>
+          </div>
+        </div>
+
+        <div id="clRepWarning" class="cl-warn-box" style="display:none;">⚠ <strong>Invalid:</strong> Representation period must be at least 14 days from the date of service under s21(1)(c) HCSA.</div>
+
+        <label class="cl-check-card" id="s3c-e">
+          <input type="checkbox" onchange="clStep3Check()">
+          <div><span class="cl-check-label">Notice has been <strong>served</strong> on the licensee</span><span class="cl-check-ref">s21(1) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div>
+        </label>
+
+        <div class="cl-nav-row">
+          <button class="cl-btn-back" onclick="clGoTo('step2')">← Back</button>
+          <button class="cl-btn-next" id="clStep3Next" disabled onclick="clGoTo('step4')">Next Step →</button>
+        </div>
+        <div class="cl-footnote">Based on s21 read with s20 of the Healthcare Services Act 2020 (as amended by Act 11 of 2023 wef 01/05/2023 and 26/06/2023). Verify against the current version at sso.agc.gov.sg. Not legal advice.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCREEN: STEP 4 — REPRESENTATIONS ── -->
+  <div id="clScreen-step4" class="cl-screen" style="display:none;">
+    <div class="cl-step-card active">
+      <div class="cl-step-header">
+        <div class="cl-step-num">4</div>
+        <div class="cl-step-title">Await and Consider Representations</div>
+      </div>
+      <div class="cl-step-body" style="display:block;">
+        <div class="cl-legal-ref">s21(2) HCSA</div><a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a>
+        <div class="cl-step-desc">You must wait for the representation period to elapse before deciding on regulatory action.</div>
+
+        <div id="clRepStatus" class="cl-rep-status waiting"></div>
+
+        <div class="cl-step-desc" style="margin-top:16px;font-weight:600;color:var(--navy);">Did the licensee submit written representations?</div>
+        <div class="cl-pathway-grid">
+          <div class="cl-pathway-card" id="clPathwayYes" onclick="clSelectPathway('yes')">
+            <div class="cl-pathway-title">Yes — representations received</div>
+            <div class="cl-pathway-sub">Licensee submitted written representations</div>
+            <div style="margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-muted);">s21(2)(a) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></div>
+          </div>
+          <div class="cl-pathway-card" id="clPathwayNo" onclick="clSelectPathway('no')">
+            <div class="cl-pathway-title">No / Withdrawn</div>
+            <div class="cl-pathway-sub">No representations received, or representations were withdrawn</div>
+            <div style="margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-muted);">s21(2)(b) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></div>
+          </div>
+        </div>
+
+        <div id="clPathwayYesChecks" style="display:none;">
+          <label class="cl-check-card"><input type="checkbox" onchange="clStep4Check()"><div><span class="cl-check-label">Written representations have been <strong>received</strong></span><span class="cl-check-ref">s21(2)(a) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div></label>
+          <label class="cl-check-card"><input type="checkbox" onchange="clStep4Check()"><div><span class="cl-check-label">The Director-General has <strong>duly considered</strong> the representations before deciding on regulatory action</span><span class="cl-check-ref">s21(2)(a) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div></label>
+          <div class="cl-info-box">The Director-General must <em>consider</em> the representations — merely receiving them is not sufficient.</div>
+        </div>
+        <div id="clPathwayNoChecks" style="display:none;">
+          <label class="cl-check-card"><input type="checkbox" onchange="clStep4Check()"><div><span class="cl-check-label">Representation period has <strong>fully elapsed</strong></span><span class="cl-check-ref">s21(2)(b) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div></label>
+          <label class="cl-check-card"><input type="checkbox" onchange="clStep4Check()"><div><span class="cl-check-label">No written representations were received, <em>OR</em> representations received but subsequently <strong>withdrawn</strong> by the licensee</span><span class="cl-check-ref">s21(2)(b) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div></label>
+        </div>
+
+        <div class="cl-nav-row">
+          <button class="cl-btn-back" onclick="clGoTo('step3')">← Back</button>
+          <button class="cl-btn-next" id="clStep4Next" disabled onclick="clGoTo('step5')">Next Step →</button>
+        </div>
+        <div class="cl-footnote">Based on s21 read with s20 of the Healthcare Services Act 2020 (as amended by Act 11 of 2023 wef 01/05/2023 and 26/06/2023). Verify against the current version at sso.agc.gov.sg. Not legal advice.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCREEN: STEP 5 — DECISION AND SERVICE ── -->
+  <div id="clScreen-step5" class="cl-screen" style="display:none;">
+    <div class="cl-step-card active">
+      <div class="cl-step-header">
+        <div class="cl-step-num">5</div>
+        <div class="cl-step-title">Make Decision and Serve Notice of Decision</div>
+      </div>
+      <div class="cl-step-body" style="display:block;">
+        <div class="cl-legal-ref">s21(4) and s21(5) HCSA</div><a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a>
+        <div class="cl-step-desc">The regulatory action only takes legal effect when the notice of decision is served.</div>
+
+        <div class="cl-step-desc" style="font-weight:600;color:var(--navy);margin-bottom:10px;">Is the regulatory action taken under s20(2) or s20(3A)?</div>
+        <div class="cl-radio-card" id="clS5Radio-20_2" onclick="clSelectS5ActionType('20_2')">
+          <input type="radio" name="clS5ActionType" value="20_2">
+          <div>
+            <div class="cl-radio-card-title">s20(2) — current licensee</div>
+            <div class="cl-radio-card-sub">The licensee currently holds a valid licence</div>
+          </div>
+        </div>
+        <div class="cl-radio-card" id="clS5Radio-20_3A" onclick="clSelectS5ActionType('20_3A')">
+          <input type="radio" name="clS5ActionType" value="20_3A">
+          <div>
+            <div class="cl-radio-card-title">s20(3A) — formerly licensed person or entity</div>
+            <div class="cl-radio-card-sub">The licence has lapsed, been cancelled or surrendered</div>
+          </div>
+        </div>
+        <label class="cl-check-card" style="margin-top:14px;"><input type="checkbox" onchange="clStep5Check()"><div><span class="cl-check-label">Director-General has made the <strong>decision</strong> to take regulatory action under section 20 HCSA</span><span class="cl-check-ref">s21(4) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div></label>
+        <label class="cl-field-label">Date of decision:</label>
+        <input class="cl-date-input" id="clDecisionDate" type="date" style="width:100%;margin-top:4px;" onchange="clStep5Check()">
+
+        <label class="cl-check-card" style="margin-top:14px;"><input type="checkbox" onchange="clStep5Check()"><div><span class="cl-check-label">Notice of decision has been <strong>prepared</strong> in accordance with s21(4)</span><span class="cl-check-ref">s21(4) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div></label>
+        <label class="cl-check-card"><input type="checkbox" onchange="clStep5Check()"><div><span class="cl-check-label">Notice of decision has been <strong>served</strong> on the licensee</span><span class="cl-check-ref">s21(5) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span></div></label>
+        <label class="cl-field-label">Date of service of notice of decision:</label>
+        <input class="cl-date-input" id="clDecisionServiceDate" type="date" style="width:100%;margin-top:4px;" onchange="clCalcEffectiveDate()">
+
+        <div class="cl-date-calc" style="margin-top:18px;">
+          <div class="cl-date-calc-title">📅 When does the regulatory action take effect?</div>
+          <div class="cl-step-desc" style="margin:8px 0;">Does the notice of decision specify a later effective date?</div>
+          <label style="display:flex;align-items:center;gap:10px;margin-bottom:10px;cursor:pointer;font-size:14px;">
+            <input type="radio" name="clEffDateType" value="on_service" checked onchange="clCalcEffectiveDate()"> No — action takes effect on date of service
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;margin-bottom:10px;cursor:pointer;font-size:14px;">
+            <input type="radio" name="clEffDateType" value="later" onchange="clCalcEffectiveDate()"> Yes — specify later date:
+            <input class="cl-date-input" id="clLaterEffDate" type="date" onchange="clCalcEffectiveDate()" style="margin-left:8px;">
+          </label>
+          <div class="cl-effective-date" id="clEffectiveDateDisplay">
+            <span class="cl-effective-label">Regulatory action takes effect on</span>
+            <span id="clEffectiveDateVal">— enter date of service above</span>
+          </div>
+        </div>
+
+        <div class="cl-warn-box" style="margin-top:14px;">
+          ⚠ The regulatory action does <strong>NOT</strong> take legal effect from the date of the Director-General's decision. It takes effect only upon <strong>service of the notice of decision</strong>, or on the later date specified in that notice.
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;display:block;margin-top:4px;">s21(5) HCSA <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span>
+        </div>
+
+        <div class="cl-collapsible-trigger" onclick="clToggleCollapsible('s215note')">
+          <span id="s215noteArrow">▶</span> Note — s21(6): Savings provision
+        </div>
+        <div class="cl-collapsible-body" id="s215note">
+          The regulatory action does not affect the enforcement of existing rights or claims — either by third parties against the licensee, or by the licensee against third parties. <span style="font-family:'JetBrains Mono',monospace;font-size:11px;">[s21(6) HCSA] <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></span>
+        </div>
+
+        <div class="cl-nav-row">
+          <button class="cl-btn-back" onclick="clGoTo('step4')">← Back</button>
+          <button class="cl-btn-next" id="clStep5Next" disabled onclick="clGoTo('complete')">Finish →</button>
+        </div>
+        <div class="cl-footnote">Based on s21 read with s20 of the Healthcare Services Act 2020 (as amended by Act 11 of 2023 wef 01/05/2023 and 26/06/2023). Verify against the current version at sso.agc.gov.sg. Not legal advice.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCREEN: COMPLETION ── -->
+  <div id="clScreen-complete" class="cl-screen" style="display:none;">
+    <div class="cl-complete-card">
+      <div class="cl-complete-title">✓ Procedural Requirements Satisfied</div>
+      <div class="cl-complete-summary">All mandatory procedural steps under s21 of the Healthcare Services Act 2020 appear to have been completed. The regulatory action under <strong><span id="complActionType">s20(2)</span></strong> may be issued.</div>
+
+      <div id="clSummaryBox" class="cl-complete-summary" style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;font-size:13.5px;line-height:2;">
+      </div>
+
+      <div class="cl-complete-disclaimer">
+        ⚠ This checklist is a procedural guide only. Officers must verify all steps against the current version of the Healthcare Services Act 2020 at <a href="https://sso.agc.gov.sg" target="_blank">sso.agc.gov.sg</a> and consult the MOH Legal Office before issuing regulatory action. Not legal advice.
+      </div>
+
+      <div class="cl-complete-row">
+        <button class="cl-btn-newcase" onclick="clReset()">↺ Start New Case</button>
+        <button class="cl-btn-print" onclick="window.print()">🖨 Print / Save Summary</button>
+      </div>
+    </div>
+    <div class="cl-footnote" style="margin-top:16px;">Based on s21 read with s20 of the Healthcare Services Act 2020 (as amended by Act 11 of 2023 wef 01/05/2023 and 26/06/2023). Verify against the current version at sso.agc.gov.sg. Not legal advice.</div>
+  </div>
+
+</div><!-- /cl-wrap -->
+</main>
+
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-line-1">Developed by the MOH Legal Office &nbsp;|&nbsp; Beta version for the Regulatory and Compliance Division only</div>
@@ -819,6 +1407,57 @@ footer a:hover { color: var(--gold-light); }
 </footer>
 
 <script>
+// ── SSO URL MAP ─────────────────────────────────────────────────────────────
+// Exact SSO URLs scraped from sso.agc.gov.sg/Act/HSA2020?ViewType=Sl (March 2025)
+const SSO_URL_MAP = [
+  { keys: ['Acute Hospital'],                url: 'https://sso.agc.gov.sg/SL/HSA2020-S424-2023?DocDate=20230623' },
+  { keys: ['Advertisement', 'Exemption'],    url: 'https://sso.agc.gov.sg/SL/HSA2020-S1034-2021?DocDate=20211230', exact: 'Advertisement — Exemption' },
+  { keys: ['Advertisement'],                 url: 'https://sso.agc.gov.sg/SL/HSA2020-S1033-2021?DocDate=20230621' },
+  { keys: ['Ambulatory Surgical', 'ASC'],    url: 'https://sso.agc.gov.sg/SL/HSA2020-S411-2023?DocDate=20231214' },
+  { keys: ['Appeals'],                       url: 'https://sso.agc.gov.sg/SL/HSA2020-S690-2022?DocDate=20220818' },
+  { keys: ['Assisted Reproduction'],         url: 'https://sso.agc.gov.sg/SL/HSA2020-S429-2023?DocDate=20231215' },
+  { keys: ['Blood Banking'],                 url: 'https://sso.agc.gov.sg/SL/HSA2020-S1038-2021?DocDate=20231214' },
+  { keys: ['Clinical Laboratory', 'Radiological', 'ClinLab', 'Radiology'], url: 'https://sso.agc.gov.sg/SL/HSA2020-S1036-2021?DocDate=20231214' },
+  { keys: ['Collaborative Prescribing'],     url: 'https://sso.agc.gov.sg/SL/HSA2020-S398-2023?DocDate=20231214' },
+  { keys: ['Community Hospital'],            url: 'https://sso.agc.gov.sg/SL/HSA2020-S423-2023?DocDate=20230623' },
+  { keys: ['Composition of Offences'],       url: 'https://sso.agc.gov.sg/SL/HSA2020-S618-2023?DocDate=20240202' },
+  { keys: ['Contingency Care'],              url: 'https://sso.agc.gov.sg/SL/HSA2020-S427-2023?DocDate=20231214' },
+  { keys: ['Cord Blood'],                    url: 'https://sso.agc.gov.sg/SL/HSA2020-S1037-2021?DocDate=20230621' },
+  { keys: ['Emergency Ambulance', 'Medical Transport', 'EAS', 'MTS'], url: 'https://sso.agc.gov.sg/SL/HSA2020-S2-2022?DocDate=20251230' },
+  { keys: ['Fees'],                          url: 'https://sso.agc.gov.sg/SL/HSA2020-S1032-2021?DocDate=20241230' },
+  { keys: ['General'],                       url: 'https://sso.agc.gov.sg/SL/HSA2020-S1035-2021?DocDate=20241011' },
+  { keys: ['Human Tissue Banking'],          url: 'https://sso.agc.gov.sg/SL/HSA2020-S413-2023?DocDate=20230622' },
+  { keys: ['Nuclear Medicine'],              url: 'https://sso.agc.gov.sg/SL/HSA2020-S412-2023?DocDate=20230622' },
+  { keys: ['Nursing Home'],                  url: 'https://sso.agc.gov.sg/SL/HSA2020-S849-2023?DocDate=20231215' },
+  { keys: ['Outpatient Dental', 'Dental'],   url: 'https://sso.agc.gov.sg/SL/HSA2020-S408-2023?DocDate=20231214' },
+  { keys: ['Outpatient Medical', 'Outpatient Medical Service'], url: 'https://sso.agc.gov.sg/SL/HSA2020-S410-2023?DocDate=20231214' },
+  { keys: ['Outpatient Renal', 'Renal Dialysis'], url: 'https://sso.agc.gov.sg/SL/HSA2020-S409-2023?DocDate=20231214' },
+  { keys: ['Saving and Transitional', 'Transitional'], url: 'https://sso.agc.gov.sg/SL/HSA2020-S1031-2021?DocDate=20230622' },
+];
+const SSO_FALLBACK = 'https://sso.agc.gov.sg/Act/HSA2020';
+const SSO_FALLBACK_TITLE = 'Direct link unavailable — search for this instrument on SSO';
+const SSO_PARENT_ACT = 'https://sso.agc.gov.sg/Act/HSA2020';
+
+function getSSOUrl(instrument) {
+  if (!instrument) return { url: SSO_PARENT_ACT, fallback: false };
+  const norm = instrument.toLowerCase();
+  // Prioritise longer/more-specific key matches by trying all entries and scoring
+  let best = null, bestScore = 0;
+  for (const entry of SSO_URL_MAP) {
+    const matched = entry.keys.filter(k => norm.includes(k.toLowerCase()));
+    if (matched.length > bestScore) {
+      bestScore = matched.length;
+      best = entry;
+    }
+  }
+  if (best) return { url: best.url, fallback: false };
+  // Parent Act provisions don't need SL link
+  if (norm.includes('healthcare services act') && !norm.includes('regulation')) {
+    return { url: SSO_PARENT_ACT, fallback: false };
+  }
+  return { url: SSO_FALLBACK, fallback: true };
+}
+
 // ── CONFIGURATION ──────────────────────────────────────────────────────────
 const _appVersion   = 'gsk_yU0zTOBivd';
 const _buildRef     = 'lHijo6rVNHWGdy';
@@ -937,6 +1576,13 @@ ${JSON.stringify(filteredKB)}`;
 
 // ── STATE ──────────────────────────────────────────────────────────────────
 let isLoading = false;
+let ssoTipShown = false;
+
+// ── SSO TIP ────────────────────────────────────────────────────────────────
+function dismissSsoTip() {
+  ssoTipShown = true;
+  document.getElementById('ssoTipBanner').style.display = 'none';
+}
 
 // ── PASSWORD GATE ──────────────────────────────────────────────────────────
 function checkPassword() {
@@ -1078,12 +1724,15 @@ function renderResults(data) {
   if (data.s20_2_reason) {
     s20Html += `<div class="s20-text" style="margin-top:6px;font-weight:400;font-size:13px;">${esc(data.s20_2_reason)}</div>`;
   }
-  s20Html += `<div class="s20-footnote">Based on s20(1)(b)(iii) HCSA. A reference to the Act includes subsidiary legislation made thereunder.</div>`;
+  s20Html += `<div class="s20-footnote">Based on s20(1)(b)(iii) HCSA. A reference to the Act includes subsidiary legislation made thereunder. <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a></div>`;
   s20Banner.innerHTML = s20Html;
 
   // Provisions
   const container = document.getElementById('provisionsContainer');
   container.innerHTML = '';
+  if (!ssoTipShown) {
+    document.getElementById('ssoTipBanner').style.display = 'flex';
+  }
   const provisions = Array.isArray(data.provisions) ? data.provisions : [];
   if (provisions.length === 0) {
     container.innerHTML = '<p style="color:var(--text-muted);font-size:13.5px;padding:8px 0;">No specific provisions identified.</p>';
@@ -1098,6 +1747,7 @@ function renderResults(data) {
           <div>
             <div class="prov-instrument">${esc(p.instrument || '')}</div>
             <div class="prov-num">${esc(p.provision || '')}</div>
+            <a class="sso-btn sso-btn-block" href="${getSSOUrl(p.instrument).url}" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a>
           </div>
           <div class="prov-tags">
             ${isOff ? '<span class="tag tag-offence">⚖ Offence</span>' : '<span class="tag tag-no-offence">No offence</span>'}
@@ -1108,9 +1758,7 @@ function renderResults(data) {
         <div class="prov-penalty">
           <span class="prov-penalty-label">Penalty:</span>
           <span class="prov-penalty-text ${!penaltyText ? 'no-penalty' : ''}">${esc(penaltyText || '—')}</span>
-          <a class="prov-sso-link" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener">
-            ↗ Verify on SSO
-          </a>
+          ${(() => { const s = getSSOUrl(p.instrument); return `<a class="prov-sso-link${s.fallback ? ' prov-sso-fallback' : ''}" href="${s.url}" target="_blank" rel="noopener"${s.fallback ? ` title="${SSO_FALLBACK_TITLE}"` : ''}>↗ Verify on SSO</a>`; })()}
         </div>`;
       container.appendChild(div);
     });
@@ -1202,6 +1850,313 @@ async function analyse() {
   } finally {
     setLoading(false);
   }
+}
+
+// ── MODULE NAVIGATION ──────────────────────────────────────────────────────
+function selectModule(n) {
+  document.getElementById('moduleSelector').style.display = 'none';
+  const bc = document.getElementById('breadcrumb');
+  bc.classList.add('visible');
+  document.getElementById('bcModName').textContent = n === 1 ? 'Offence Analyser' : 'Regulatory Action Checklist';
+  if (n === 1) {
+    document.getElementById('mod1').classList.remove('hidden-module');
+    document.getElementById('mod2').classList.add('hidden-module');
+  } else {
+    document.getElementById('mod2').classList.remove('hidden-module');
+    document.getElementById('mod1').classList.add('hidden-module');
+    clInitScreen('prelim');
+  }
+}
+
+function showModuleSelector() {
+  document.getElementById('moduleSelector').style.display = '';
+  document.getElementById('breadcrumb').classList.remove('visible');
+  document.getElementById('mod1').classList.add('hidden-module');
+  document.getElementById('mod2').classList.add('hidden-module');
+}
+
+// ── CHECKLIST STATE ─────────────────────────────────────────────────────────
+const CL = {
+  s21Disapplied: false, disappliedReasons: [],
+  actionType: '',          // '20_2' or '20_3A' — set in Step 5
+  grounds: '',
+  noticeServedDate: '',
+  repDeadline: null,       // Date object
+  repPathway: '',          // 'yes' or 'no'
+  decisionDate: '',
+  decisionServiceDate: '',
+  effectiveDateType: 'on_service',
+  laterEffDate: '',
+
+  currentScreen: 'case',
+};
+
+const STEP_ORDER = ['case', 'prelim', 'step0', 'step1', 'step2', 'step3', 'step4', 'step5'];
+// step6 inserted conditionally before complete
+
+function clGoTo(screen) {
+  const current = document.querySelector('.cl-screen[style=""]') ||
+                  document.querySelector('.cl-screen:not([style*="none"])');
+  document.querySelectorAll('.cl-screen').forEach(s => s.style.display = 'none');
+  const target = document.getElementById('clScreen-' + screen);
+  if (target) {
+    target.style.display = '';
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  CL.currentScreen = screen;
+  clUpdateProgress(screen);
+  if (screen === 'step4') clUpdateRepStatus();
+  if (screen === 'complete') clRenderCompletion();
+}
+
+
+function clInitScreen(screen) {
+  document.querySelectorAll('.cl-screen').forEach(s => s.style.display = 'none');
+  const t = document.getElementById('clScreen-' + screen);
+  if (t) t.style.display = '';
+  CL.currentScreen = screen;
+  document.getElementById('clProgressWrap').style.display = 'none';
+  clUpdateProgress(screen);
+}
+
+function clUpdateProgress(screen) {
+  const steps = ['prelim', 'step0', 'step2', 'step3', 'step4', 'step5', 'complete'];
+  const idx = steps.indexOf(screen);
+  const total = 5;
+  const pct = screen === 'complete' ? 100 : Math.round((Math.max(0, idx) / (total)) * 100);
+  const wrap = document.getElementById('clProgressWrap');
+  if (screen === 'prelim') { wrap.style.display = 'none'; return; }
+  wrap.style.display = '';
+  document.getElementById('clProgressFill').style.width = pct + '%';
+  document.getElementById('clProgressPct').textContent = pct + '%';
+  const stepNum = Math.max(0, idx);
+  document.getElementById('clProgressLabel').textContent = screen === 'complete' ? 'Complete' : `Step ${stepNum} of ${total}`;
+}
+
+function clReset() {
+  // Reset all state
+  Object.assign(CL, { s21Disapplied:false, disappliedReasons:[], actionType:'', grounds:'', noticeServedDate:'', repDeadline:null, repPathway:'', decisionDate:'', decisionServiceDate:'', effectiveDateType:'on_service', laterEffDate:'', currentScreen:'prelim' });
+  // Reset form fields
+  ['clGrounds'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  ['clNoticeDateServed','clDecisionDate','clDecisionServiceDate','clLaterEffDate'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  document.querySelectorAll('#mod2 input[type="checkbox"]').forEach(cb => cb.checked = false);
+  document.querySelectorAll('#mod2 input[type="radio"]').forEach(rb => rb.checked = false);
+  document.querySelectorAll('.cl-toggle-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.cl-radio-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.cl-pathway-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('clPrelimBypass').style.display = 'none';
+  document.getElementById('clPrelimNormal').style.display = 'none';
+  document.getElementById('clPrelimBypassBtn').style.display = 'none';
+  document.getElementById('clPrelimNormalBtn').style.display = 'none';
+  document.getElementById('clPrelimDisabledBtn').style.display = '';
+  document.getElementById('clRepDeadlineResult').style.display = 'none';
+  document.getElementById('clRepWarning').style.display = 'none';
+  document.getElementById('clPathwayYesChecks').style.display = 'none';
+  document.getElementById('clPathwayNoChecks').style.display = 'none';
+  document.getElementById('clEffectiveDateVal').textContent = '— enter date of service above';
+  clInitScreen('prelim');
+}
+
+// ── PRELIMINARY ─────────────────────────────────────────────────────────────
+function clUpdatePrelim(changed) {
+  const ceaseIds = ['prelim-died','prelim-bankrupt','prelim-dissolved','prelim-woundup','prelim-ceased'];
+  const labels = ['Licensee has died','Licensee has been adjudged bankrupt','Licensee has been dissolved','Licensee has been wound up','Licensee has otherwise ceased to exist'];
+
+  if (changed === 'none') {
+    // Selecting "None of the above" deselects all others
+    ceaseIds.forEach(id => { document.querySelector('#' + id + ' input').checked = false; });
+  } else {
+    // Selecting any other option deselects "None of the above"
+    document.querySelector('#prelim-none input').checked = false;
+  }
+
+  const checked = ceaseIds.map((id,i) => document.querySelector('#' + id + ' input').checked ? labels[i] : null).filter(Boolean);
+  const noneSelected = document.querySelector('#prelim-none input').checked;
+  CL.s21Disapplied = checked.length > 0;
+  CL.disappliedReasons = checked;
+
+  const bypass = document.getElementById('clPrelimBypass');
+  const normal = document.getElementById('clPrelimNormal');
+  const bypassBtn = document.getElementById('clPrelimBypassBtn');
+  const normalBtn = document.getElementById('clPrelimNormalBtn');
+  const disabledBtn = document.getElementById('clPrelimDisabledBtn');
+
+  if (CL.s21Disapplied) {
+    bypass.style.display = '';
+    normal.style.display = 'none';
+    bypassBtn.style.display = '';
+    normalBtn.style.display = 'none';
+    disabledBtn.style.display = 'none';
+    document.getElementById('clBypassReasons').textContent = checked.join('; ');
+  } else if (noneSelected) {
+    bypass.style.display = 'none';
+    normal.style.display = '';
+    bypassBtn.style.display = 'none';
+    normalBtn.style.display = '';
+    disabledBtn.style.display = 'none';
+  } else {
+    bypass.style.display = 'none';
+    normal.style.display = 'none';
+    bypassBtn.style.display = 'none';
+    normalBtn.style.display = 'none';
+    disabledBtn.style.display = '';
+  }
+}
+
+// ── STEP 0 ──────────────────────────────────────────────────────────────────
+function clStep0Check() {
+  const checked = document.getElementById('clStep0Confirm').checked;
+  document.getElementById('clStep0Next').disabled = !checked;
+}
+
+// ── STEP 1 ──────────────────────────────────────────────────────────────────
+// ── STEP 2 ──────────────────────────────────────────────────────────────────
+function clStep2Check() {
+  const checkboxes = document.querySelectorAll('#clScreen-step2 .cl-check-card input[type="checkbox"]');
+  const allChecked = [...checkboxes].every(cb => cb.checked);
+  document.getElementById('clStep2Next').disabled = !allChecked;
+}
+
+// ── STEP 3 ──────────────────────────────────────────────────────────────────
+function clCalcRepDeadline() {
+  const val = document.getElementById('clNoticeDateServed').value;
+  CL.noticeServedDate = val;
+  const resultDiv = document.getElementById('clRepDeadlineResult');
+  const warning = document.getElementById('clRepWarning');
+  if (!val) { resultDiv.style.display = 'none'; return; }
+  const served = new Date(val + 'T00:00:00');
+  const deadline = new Date(served);
+  deadline.setDate(deadline.getDate() + 14);
+  CL.repDeadline = deadline;
+  const fmt = d => d.toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('clRepDeadlineText').textContent = `Representation deadline: ${fmt(deadline)}`;
+  document.getElementById('clEarliestActionText').textContent = `Earliest date regulatory action can proceed: ${fmt(deadline)}`;
+  resultDiv.style.display = '';
+  warning.style.display = 'none';
+  clStep3Check();
+}
+
+function clStep3Check() {
+  const checkboxes = document.querySelectorAll('#clScreen-step3 .cl-check-card input[type="checkbox"]');
+  const allChecked = [...checkboxes].every(cb => cb.checked);
+  const hasDate = !!document.getElementById('clNoticeDateServed').value;
+  document.getElementById('clStep3Next').disabled = !(allChecked && hasDate);
+}
+
+// ── STEP 4 ──────────────────────────────────────────────────────────────────
+function clUpdateRepStatus() {
+  const el = document.getElementById('clRepStatus');
+  if (!CL.repDeadline) {
+    el.className = 'cl-rep-status waiting';
+    el.textContent = '⚠ No representation deadline set. Please complete Step 3 first.';
+    return;
+  }
+  const today = new Date(); today.setHours(0,0,0,0);
+  const deadline = new Date(CL.repDeadline); deadline.setHours(0,0,0,0);
+  const fmt = d => d.toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric'});
+  if (today < deadline) {
+    el.className = 'cl-rep-status waiting';
+    el.textContent = `⏳ Representation period has not yet elapsed. Representation deadline: ${fmt(deadline)}. You cannot proceed until this date.`;
+  } else {
+    el.className = 'cl-rep-status elapsed';
+    el.textContent = `✓ Representation period has elapsed (deadline was ${fmt(deadline)}).`;
+  }
+}
+
+function clSelectPathway(pathway) {
+  CL.repPathway = pathway;
+  document.querySelectorAll('.cl-pathway-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('clPathway' + (pathway === 'yes' ? 'Yes' : 'No')).classList.add('selected');
+  document.getElementById('clPathwayYesChecks').style.display = pathway === 'yes' ? '' : 'none';
+  document.getElementById('clPathwayNoChecks').style.display = pathway === 'no' ? '' : 'none';
+  // Uncheck all from the hidden group
+  document.querySelectorAll('#clPathwayYesChecks input, #clPathwayNoChecks input').forEach(cb => cb.checked = false);
+  document.getElementById('clStep4Next').disabled = true;
+  clStep4Check();
+}
+
+function clStep4Check() {
+  if (!CL.repPathway) { document.getElementById('clStep4Next').disabled = true; return; }
+  const group = CL.repPathway === 'yes' ? '#clPathwayYesChecks' : '#clPathwayNoChecks';
+  const allChecked = [...document.querySelectorAll(group + ' input[type="checkbox"]')].every(cb => cb.checked);
+  document.getElementById('clStep4Next').disabled = !allChecked;
+}
+
+// ── STEP 5 ──────────────────────────────────────────────────────────────────
+function clCalcEffectiveDate() {
+  const serviceDate = document.getElementById('clDecisionServiceDate').value;
+  CL.decisionServiceDate = serviceDate;
+  const radioVal = document.querySelector('input[name="clEffDateType"]:checked')?.value || 'on_service';
+  CL.effectiveDateType = radioVal;
+  const laterVal = document.getElementById('clLaterEffDate').value;
+  CL.laterEffDate = laterVal;
+  const el = document.getElementById('clEffectiveDateVal');
+  if (radioVal === 'on_service') {
+    if (serviceDate) {
+      const d = new Date(serviceDate + 'T00:00:00');
+      el.textContent = d.toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric'});
+    } else {
+      el.textContent = '— enter date of service above';
+    }
+  } else {
+    if (laterVal) {
+      const d = new Date(laterVal + 'T00:00:00');
+      el.textContent = d.toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric'});
+    } else {
+      el.textContent = '— specify later date above';
+    }
+  }
+  clStep5Check();
+}
+
+function clSelectS5ActionType(type) {
+  CL.actionType = type;
+  document.querySelectorAll('[id^="clS5Radio-"]').forEach(el => el.classList.remove('selected'));
+  document.getElementById('clS5Radio-' + type).classList.add('selected');
+  document.querySelector('#clS5Radio-' + type + ' input').checked = true;
+  clStep5Check();
+}
+
+function clStep5Check() {
+  const checkboxes = document.querySelectorAll('#clScreen-step5 .cl-check-card input[type="checkbox"]');
+  const allChecked = [...checkboxes].every(cb => cb.checked);
+  const decDate = document.getElementById('clDecisionDate').value;
+  const servDate = document.getElementById('clDecisionServiceDate').value;
+  const hasActionType = !!CL.actionType;
+  document.getElementById('clStep5Next').disabled = !(allChecked && decDate && servDate && hasActionType);
+}
+
+function clToggleCollapsible(id) {
+  const body = document.getElementById(id);
+  const arrow = document.getElementById(id + 'Arrow');
+  body.classList.toggle('open');
+  if (arrow) arrow.textContent = body.classList.contains('open') ? '▼' : '▶';
+}
+
+
+// ── COMPLETION ───────────────────────────────────────────────────────────────
+function clRenderCompletion() {
+  const actionLabel = CL.actionType === '20_2' ? 's20(2)' : CL.actionType === '20_3A' ? 's20(3A)' : 's20(2)/s20(3A)';
+  document.getElementById('complActionType').textContent = actionLabel;
+  const fmt = v => { if (!v) return '—'; const d = new Date(v + 'T00:00:00'); return d.toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric'}); };
+  const repDl = CL.repDeadline ? CL.repDeadline.toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric'}) : '—';
+  const effDate = (() => {
+    if (CL.effectiveDateType === 'on_service' && CL.decisionServiceDate) return fmt(CL.decisionServiceDate);
+    if (CL.effectiveDateType === 'later' && CL.laterEffDate) return fmt(CL.laterEffDate);
+    return '—';
+  })();
+  const s21Note = CL.s21Disapplied ? '<strong>Note:</strong> s21 procedure was disapplied under s21(3) HCSA. Regulatory action proceeded directly.' : '';
+  document.getElementById('clSummaryBox').innerHTML = `
+    <strong>Type of action:</strong> ${actionLabel} <a class="sso-btn sso-btn-inline" href="https://sso.agc.gov.sg/Act/HSA2020" target="_blank" rel="noopener noreferrer" title="Opens the full legislation on Singapore Statutes Online in a new tab">Read on SSO ↗</a><br>
+    <strong>Grounds:</strong> ${CL.grounds ? CL.grounds.slice(0,200) + (CL.grounds.length > 200 ? '…' : '') : '—'}<br>
+    <strong>s21(1) notice served:</strong> ${fmt(CL.noticeServedDate)}<br>
+    <strong>Representation deadline:</strong> ${repDl}<br>
+    <strong>Representations received:</strong> ${CL.repPathway === 'yes' ? 'Yes' : CL.repPathway === 'no' ? 'No / withdrawn' : '—'}<br>
+    <strong>Decision date:</strong> ${fmt(document.getElementById('clDecisionDate').value)}<br>
+    <strong>Notice of decision served:</strong> ${fmt(CL.decisionServiceDate)}<br>
+    <strong>Regulatory action effective:</strong> ${effDate}<br>
+    ${s21Note}
+  `;
 }
 
 // ── UTILS ──────────────────────────────────────────────────────────────────

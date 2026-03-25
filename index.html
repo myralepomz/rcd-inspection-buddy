@@ -378,7 +378,7 @@ textarea#findingInput:focus {
   background: var(--grey-bg);
 }
 .s20-banner.s20-yes      { background: #f0faf4; border-left-color: var(--green); }
-.s20-banner.s20-no       { background: #fdf2f1; border-left-color: var(--red); }
+.s20-banner.s20-no       { background: #fdf2f2; border-left: 7px solid #c0392b; border-top: 2px solid #c0392b; }
 .s20-banner.s20-uncertain{ background: var(--amber-bg); border-left-color: var(--amber); }
 .s20-banner.s20-unknown  { background: var(--grey-bg); border-left-color: var(--grey); }
 
@@ -392,6 +392,44 @@ textarea#findingInput:focus {
 .s20-banner.s20-uncertain .s20-text { color: #7c3900; }
 .s20-banner.s20-unknown  .s20-text { color: var(--text-muted); }
 
+.s20-status-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: small-caps;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-right: 8px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+.s20-status-no {
+  background: #c0392b;
+  color: #fff;
+}
+.s20-x {
+  font-size: 18px;
+  font-weight: 900;
+  color: #c0392b;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.s20-actions {
+  margin-top: 10px;
+  padding-left: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.s20-action-item {
+  font-size: 13px;
+  font-weight: 600;
+  color: #7b1d1d;
+  padding-left: 14px;
+  line-height: 1.5;
+}
 .s20-footnote {
   font-size: 11px;
   font-style: italic;
@@ -901,7 +939,7 @@ const S20_CONFIG = {
   },
   NO: {
     cls: 's20-no',
-    text: '✗ Regulatory action under s20(2) HCSA is NOT available — the conduct constitutes an offence under the HCSA or its subsidiary legislation. The contravention falls outside s20(1)(b)(iii). Consider enforcement action instead.'
+    text: '<span class="s20-status-tag s20-status-no">NOT AVAILABLE</span><span class="s20-x">✗</span> Regulatory action under s20(2) HCSA is NOT available — the conduct constitutes an offence under the HCSA or its subsidiary legislation. The contravention falls outside s20(1)(b)(iii).<div class="s20-actions"><div class="s20-action-item">→ (a) Prosecute the licensee for the non-compliance/contravention</div><div class="s20-action-item">→ (b) Explore alternative regulatory levers that do not involve section 20(2) regulatory action</div></div>'
   },
   UNCERTAIN: {
     cls: 's20-uncertain',
